@@ -210,6 +210,11 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap_material\css\bootstrap-material-design.min.css" />
+    <Content Include="Content\bootstrap_material\css\ripples.min.css" />
+    <Content Include="Content\bootstrap_material\js\material.min.js" />
+    <Content Include="Content\bootstrap_material\js\ripples.min.js" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -1,3 +1,19 @@
 ﻿body {
-    background-color: white;
+    background-color: #eee;
+}
+
+
+body .container .login-form{
+    margin-top: 30px;
+}
+
+body .container .login-form .panel-heading{
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    color: white;
+    padding: 20px 15px;
+}
+
+body .container .login-form .panel-title{
+    font-size: 18px;
 }

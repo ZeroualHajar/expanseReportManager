@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpanseReportManager", "Exp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpanseReportManagerModel", "ExpanseReportManagerModel\ExpanseReportManagerModel.csproj", "{1A1D176A-6E4C-4F8E-A990-07422C86F961}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpanseReportManagerRepository", "ExpanceReportManagerRepository\ExpanseReportManagerRepository.csproj", "{CE067DBE-CD12-42FD-9A9B-3EECF7B3D1C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1A1D176A-6E4C-4F8E-A990-07422C86F961}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A1D176A-6E4C-4F8E-A990-07422C86F961}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A1D176A-6E4C-4F8E-A990-07422C86F961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE067DBE-CD12-42FD-9A9B-3EECF7B3D1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE067DBE-CD12-42FD-9A9B-3EECF7B3D1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE067DBE-CD12-42FD-9A9B-3EECF7B3D1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE067DBE-CD12-42FD-9A9B-3EECF7B3D1C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -63,7 +63,6 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>NoteDeFrais.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Customer.cs">
       <DependentUpon>NoteDeFrais.tt</DependentUpon>
     </Compile>

@@ -9,7 +9,7 @@ namespace ExpanceReportManagerRepository
 {
     class TvaRepository
     {
-       // public Entities entities;
+        public NotesDeFraisEntities entities;
 
     }
 }

@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExpanseReportManager.Models
+namespace ExpanseReportManagerModel
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Employees
+    public partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employees()
+        public Employee()
         {
-            this.ExpanseReports = new HashSet<ExpanseReports>();
-            this.ExpanseReports1 = new HashSet<ExpanseReports>();
-            this.Poles1 = new HashSet<Poles>();
+            this.ExpanseReports = new HashSet<ExpanseReport>();
+            this.ExpanseReports1 = new HashSet<ExpanseReport>();
+            this.Poles = new HashSet<Pole>();
         }
     
         public System.Guid Employee_ID { get; set; }
@@ -30,13 +30,13 @@ namespace ExpanseReportManager.Models
         public string Telephone { get; set; }
         public Nullable<System.Guid> Pole_ID { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual Poles Poles { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Pole Pole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ExpanseReports> ExpanseReports { get; set; }
+        public virtual ICollection<ExpanseReport> ExpanseReports { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ExpanseReports> ExpanseReports1 { get; set; }
+        public virtual ICollection<ExpanseReport> ExpanseReports1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Poles> Poles1 { get; set; }
+        public virtual ICollection<Pole> Poles { get; set; }
     }
 }

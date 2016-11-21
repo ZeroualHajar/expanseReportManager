@@ -7,12 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExpanseReportManager.Models
+namespace ExpanseReportManagerModel
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Expanses
+    public partial class Expans
     {
         public System.Guid Expanse_ID { get; set; }
         public System.Guid ExpanseReport_ID { get; set; }
@@ -24,9 +24,9 @@ namespace ExpanseReportManager.Models
         public double Amount_TVA { get; set; }
         public double Amount_TTC { get; set; }
     
-        public virtual Customers Customers { get; set; }
-        public virtual ExpanseReports ExpanseReports { get; set; }
-        public virtual ExpanseTypes ExpanseTypes { get; set; }
-        public virtual Projects Projects { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual ExpanseReport ExpanseReport { get; set; }
+        public virtual ExpanseType ExpanseType { get; set; }
+        public virtual Project Project { get; set; }
     }
 }

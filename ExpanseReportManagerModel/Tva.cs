@@ -7,28 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExpanseReportManager.Models
+namespace ExpanseReportManagerModel
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Poles
+    public partial class Tva
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Poles()
+        public Tva()
         {
-            this.Employees = new HashSet<Employees>();
-            this.Projects = new HashSet<Projects>();
+            this.ExpanseTypes = new HashSet<ExpanseType>();
         }
     
-        public System.Guid Pole_ID { get; set; }
+        public System.Guid TVA_ID { get; set; }
         public string Name { get; set; }
-        public System.Guid Manager_ID { get; set; }
+        public double Value { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employees> Employees { get; set; }
-        public virtual Employees Employees1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Projects> Projects { get; set; }
+        public virtual ICollection<ExpanseType> ExpanseTypes { get; set; }
     }
 }

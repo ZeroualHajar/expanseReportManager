@@ -452,7 +452,7 @@
           <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="AspNetRoles">
+        <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -460,7 +460,7 @@
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUserClaims">
+        <EntityType Name="AspNetUserClaim">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -468,9 +468,9 @@
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUserLogins">
+        <EntityType Name="AspNetUserLogin">
           <Key>
             <PropertyRef Name="LoginProvider" />
             <PropertyRef Name="ProviderKey" />
@@ -479,9 +479,9 @@
           <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUsers">
+        <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -502,7 +502,7 @@
           <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_AspNetUsers" FromRole="AspNetUsers" ToRole="Employees" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
-        <EntityType Name="Customers">
+        <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="Customer_ID" />
           </Key>
@@ -512,7 +512,7 @@
           <NavigationProperty Name="Expanses" Relationship="Self.FK_Expanses_Customers" FromRole="Customers" ToRole="Expanses" />
           <NavigationProperty Name="Projects" Relationship="Self.FK_Project_Customer" FromRole="Customers" ToRole="Projects" />
         </EntityType>
-        <EntityType Name="Employees">
+        <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Employee_ID" />
           </Key>
@@ -523,13 +523,13 @@
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Pole_ID" Type="Guid" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_Employees_AspNetUsers" FromRole="Employees" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Poles" Relationship="Self.FK_Employee_Pole" FromRole="Employees" ToRole="Poles" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Employees_AspNetUsers" FromRole="Employees" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Pole" Relationship="Self.FK_Employee_Pole" FromRole="Employees" ToRole="Poles" />
           <NavigationProperty Name="ExpanseReports" Relationship="Self.FK_ExpanseReports_Employees" FromRole="Employees" ToRole="ExpanseReports" />
           <NavigationProperty Name="ExpanseReports1" Relationship="Self.FK_ExpanseReports_Employees1" FromRole="Employees" ToRole="ExpanseReports" />
-          <NavigationProperty Name="Poles1" Relationship="Self.FK_Pole_Employee" FromRole="Employees" ToRole="Poles" />
+          <NavigationProperty Name="Poles" Relationship="Self.FK_Pole_Employee" FromRole="Employees" ToRole="Poles" />
         </EntityType>
-        <EntityType Name="ExpanseReports">
+        <EntityType Name="ExpanseReport">
           <Key>
             <PropertyRef Name="ExpanseReport_ID" />
           </Key>
@@ -547,11 +547,11 @@
           <Property Name="Total_TTC" Type="Double" Nullable="false" />
           <Property Name="ManagerComment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="AccountingComment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK_ExpanseReports_Employees" FromRole="ExpanseReports" ToRole="Employees" />
-          <NavigationProperty Name="Employees1" Relationship="Self.FK_ExpanseReports_Employees1" FromRole="ExpanseReports" ToRole="Employees" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_ExpanseReports_Employees" FromRole="ExpanseReports" ToRole="Employees" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK_ExpanseReports_Employees1" FromRole="ExpanseReports" ToRole="Employees" />
           <NavigationProperty Name="Expanses" Relationship="Self.FK_Expanses_ExpanseReports" FromRole="ExpanseReports" ToRole="Expanses" />
         </EntityType>
-        <EntityType Name="Expanses">
+        <EntityType Name="Expans">
           <Key>
             <PropertyRef Name="Expanse_ID" />
           </Key>
@@ -564,12 +564,12 @@
           <Property Name="Amount_HT" Type="Double" Nullable="false" />
           <Property Name="Amount_TVA" Type="Double" Nullable="false" />
           <Property Name="Amount_TTC" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Customers" Relationship="Self.FK_Expanses_Customers" FromRole="Expanses" ToRole="Customers" />
-          <NavigationProperty Name="ExpanseReports" Relationship="Self.FK_Expanses_ExpanseReports" FromRole="Expanses" ToRole="ExpanseReports" />
-          <NavigationProperty Name="ExpanseTypes" Relationship="Self.FK_Expanses_ExpanseTypes" FromRole="Expanses" ToRole="ExpanseTypes" />
-          <NavigationProperty Name="Projects" Relationship="Self.FK_Expanses_Projects" FromRole="Expanses" ToRole="Projects" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Expanses_Customers" FromRole="Expanses" ToRole="Customers" />
+          <NavigationProperty Name="ExpanseReport" Relationship="Self.FK_Expanses_ExpanseReports" FromRole="Expanses" ToRole="ExpanseReports" />
+          <NavigationProperty Name="ExpanseType" Relationship="Self.FK_Expanses_ExpanseTypes" FromRole="Expanses" ToRole="ExpanseTypes" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Expanses_Projects" FromRole="Expanses" ToRole="Projects" />
         </EntityType>
-        <EntityType Name="ExpanseTypes">
+        <EntityType Name="ExpanseType">
           <Key>
             <PropertyRef Name="ExpenseType_ID" />
           </Key>
@@ -580,9 +580,9 @@
           <Property Name="OnlyManagers" Type="Boolean" Nullable="false" />
           <Property Name="Tva_ID" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Expanses" Relationship="Self.FK_Expanses_ExpanseTypes" FromRole="ExpanseTypes" ToRole="Expanses" />
-          <NavigationProperty Name="Tvas" Relationship="Self.FK_ExpanseType_Tva" FromRole="ExpanseTypes" ToRole="Tvas" />
+          <NavigationProperty Name="Tva" Relationship="Self.FK_ExpanseType_Tva" FromRole="ExpanseTypes" ToRole="Tvas" />
         </EntityType>
-        <EntityType Name="Poles">
+        <EntityType Name="Pole">
           <Key>
             <PropertyRef Name="Pole_ID" />
           </Key>
@@ -590,10 +590,10 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Manager_ID" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Pole" FromRole="Poles" ToRole="Employees" />
-          <NavigationProperty Name="Employees1" Relationship="Self.FK_Pole_Employee" FromRole="Poles" ToRole="Employees" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Pole_Employee" FromRole="Poles" ToRole="Employees" />
           <NavigationProperty Name="Projects" Relationship="Self.FK_Project_Pole" FromRole="Poles" ToRole="Projects" />
         </EntityType>
-        <EntityType Name="Projects">
+        <EntityType Name="Project">
           <Key>
             <PropertyRef Name="Project_ID" />
           </Key>
@@ -603,11 +603,11 @@
           <Property Name="Budget" Type="Double" Nullable="false" />
           <Property Name="Customer_ID" Type="Guid" Nullable="false" />
           <Property Name="Pole_ID" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Customers" Relationship="Self.FK_Project_Customer" FromRole="Projects" ToRole="Customers" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Project_Customer" FromRole="Projects" ToRole="Customers" />
           <NavigationProperty Name="Expanses" Relationship="Self.FK_Expanses_Projects" FromRole="Projects" ToRole="Expanses" />
-          <NavigationProperty Name="Poles" Relationship="Self.FK_Project_Pole" FromRole="Projects" ToRole="Poles" />
+          <NavigationProperty Name="Pole" Relationship="Self.FK_Project_Pole" FromRole="Projects" ToRole="Poles" />
         </EntityType>
-        <EntityType Name="Tvas">
+        <EntityType Name="Tva">
           <Key>
             <PropertyRef Name="TVA_ID" />
           </Key>
@@ -617,10 +617,10 @@
           <NavigationProperty Name="ExpanseTypes" Relationship="Self.FK_ExpanseType_Tva" FromRole="Tvas" ToRole="ExpanseTypes" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -631,10 +631,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -645,8 +645,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employees_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -657,8 +657,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Expanses_Customers">
-          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
-          <End Role="Expanses" Type="Self.Expanses" Multiplicity="*" />
+          <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Expanses" Type="Self.Expans" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customers">
               <PropertyRef Name="Customer_ID" />
@@ -669,8 +669,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Project_Customer">
-          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
-          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Projects" Type="Self.Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customers">
               <PropertyRef Name="Customer_ID" />
@@ -681,8 +681,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_Pole">
-          <End Role="Poles" Type="Self.Poles" Multiplicity="0..1" />
-          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <End Role="Poles" Type="Self.Pole" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Poles">
               <PropertyRef Name="Pole_ID" />
@@ -693,8 +693,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ExpanseReports_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
-          <End Role="ExpanseReports" Type="Self.ExpanseReports" Multiplicity="*" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ExpanseReports" Type="Self.ExpanseReport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
               <PropertyRef Name="Employee_ID" />
@@ -705,8 +705,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ExpanseReports_Employees1">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
-          <End Role="ExpanseReports" Type="Self.ExpanseReports" Multiplicity="*" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ExpanseReports" Type="Self.ExpanseReport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
               <PropertyRef Name="Employee_ID" />
@@ -717,8 +717,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pole_Employee">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
-          <End Role="Poles" Type="Self.Poles" Multiplicity="*" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Poles" Type="Self.Pole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
               <PropertyRef Name="Employee_ID" />
@@ -729,8 +729,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Expanses_ExpanseReports">
-          <End Role="ExpanseReports" Type="Self.ExpanseReports" Multiplicity="1" />
-          <End Role="Expanses" Type="Self.Expanses" Multiplicity="*" />
+          <End Role="ExpanseReports" Type="Self.ExpanseReport" Multiplicity="1" />
+          <End Role="Expanses" Type="Self.Expans" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ExpanseReports">
               <PropertyRef Name="ExpanseReport_ID" />
@@ -741,8 +741,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Expanses_ExpanseTypes">
-          <End Role="ExpanseTypes" Type="Self.ExpanseTypes" Multiplicity="1" />
-          <End Role="Expanses" Type="Self.Expanses" Multiplicity="*" />
+          <End Role="ExpanseTypes" Type="Self.ExpanseType" Multiplicity="1" />
+          <End Role="Expanses" Type="Self.Expans" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ExpanseTypes">
               <PropertyRef Name="ExpenseType_ID" />
@@ -753,8 +753,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Expanses_Projects">
-          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
-          <End Role="Expanses" Type="Self.Expanses" Multiplicity="*" />
+          <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+          <End Role="Expanses" Type="Self.Expans" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Projects">
               <PropertyRef Name="Project_ID" />
@@ -765,8 +765,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ExpanseType_Tva">
-          <End Role="Tvas" Type="Self.Tvas" Multiplicity="1" />
-          <End Role="ExpanseTypes" Type="Self.ExpanseTypes" Multiplicity="*" />
+          <End Role="Tvas" Type="Self.Tva" Multiplicity="1" />
+          <End Role="ExpanseTypes" Type="Self.ExpanseType" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tvas">
               <PropertyRef Name="TVA_ID" />
@@ -777,8 +777,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Project_Pole">
-          <End Role="Poles" Type="Self.Poles" Multiplicity="1" />
-          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <End Role="Poles" Type="Self.Pole" Multiplicity="1" />
+          <End Role="Projects" Type="Self.Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Poles">
               <PropertyRef Name="Pole_ID" />
@@ -789,23 +789,23 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="NotesDeFraisEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="NotesDeFraisEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
-          <EntitySet Name="Customers" EntityType="Self.Customers" />
-          <EntitySet Name="Employees" EntityType="Self.Employees" />
-          <EntitySet Name="ExpanseReports" EntityType="Self.ExpanseReports" />
-          <EntitySet Name="Expanses" EntityType="Self.Expanses" />
-          <EntitySet Name="ExpanseTypes" EntityType="Self.ExpanseTypes" />
-          <EntitySet Name="Poles" EntityType="Self.Poles" />
-          <EntitySet Name="Projects" EntityType="Self.Projects" />
-          <EntitySet Name="Tvas" EntityType="Self.Tvas" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="ExpanseReports" EntityType="Self.ExpanseReport" />
+          <EntitySet Name="Expanses" EntityType="Self.Expans" />
+          <EntitySet Name="ExpanseTypes" EntityType="Self.ExpanseType" />
+          <EntitySet Name="Poles" EntityType="Self.Pole" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="Tvas" EntityType="Self.Tva" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -872,7 +872,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="NotesDeFraisModelStoreContainer" CdmEntityContainer="NotesDeFraisEntities1">
+        <EntityContainerMapping StorageEntityContainer="NotesDeFraisModelStoreContainer" CdmEntityContainer="NotesDeFraisEntities">
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="NotesDeFraisModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -884,7 +884,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.AspNetRoles">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -892,7 +892,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.AspNetUserClaims">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -902,7 +902,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.AspNetUserLogins">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -911,7 +911,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.AspNetUsers">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -929,7 +929,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.Customers">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
                 <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -938,7 +938,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.Employees">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.Employee">
               <MappingFragment StoreEntitySet="Employees">
                 <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -951,7 +951,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ExpanseReports">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.ExpanseReports">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.ExpanseReport">
               <MappingFragment StoreEntitySet="ExpanseReports">
                 <ScalarProperty Name="ExpanseReport_ID" ColumnName="ExpanseReport_ID" />
                 <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
@@ -971,7 +971,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Expanses">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.Expanses">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.Expans">
               <MappingFragment StoreEntitySet="Expanses">
                 <ScalarProperty Name="Expanse_ID" ColumnName="Expanse_ID" />
                 <ScalarProperty Name="ExpanseReport_ID" ColumnName="ExpanseReport_ID" />
@@ -986,7 +986,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ExpanseTypes">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.ExpanseTypes">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.ExpanseType">
               <MappingFragment StoreEntitySet="ExpanseTypes">
                 <ScalarProperty Name="ExpenseType_ID" ColumnName="ExpenseType_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -998,7 +998,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Poles">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.Poles">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.Pole">
               <MappingFragment StoreEntitySet="Poles">
                 <ScalarProperty Name="Pole_ID" ColumnName="Pole_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1007,7 +1007,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Projects">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.Projects">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.Project">
               <MappingFragment StoreEntitySet="Projects">
                 <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1019,7 +1019,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tvas">
-            <EntityTypeMapping TypeName="NotesDeFraisModel.Tvas">
+            <EntityTypeMapping TypeName="NotesDeFraisModel.Tva">
               <MappingFragment StoreEntitySet="Tvas">
                 <ScalarProperty Name="TVA_ID" ColumnName="TVA_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1049,7 +1049,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />

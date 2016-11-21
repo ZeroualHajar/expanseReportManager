@@ -7,28 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExpanseReportManager.Models
+namespace ExpanseReportManagerModel
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ExpanseTypes
+    public partial class AspNetRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ExpanseTypes()
+        public AspNetRole()
         {
-            this.Expanses = new HashSet<Expanses>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
-        public System.Guid ExpenseType_ID { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public Nullable<double> Ceiling { get; set; }
-        public bool Fixed { get; set; }
-        public bool OnlyManagers { get; set; }
-        public System.Guid Tva_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Expanses> Expanses { get; set; }
-        public virtual Tvas Tvas { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

@@ -7,17 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExpanseReportManager.Models
+namespace ExpanseReportManagerModel
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ExpanseReports
+    public partial class ExpanseReport
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ExpanseReports()
+        public ExpanseReport()
         {
-            this.Expanses = new HashSet<Expanses>();
+            this.Expanses = new HashSet<Expans>();
         }
     
         public System.Guid ExpanseReport_ID { get; set; }
@@ -35,9 +35,9 @@ namespace ExpanseReportManager.Models
         public string ManagerComment { get; set; }
         public string AccountingComment { get; set; }
     
-        public virtual Employees Employees { get; set; }
-        public virtual Employees Employees1 { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Expanses> Expanses { get; set; }
+        public virtual ICollection<Expans> Expanses { get; set; }
     }
 }

@@ -17,3 +17,7 @@ body .container .login-form .panel-heading{
 body .container .login-form .panel-title{
     font-size: 18px;
 }
+
+body .container .login-form label.control-label{
+    text-align: left;
+}

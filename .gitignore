@@ -252,4 +252,4 @@ paket-files/
 *.sln.iml
 
 # Web config
-ExpanseReportManagerModel/Web.config
+ExpanseReportManager/Web.config

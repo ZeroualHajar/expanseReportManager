@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpanseReportManagerModel
+namespace ExpanceReportManagerRepository
 {
-    public class Class1
+    class ExpansRepository
     {
     }
 }

@@ -274,9 +274,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Mapping\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -293,6 +295,10 @@
     <ProjectReference Include="..\ExpanseReportManagerModel\ExpanseReportManagerModel.csproj">
       <Project>{1a1d176a-6e4c-4f8e-a990-07422c86f961}</Project>
       <Name>ExpanseReportManagerModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExpanseReportManagerService\ExpanseReportManagerService.csproj">
+      <Project>{eb5e1441-9e2a-445a-9cf6-749d15f1c183}</Project>
+      <Name>ExpanseReportManagerService</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

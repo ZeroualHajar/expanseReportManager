@@ -73,9 +73,17 @@ namespace ExpanseReportManager.Controllers
                 return View(model);
             }
 
+            string userName = model.Email;
+
+            // check if it's an email
+            if (model.Email.Contains("@"))
+            {
+                userName = UserManager.FindByEmail(model.Email).UserName;
+            }
+
             // Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
             // Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(userName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:

@@ -278,7 +278,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Mapper\" />
     <Folder Include="Mapping\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -292,17 +295,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExpanceReportManagerRepository\ExpanseReportManager.Repository.csproj">
-      <Project>{ce067dbe-cd12-42fd-9a9b-3eecf7b3d1c7}</Project>
-      <Name>ExpanseReportManager.Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ExpanseReportManagerModel\ExpanseReportManager.Model.csproj">
       <Project>{1a1d176a-6e4c-4f8e-a990-07422c86f961}</Project>
       <Name>ExpanseReportManager.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ExpanseReportManagerService\ExpanseReportManager.Service.csproj">
-      <Project>{eb5e1441-9e2a-445a-9cf6-749d15f1c183}</Project>
-      <Name>ExpanseReportManager.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

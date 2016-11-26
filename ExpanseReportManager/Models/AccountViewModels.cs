@@ -49,8 +49,7 @@ namespace ExpanseReportManager.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Courrier électronique")]
-        [EmailAddress]
+        [Display(Name = "Nom Utilisateur ou Email")]
         public string Email { get; set; }
 
         [Required]

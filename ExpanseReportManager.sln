@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpanseReportManager", "ExpanseReportManager\ExpanseReportManager.csproj", "{61AB3095-658D-420B-A6FC-37FFA88176F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpanseReportManagerModel", "ExpanseReportManagerModel\ExpanseReportManagerModel.csproj", "{1A1D176A-6E4C-4F8E-A990-07422C86F961}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpanseReportManager.Model", "ExpanseReportManagerModel\ExpanseReportManager.Model.csproj", "{1A1D176A-6E4C-4F8E-A990-07422C86F961}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpanseReportManagerRepository", "ExpanceReportManagerRepository\ExpanseReportManagerRepository.csproj", "{CE067DBE-CD12-42FD-9A9B-3EECF7B3D1C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpanseReportManager.Repository", "ExpanceReportManagerRepository\ExpanseReportManager.Repository.csproj", "{CE067DBE-CD12-42FD-9A9B-3EECF7B3D1C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpanseReportManagerService", "ExpanseReportManagerService\ExpanseReportManagerService.csproj", "{EB5E1441-9E2A-445A-9CF6-749D15F1C183}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpanseReportManager.Service", "ExpanseReportManagerService\ExpanseReportManager.Service.csproj", "{EB5E1441-9E2A-445A-9CF6-749D15F1C183}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

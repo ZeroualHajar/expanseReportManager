@@ -66,9 +66,9 @@
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExpanseReportManagerModel\ExpanseReportManagerModel.csproj">
+    <ProjectReference Include="..\ExpanseReportManagerModel\ExpanseReportManager.Model.csproj">
       <Project>{1a1d176a-6e4c-4f8e-a990-07422c86f961}</Project>
-      <Name>ExpanseReportManagerModel</Name>
+      <Name>ExpanseReportManager.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

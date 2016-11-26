@@ -9,15 +9,15 @@ namespace ExpanceReportManagerRepository
 {
     class TvaRepository
     {
-        public NotesDeFraisEntities entities;
+        public NotesDeFraisEntities Entities;
         public TvaRepository(NotesDeFraisEntities entities)
         {
-            this.entities = entities;
+            this.Entities = entities;
         }
 
-        public IQueryable<Tva> getAll()
+        public IQueryable<Tva> GetAll()
         {
-            return entities.Tvas;
+            return Entities.Tvas;
         }
 
     }

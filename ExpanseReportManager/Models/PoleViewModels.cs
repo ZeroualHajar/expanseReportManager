@@ -20,6 +20,13 @@ namespace ExpanseReportManager.Models
         [Display(Name = "Manager id")]
         public Guid ManagerId { get; set; }
 
+        [Display(Name = "Manager id")]
+        public ICollection<EmployeeViewModels> Employees;
+
+        [Display(Name = "Manager du pole")]
+        public EmployeeViewModels Manager;
+         
+
 
     }
 }

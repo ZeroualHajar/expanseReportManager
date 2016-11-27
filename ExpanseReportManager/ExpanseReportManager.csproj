@@ -206,7 +206,7 @@
     </Compile>
     <Compile Include="Mapper\EmployeeMapper.cs" />
     <Compile Include="Mapper\RoleMapper.cs" />
-    <Compile Include="Mapping\PoleMapper.cs" />
+    <Compile Include="Mapper\PoleMapper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EmployeeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />

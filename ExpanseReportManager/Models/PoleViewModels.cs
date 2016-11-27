@@ -10,7 +10,7 @@ namespace ExpanseReportManager.Models
     {
         
         [Display(Name = "Id")]
-        public Guid Id { get; set; }
+        public String Id { get; set; }
 
         [Required()]
         [Display(Name = "Nom du pôle")]

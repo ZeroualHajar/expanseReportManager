@@ -144,7 +144,7 @@ namespace ExpanseReportManager.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public ActionResult Register()
         {
             return View();
@@ -153,7 +153,7 @@ namespace ExpanseReportManager.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {

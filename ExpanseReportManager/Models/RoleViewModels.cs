@@ -19,4 +19,15 @@ namespace ExpanseReportManager.Models
         [Display(Name = "Liste des employees")]
         public ICollection<EmployeeViewModels> Employees { get; set; }
     }
+
+    public class RoleIndexModel
+    {
+        [Display(Name = "Nouveau role")]
+        public RoleViewModels NewRole { get; set; }
+
+        [Display(Name = "Liste des roles")]
+        public ICollection<RoleViewModels> Roles { get; set; }
+
+    }
+
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using ExpanseReportManager.Mapper;
 using ExpanseReportManager.Repositories;
+using ExpanseReportManagerModel;
+using ExpanseReportManager.Models;
 
 namespace ExpanseReportManager.Services
 {
@@ -14,22 +16,25 @@ namespace ExpanseReportManager.Services
 
         public RoleService()
         {
-            this.Repository = new RoleRepository();
+            this.Repository = new RoleRepository(new NotesDeFraisEntities());
             this.Mapper = new RoleMapper();
         }
 
-        public List<AspNetRole> GetAll()
+        public ICollection<RoleViewModels> GetAll()
         {
-            List<AspNetRole> result = new List<AspNetRole>();
-            IQueryable<AspNetRoles> roles = Repository.GetAll();
-            foreach (AspNetRoles role in roles)
+            ICollection<RoleViewModels> result = new List<RoleViewModels>();
+
+            IQueryable<AspNetRole> roles = Repository.GetAll();
+
+            foreach (AspNetRole role in roles)
             {
                 result.Add(Mapper.DataToModel(role));
             }
+
             return result;
         }
 
-        public AspNetRole GetById(Guid id)
+        public RoleViewModels GetById(string id)
         {
             return Mapper.DataToModel(Repository.GetById(id));
         }

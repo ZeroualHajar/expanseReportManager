@@ -9,20 +9,12 @@ namespace ExpanseReportManager.Mapper
 {
     public class RoleMapper
     {
-
-        public RoleMapper()
-        {
-
-        }
-
         public RoleViewModels DataToModel(AspNetRole role)
         {
             RoleViewModels result = new RoleViewModels()
             {
                 Id = role.Id,
-                Name = role.Name,
-                //Employees = 
-
+                Name = role.Name
             };
 
             return result;
@@ -30,9 +22,8 @@ namespace ExpanseReportManager.Mapper
 
         public AspNetRole ModelToData(AspNetRole role, RoleViewModels model)
         {
-            //pole.Pole_ID = model.Id;
-            //pole.Name = model.Name;
-            //pole.Manager_ID = model.ManagerId;
+            role.Name = model.Name;
+
             return role;
         }
     }

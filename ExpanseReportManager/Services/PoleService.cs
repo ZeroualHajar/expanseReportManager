@@ -42,8 +42,7 @@ namespace ExpanseReportManager.Services
         public void Add(PoleViewModels model)
         {
             Pole pole = new Pole();
-            Mapper.ModelToData(pole, model);
-            Repository.Add(pole);
+            Repository.Add(Mapper.ModelToData(pole, model));
             Repository.Save();
 
         }
@@ -51,8 +50,7 @@ namespace ExpanseReportManager.Services
         public void Delete(PoleViewModels model)
         {
             Pole pole = new Pole();
-            Mapper.ModelToData(pole, model);
-            Repository.Delete(pole);
+            Repository.Delete(Mapper.ModelToData(pole, model));
             Repository.Save();
         }
 

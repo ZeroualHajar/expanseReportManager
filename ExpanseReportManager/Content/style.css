@@ -21,3 +21,13 @@ body .container .login-form .panel-title{
 body .container .login-form label.control-label{
     text-align: left;
 }
+
+
+.form-group select{
+    -webkit-appearance: menulist-button;
+    -moz-appearance: menulist;
+}
+
+.form-group select option {
+    padding: 0 5px;
+}

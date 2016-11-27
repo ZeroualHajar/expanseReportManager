@@ -219,6 +219,7 @@
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\PoleRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\PoleService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Startup.cs" />

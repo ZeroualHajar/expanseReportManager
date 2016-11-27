@@ -42,6 +42,8 @@ namespace ExpanseReportManager.Services
         public void Add(PoleViewModels model)
         {
             Pole pole = new Pole();
+            pole.Pole_ID = new Guid();
+
             Repository.Add(Mapper.ModelToData(pole, model));
             Repository.Save();
 

@@ -8,31 +8,36 @@ namespace ExpanseReportManager.Repositories
 {
     public class EmployeeRepository
     {
-        public NotesDeFraisEntities entities;
+        public NotesDeFraisEntities Entities;
 
         public EmployeeRepository(NotesDeFraisEntities entities)
         {
-            this.entities = entities;
+            this.Entities = entities;
         }
 
         public IQueryable<Employee> GetAll()
         {
-            return entities.Employees;
+            return Entities.Employees;
         }
 
-        public Employee GetById(Guid id)
+        public Employee GetById(string id)
         {
-            return entities.Employees.FirstOrDefault(e => e.Employee_ID == id);
+            return Entities.Employees.FirstOrDefault(e => e.Employee_ID.ToString() == id);
         }
 
         public void Add(Employee employe)
         {
-            entities.Employees.Add(employe);
+            Entities.Employees.Add(employe);
         }
 
         public void Delete(Employee employee)
         {
-            entities.Employees.Remove(employee);
+            Entities.Employees.Remove(employee);
         }
+        public void Save()
+        {
+            Entities.SaveChanges();
+        }
+
     }
 }

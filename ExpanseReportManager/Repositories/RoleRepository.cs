@@ -14,6 +14,11 @@ namespace ExpanseReportManager.Repositories
             this.Entities = entities;
         }
 
+        public IQueryable<AspNetRole> GetAll()
+        {
+            return Entities.AspNetRoles;
+        } 
+
         public AspNetRole GetById(String id)
         {
             return Entities.AspNetRoles.FirstOrDefault(r => r.Id == id);

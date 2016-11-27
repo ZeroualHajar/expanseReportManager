@@ -8,12 +8,15 @@ namespace ExpanseReportManager.Models
 {
     public class PoleViewModels
     {
+        
         [Display(Name = "Id")]
         public Guid Id { get; set; }
 
+        [Required()]
         [Display(Name = "Nom du pôle")]
         public string Name { get; set; }
 
+        [Required()]
         [Display(Name = "Manager id")]
         public Guid ManagerId { get; set; }
 

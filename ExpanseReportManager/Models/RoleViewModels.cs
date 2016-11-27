@@ -16,6 +16,7 @@ namespace ExpanseReportManager.Models
         [MinLength(2)]
         public string Name { get; set; }
 
-        public ICollection<EmployeeViewModels> AspNetUsers { get; set; }
+        [Display(Name = "Liste des employees")]
+        public ICollection<EmployeeViewModels> Employees { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using ExpanseReportManager.Services;
 using ExpanseReportManager.Models;
 using ExpanseReportManager.Repositories;
-using ExpanseReportManager.Mapping;
+using ExpanseReportManager.Mapper;
 
 namespace ExpanseReportManager.Controllers
 {

@@ -5,7 +5,7 @@ using System.Web;
 using ExpanseReportManager.Models;
 using ExpanseReportManagerModel;
 
-namespace ExpanseReportManager.Mapping
+namespace ExpanseReportManager.Mapper
 {
     public class PoleMapper
     {
@@ -19,7 +19,7 @@ namespace ExpanseReportManager.Mapping
             return result;
         }
 
-        public Pole ModelToData(Pole pole,PoleViewModels model)
+        public Pole ModelToData(Pole pole, PoleViewModels model)
         {
             pole.Pole_ID = model.Id;
             pole.Name = model.Name;

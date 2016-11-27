@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 using ExpanseReportManagerModel;
-using ExpanseReportManager.Mapping;
+using ExpanseReportManager.Mapper;
 using ExpanseReportManager.Models;
 using ExpanseReportManager.Repositories;
 
@@ -33,6 +33,29 @@ namespace ExpanseReportManager.Services
 
             return result;
         }
+
+        public PoleViewModels GetById(Guid id)
+        {
+            return Mapper.DataToModel(Repository.GetById(id));
+        }
+
+        public void Add(PoleViewModels model)
+        {
+            Pole pole = new Pole();
+            Mapper.ModelToData(pole, model);
+            Repository.Add(pole);
+            Repository.Save();
+
+        }
+
+        public void Delete(PoleViewModels model)
+        {
+            Pole pole = new Pole();
+            Mapper.ModelToData(pole, model);
+            Repository.Delete(pole);
+            Repository.Save();
+        }
+
     }
 }
 

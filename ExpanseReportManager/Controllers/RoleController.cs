@@ -27,12 +27,21 @@ namespace ExpanseReportManager.Controllers
             return View(role);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(RoleIndexModel model)
         {
-            RoleIndexModel role = new RoleIndexModel();
-            return View(role);
+            if (ModelState.IsValid)
+            {
+                Service.Add(model.NewRole);
+            }
+            
+            return RedirectToAction("index", "Role");
         }
 
+        public ActionResult Delete(RoleIndexModel model)
+        {
+            Service.Delete(model.NewRole);
+            return RedirectToAction("index", "Role");
+        }
     }
 
 

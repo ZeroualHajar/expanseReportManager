@@ -42,7 +42,10 @@ namespace ExpanseReportManager.Services
         public void Add(RoleViewModels model)
         {
             AspNetRole role = new AspNetRole();
-            Repository.Add(Mapper.ModelToData(role, model));
+            role = Mapper.ModelToData(role, model);
+            role.Id = Guid.NewGuid().ToString();
+
+            Repository.Add(role);
             Repository.Save();
         }
 

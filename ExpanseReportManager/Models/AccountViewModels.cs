@@ -82,7 +82,6 @@ namespace ExpanseReportManager.Models
         public string Role { get; set; }
 
         [Required]
-        [EmailAddress]
         [RegularExpression("([a-zA-Z0-9 .&'-]+)", ErrorMessage = "Le nom d'utilisateur ne doit contenir que des chiffres et des lettres")]
         [Display(Name = "Nom d'utilisateur")]
         public string UserName { get; set; }

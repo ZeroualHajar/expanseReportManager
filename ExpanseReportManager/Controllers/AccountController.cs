@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ExpanseReportManager.Models;
+using ExpanseReportManager.Services;
 
 namespace ExpanseReportManager.Controllers
 {
@@ -149,7 +150,7 @@ namespace ExpanseReportManager.Controllers
         [Authorize(Roles = "SuperAdmin")]
         public ActionResult Register()
         {
-            ViewBag.Role = new SelectList(context.Roles.Where(u => !u.Name.Contains("Djo")).ToList(), "Name", "Name");
+            ViewBag.Role = new SelectList(context.Roles.Where(r => !r.Name.Contains("Djo")).ToList(), "Name", "Name");
             return View();
         }
 
@@ -162,12 +163,27 @@ namespace ExpanseReportManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                EmployeeService service = new EmployeeService();
+                EmployeeViewModels employee = new EmployeeViewModels();
+
+                var user = new ApplicationUser
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    PhoneNumber = model.Telephone
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await this.UserManager.AddToRoleAsync(user.Id, model.Role);
+                    employee.LastName = model.LastName;
+                    employee.FirstName = model.FirstName;
+                    employee.Email = model.Email;
+                    employee.Telephone = model.Telephone;
+                    employee.UserId = user.Id;
+
+                    service.Add(employee);
+
                     // Pour plus d'informations sur l'activation de la confirmation du compte et la réinitialisation du mot de passe, consultez http://go.microsoft.com/fwlink/?LinkID=320771
                     // Envoyer un message électronique avec ce lien
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -176,6 +192,8 @@ namespace ExpanseReportManager.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+                ViewBag.Role = new SelectList(context.Roles.Where(r => !r.Name.Contains("Djo")).ToList(), "Name", "Name");
+
                 AddErrors(result);
             }
 

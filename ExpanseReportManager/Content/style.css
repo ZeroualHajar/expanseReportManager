@@ -25,3 +25,13 @@ body .container .login-form label.control-label{
 .table > tbody > tr > td {
      vertical-align: middle;
 }
+
+
+.form-group select{
+    -webkit-appearance: menulist-button;
+    -moz-appearance: menulist;
+}
+
+.form-group select option {
+    padding: 0 5px;
+}

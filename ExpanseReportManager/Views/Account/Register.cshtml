@@ -33,6 +33,7 @@
                         <div class="col-md-8">
                             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
                         </div>
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group">
@@ -64,14 +65,13 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.Role, new { @class = "col-md-4 control-label" })
                         <div class="col-md-8">
-                            <span class="caret"></span>
-                            @Html.DropDownList("Role", (SelectList)ViewBag.Role, new { @class = "form-control" })
+                            @Html.DropDownListFor(m => m.Role, (SelectList)ViewBag.Role, new { @class = "form-control" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-8">
-                            <input type="submit" class="btn btn-raised btn-primary" value="Créer l'employé" />
+                            <button type="submit" class="btn btn-raised btn-primary">Créer l'employé</button>
                         </div>
                     </div>
                 }

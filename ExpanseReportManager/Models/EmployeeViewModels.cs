@@ -8,12 +8,25 @@ namespace ExpanseReportManager.Models
 {
     public class EmployeeViewModels
     {
+        [Display(Name = "Id")]
         public String Id { get; set; }
+
+        [Display(Name = "Id Utilisateur")]
         public string UserId { get; set; }
+
+        [Display(Name = "Prénom")]
         public string FirstName { get; set; }
+
+        [Display(Name = "Nom")]
         public string LastName { get; set; }
+
+        [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Display(Name = "Telephone")]
         public string Telephone { get; set; }
+
+        [Display(Name = "ID Pole")]
         public Nullable<Guid> PoleId { get; set; }
 
         [Display(Name = "Pole de l'employé")]

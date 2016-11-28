@@ -42,7 +42,7 @@ namespace ExpanseReportManager.Services
         public void Add(EmployeeViewModels model)
         {
             Employee employee = new Employee();
-            employee.Employee_ID = new Guid();
+            employee.Employee_ID = Guid.NewGuid();
 
             Repository.Add(Mapper.ModelToData(employee, model));
             Repository.Save();

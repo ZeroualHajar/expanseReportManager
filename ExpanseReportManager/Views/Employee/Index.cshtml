@@ -41,11 +41,45 @@
             @Html.DisplayFor(modelItem => item.Telephone)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-raised btn-info btn-xs" })
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id, }, new { @class= "btn btn-raised btn-warning btn-xs" })
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-raised btn-danger btn-xs" })
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" })
+            <button type="button" class="modal-delete btn btn-primary btn-xs" data-toogle="modal" data-target="#modalDelete_@Html.DisplayFor(modelItem => item.Id)">Supprimer</button>
         </td>
     </tr>
 }
 
 </table>
+
+
+@foreach (var item in Model)
+{
+    <div class="modal" id="modalDelete_@Html.DisplayFor(modelItem => item.Id)">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Suppression Employe</h4>
+                </div>
+                <div class="modal-body">
+                    Voulez-vous vraiment supprimer l'employé @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName) ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    @Html.ActionLink("Valider", "Delete", new { id = item.Id }, new { @class = "btn btn-raised btn-success btn-xs" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".modal-delete").click(function () {
+                $($(this).attr("data-target")).modal();
+            });
+        });
+
+    </script>
+
+}

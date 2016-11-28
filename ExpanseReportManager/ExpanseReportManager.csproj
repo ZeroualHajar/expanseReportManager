@@ -294,7 +294,6 @@
     <Content Include="Views\Pole\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
-    <Content Include="Views\Shared\_PopUpDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,5 +24,12 @@ namespace ExpanseReportManager.Controllers
 
             return View(employees);
         }
+
+        [HttpGet]
+        public ActionResult Delete(String id)
+        {
+            Service.Delete(id);
+            return RedirectToAction("index", "Employee");
+        }
     }
 }

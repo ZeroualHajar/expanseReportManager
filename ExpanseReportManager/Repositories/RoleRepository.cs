@@ -29,10 +29,12 @@ namespace ExpanseReportManager.Repositories
             Entities.AspNetRoles.Add(role);
         }
 
-        public void Delete(AspNetRole role)
+        public void Delete(string id)
         {
-            Entities.AspNetRoles.Remove(role);
+            
+            Entities.AspNetRoles.Remove(GetById(id));
         }
+
 
         public void Save()
         {

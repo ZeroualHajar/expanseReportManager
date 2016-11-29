@@ -37,9 +37,15 @@ namespace ExpanseReportManager.Controllers
             return RedirectToAction("index", "Role");
         }
 
-        public ActionResult Delete(RoleIndexModel model)
+        public ActionResult Edit(string id)
         {
-            Service.Delete(model.NewRole);
+            RoleViewModels role = Service.GetById(id);
+            return View(role);
+        }
+
+        public ActionResult Delete(string id)
+        {
+            Service.Delete(id);
             return RedirectToAction("index", "Role");
         }
     }

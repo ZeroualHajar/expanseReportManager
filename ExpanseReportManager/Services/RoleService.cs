@@ -49,14 +49,18 @@ namespace ExpanseReportManager.Services
             Repository.Save();
         }
 
-        public void Delete(RoleViewModels model)
+        public void Delete(string id)
         {
-            AspNetRole role = new AspNetRole();
-            Repository.Delete(Mapper.ModelToData(role, model));
+            Repository.Delete(id);
             Repository.Save();
         }
 
-
+        public void Edit(RoleViewModels model)
+        {
+            AspNetRole role = Repository.GetById(model.Id);
+            role = Mapper.ModelToData(role, model);
+            Repository.Save();
+        } 
 
     }
 }

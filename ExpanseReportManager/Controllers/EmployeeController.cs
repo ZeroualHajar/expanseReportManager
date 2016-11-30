@@ -31,5 +31,6 @@ namespace ExpanseReportManager.Controllers
             Service.Delete(id);
             return RedirectToAction("index", "Employee");
         }
+        
     }
 }

@@ -228,10 +228,14 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap_material\css\bootstrap-material-design.min.css" />
-    <Content Include="Content\bootstrap_material\css\ripples.min.css" />
-    <Content Include="Content\bootstrap_material\js\material.min.js" />
-    <Content Include="Content\bootstrap_material\js\ripples.min.js" />
+    <Content Include="Content\css\bootstrap_material\css\bootstrap-material-design.min.css" />
+    <Content Include="Content\css\bootstrap_material\css\ripples.min.css" />
+    <Content Include="Content\css\bootstrap_material\js\material.min.js" />
+    <Content Include="Content\css\bootstrap_material\js\ripples.min.js" />
+    <Content Include="Content\css\Datepicker\css\bootstrap-material-datetimepicker.css" />
+    <Content Include="Content\css\Datepicker\font\Material-Design-Icons.svg" />
+    <Content Include="Content\css\Datepicker\js\bootstrap-material-datetimepicker.js" />
+    <Content Include="Content\img\loading.gif" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -242,15 +246,22 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\css\Datepicker\font\Material-Design-Icons.eot" />
+    <Content Include="Content\css\Datepicker\font\Material-Design-Icons.ttf" />
+    <Content Include="Content\css\Datepicker\font\Material-Design-Icons.woff" />
+    <Content Include="Content\css\Datepicker\font\Material-Design-Icons.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -294,6 +305,8 @@
     <Content Include="Views\Pole\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Pole\_TableList.cshtml" />
+    <Content Include="Views\Pole\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

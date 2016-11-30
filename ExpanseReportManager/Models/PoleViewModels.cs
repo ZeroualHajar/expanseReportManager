@@ -8,7 +8,6 @@ namespace ExpanseReportManager.Models
 {
     public class PoleViewModels
     {
-        
         [Display(Name = "Id")]
         public String Id { get; set; }
 
@@ -17,17 +16,21 @@ namespace ExpanseReportManager.Models
         public string Name { get; set; }
 
         [Required()]
-        [Display(Name = "Manager id")]
+        [Display(Name = "Manager")]
         public Guid ManagerId { get; set; }
 
-        [Display(Name = "Manager id")]
-        public ICollection<EmployeeViewModels> Employees;
+        [Display(Name = "Employees du pole")]
+        public ICollection<EmployeeViewModels> PoleEmployees { get; set; }
 
         [Display(Name = "Manager du pole")]
-        public EmployeeViewModels Manager;
-         
+        public EmployeeViewModels Manager { get; set; }
 
+    }
 
+    public class PoleCreateViewModels: PoleViewModels
+    {
+        [Display(Name="Liste des employees")]
+        public ICollection<EmployeeViewModels> AllEmployees { get; set; }
     }
 }
 

@@ -34,7 +34,7 @@ namespace ExpanseReportManager.Services
             return result;
         }
 
-        public PoleViewModels GetById(Guid id)
+        public PoleViewModels GetById(string id)
         {
             return Mapper.DataToModel(Repository.GetById(id));
         }
@@ -48,13 +48,19 @@ namespace ExpanseReportManager.Services
             Repository.Save();
         }
 
-        public void Delete(PoleViewModels model)
+        public void Edit(PoleViewModels model)
         {
-            Pole pole = new Pole();
-            Repository.Delete(Mapper.ModelToData(pole, model));
+            Pole pole = Repository.GetById(model.Id);
+
+            pole = Mapper.ModelToData(pole, model);
             Repository.Save();
         }
 
+        public void Delete(string id)
+        {
+            Repository.Delete(Repository.GetById(id));
+            Repository.Save();
+        }
     }
 }
 

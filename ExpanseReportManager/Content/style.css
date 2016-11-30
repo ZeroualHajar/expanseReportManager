@@ -35,3 +35,20 @@ body .container .login-form label.control-label{
 .form-group select option {
     padding: 0 5px;
 }
+
+#manager-modal img{
+    margin: auto;
+    display: block;
+    height: auto;
+    width: 200px;
+}
+
+#manager-modal .modal-body{
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+#filter-manager-pole{
+    max-width: 100%;
+    margin-bottom: 15px;
+}

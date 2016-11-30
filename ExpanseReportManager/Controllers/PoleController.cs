@@ -12,17 +12,42 @@ namespace ExpanseReportManager.Controllers
 {
     public class PoleController : Controller
     {
-        public PoleService PoleService;
+        private PoleService Service;
+        private EmployeeService EmployeeService; 
 
         public PoleController()
         {
-            this.PoleService = new PoleService();
+            this.Service = new PoleService();
+            this.EmployeeService = new EmployeeService();
         } 
+
         // GET: Pole
         public ActionResult Index()
         {
-            List<PoleViewModels> list = PoleService.GetAll();
+            List<PoleViewModels> list = Service.GetAll();
+
             return View(list);
+        }
+
+        public ActionResult Create()
+        {
+            PoleCreateViewModels pole = new PoleCreateViewModels();
+            pole.AllEmployees = EmployeeService.GetAll();
+
+            return View(pole);
+        }
+
+        [HttpPost]
+        public ActionResult Create(PoleCreateViewModels model)
+        {
+            if (ModelState.IsValid)
+            {
+                Service.Add(model);
+
+                return RedirectToAction("Create", model);
+            }
+
+            return View(model);
         }
     }
 }

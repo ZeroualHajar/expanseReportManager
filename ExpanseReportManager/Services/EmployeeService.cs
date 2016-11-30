@@ -48,10 +48,11 @@ namespace ExpanseReportManager.Services
             Repository.Save();
         }
 
-        public void Delete(EmployeeViewModels model)
+        public void Delete(String id)
         {
-            Employee employee = new Employee();
-            Repository.Delete(Mapper.ModelToData(employee, model));
+            Employee employee = Repository.GetById(id);
+
+            Repository.Delete(employee);
             Repository.Save();
         }
     }

@@ -18,10 +18,19 @@ namespace ExpanseReportManager.Repositories
         {
             return entities.Poles;
         }
-
-        public Pole GetById(Guid id)
+        public IQueryable<Pole> Search(string query)
         {
-            return GetAll().FirstOrDefault(p => p.Pole_ID == id);
+            return entities.Poles.Where(
+                p => p.Name.ToUpper().Contains(query.ToUpper()) ||
+                    p.Employee.FirstName.ToUpper().Contains(query.ToUpper()) ||
+                    p.Employee.LastName.ToUpper().Contains(query.ToUpper())
+            );
+        }
+
+
+        public Pole GetById(string id)
+        {
+            return GetAll().FirstOrDefault(p => p.Pole_ID.ToString() == id);
         }
 
         public void Add(Pole pole)

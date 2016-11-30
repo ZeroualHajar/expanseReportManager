@@ -33,8 +33,21 @@ namespace ExpanseReportManager.Services
 
             return result;
         }
+        public List<PoleViewModels> Search(string query)
+        {
+            List<PoleViewModels> result = new List<PoleViewModels>();
 
-        public PoleViewModels GetById(Guid id)
+            IQueryable<Pole> poles = Repository.Search(query);
+            foreach (Pole res in poles)
+            {
+                result.Add(Mapper.DataToModel(res));
+            }
+
+            return result;
+        }
+
+
+        public PoleViewModels GetById(string id)
         {
             return Mapper.DataToModel(Repository.GetById(id));
         }
@@ -48,13 +61,19 @@ namespace ExpanseReportManager.Services
             Repository.Save();
         }
 
-        public void Delete(PoleViewModels model)
+        public void Edit(PoleViewModels model)
         {
-            Pole pole = new Pole();
-            Repository.Delete(Mapper.ModelToData(pole, model));
+            Pole pole = Repository.GetById(model.Id);
+
+            pole = Mapper.ModelToData(pole, model);
             Repository.Save();
         }
 
+        public void Delete(string id)
+        {
+            Repository.Delete(Repository.GetById(id));
+            Repository.Save();
+        }
     }
 }
 

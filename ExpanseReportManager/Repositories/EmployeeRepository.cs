@@ -32,6 +32,10 @@ namespace ExpanseReportManager.Repositories
 
         public void Delete(Employee employee)
         {
+            // Remove to user concern
+            AspNetUser user = Entities.AspNetUsers.FirstOrDefault(u => u.Id == employee.User_ID);
+            Entities.AspNetUsers.Remove(user);
+
             Entities.Employees.Remove(employee);
         }
         public void Save()

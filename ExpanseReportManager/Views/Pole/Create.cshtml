@@ -1,0 +1,138 @@
+﻿@using ExpanseReportManager.Models
+@model ExpanseReportManager.Models.PoleCreateViewModels
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Créer nouveau Pole</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>PoleViewModels</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ManagerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.ManagerId)
+                <div class="pole-manager-place col col-md-5">
+                    Aucun Manager séléctionner
+                </div>
+                <div class="col col-md-3">
+                    <button id="button-add-manager" type="button" class="btn btn-fab btn-success btn-fab-mini" data-toggle="modal" data-target="#manager-modal">
+                        <i class="material-icons">add</i>
+                        <div class="ripple-container"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Valider" class="btn btn-default" />
+            </div>
+        </div>
+
+        @if (!Html.ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Erreur</strong>
+                @Html.ValidationSummary(true, "")
+            </div>
+        }
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Retour à la liste", "Index")
+</div>
+
+<div class="modal" id="manager-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Ajouter un manager</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input id="filter-manager-pole" type="text" class="form-control" placeholder="Rerchercher"/>
+                </div>
+                @foreach (EmployeeViewModels employee in Model.AllEmployees)
+                {
+                    <div class="list-group" data-content="@employee.Id">
+                        <div class="list-group-item">
+                            <div class="col-sm-1">
+                                <button type="button" class="button-add-manager btn btn-fab btn-warning btn-fab-mini" >
+                                    <i class="material-icons">done</i>
+                                    <div class="ripple-container"></div>
+                                </button>
+                            </div>
+                            <div class="col col-sm-10 col-sm-offset-1 row-content">
+                                <h4 class="list-group-item-heading">@employee.FirstName @employee.LastName</h4>
+                                <p class="list-group-item-text">Choose me</p>
+                            </div>
+                        </div>
+                        <div class="list-group-separator"></div>                        
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".button-add-manager").click(function () {
+                $("#get-manager-modal").modal();
+            });
+
+            $("#filter-manager-pole").keyup(function () {
+                $("#manager-modal .modal-body .list-group").each(function (index, element) {
+                    if ($(element).find(".list-group-item-heading").text().toUpperCase().indexOf($("#filter-manager-pole").val().toUpperCase()) == -1) {
+                        $(element).hide();
+                    }
+                    else {
+                        $(element).show();
+                    }
+                });
+            });
+
+            $(".button-add-manager").click(function () {
+                var node = $(this).parents(".list-group").clone();
+                $(node).find(".button-add-manager").parent().remove();
+                $(node).find(".list-group-separator").remove();
+                $(node).find(".row-content p").remove();
+
+                $("#button-add-manager").attr("class", "btn btn-fab btn-warning btn-fab-mini");
+                $("#button-add-manager i").text("mode_edit");
+
+                $("#ManagerId").val($(node).attr("data-content"))
+
+                $(".pole-manager-place").empty()
+                $(".pole-manager-place").append(node);
+                $("#manager-modal").modal('toggle');
+            })
+        });
+
+    </script>
+
+}

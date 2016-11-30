@@ -28,17 +28,14 @@ namespace ExpanseReportManager.Mapper
 
         public Employee ModelToData(Employee employee, EmployeeViewModels model)
         {
-            Employee result = new Employee()
-            {
-                User_ID = model.UserId,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                Telephone = model.Telephone,
-                Pole_ID = model.PoleId
-            };
-
-            return result;
+            employee.User_ID = model.UserId;
+            employee.FirstName = model.FirstName;
+            employee.LastName = model.LastName;
+            employee.Email = model.Email;
+            employee.Telephone = model.Telephone;
+            employee.Pole_ID = model.PoleId;
+            
+            return employee;
         }
     }
 }

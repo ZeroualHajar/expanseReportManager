@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ExpanseReportManager.Models.PoleViewModels>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManagerId)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manager.FirstName) @Html.DisplayFor(modelItem => item.Manager.LastName)
+                </td>
+                <td>
+                    @Html.ActionLink("Modifier", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" }) |
+                    <button type="button" class="modal-delete btn btn-primary btn-xs" data-toogle="modal" data-target="#modalDelete_@Html.DisplayFor(modelItem => item.Id)">Supprimer</button>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    foreach (var item in Model)
+    {
+        <div class="modal" id="modalDelete_@Html.DisplayFor(modelItem => item.Id)">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Suppression Pole</h4>
+                    </div>
+                    <div class="modal-body">
+                        Voulez-vous vraiment supprimer le pole @Html.DisplayFor(modelItem => item.Name) ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        @Html.ActionLink("Valider", "Delete", new { id = item.Id }, new { @class = "btn btn-raised btn-success btn-xs" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-dismissible alert-warning">
+        <h4>Désolé!</h4>
+        <p>
+            Aucun Pole n'a été trouvé :(
+        </p>
+    </div>
+}
+

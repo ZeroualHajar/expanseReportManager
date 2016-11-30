@@ -22,7 +22,7 @@ namespace ExpanseReportManager.Mapper
             PoleViewModels result= new PoleViewModels();
             result.Id = pole.Pole_ID.ToString();
             result.Name = pole.Name;
-            result.ManagerId = pole.Manager_ID;
+            result.ManagerId = pole.Manager_ID.ToString();
             result.Manager = EmployeeService.GetById(result.ManagerId.ToString());
 
             return result;
@@ -31,7 +31,7 @@ namespace ExpanseReportManager.Mapper
         public Pole ModelToData(Pole pole, PoleViewModels model)
         {
             pole.Name = model.Name;
-            pole.Manager_ID = model.ManagerId;
+            pole.Manager_ID = new Guid(model.ManagerId);
             return pole;
         }
     }

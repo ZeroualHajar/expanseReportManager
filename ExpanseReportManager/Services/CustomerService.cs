@@ -10,20 +10,20 @@ using ExpanseReportManager.Mapper;
 
 namespace ExpanseReportManager.Services
 {
-    public class ClientService
+    public class CustomerService
     {
         ClientMapper Mapper;
         ClientRepository Repository;
 
-        public ClientService()
+        public CustomerService()
         {
             this.Mapper = new ClientMapper();
             this.Repository = new ClientRepository(new NotesDeFraisEntities());
         }
 
-        public ICollection<ClientViewModel> GetAll()
+        public ICollection<CustomerViewModel> GetAll()
         {
-            ICollection<ClientViewModel> result = new List<ClientViewModel>();
+            ICollection<CustomerViewModel> result = new List<CustomerViewModel>();
             IQueryable<Customer> liste = Repository.GetAll();
             foreach(Customer c in liste)
             {
@@ -32,12 +32,12 @@ namespace ExpanseReportManager.Services
             return result;
         }
 
-        public ClientViewModel GetById(string id)
+        public CustomerViewModel GetById(string id)
         {
             return Mapper.DataToModel(Repository.GetById(id));
         }
 
-        public void Add(ClientViewModel client)
+        public void Add(CustomerViewModel client)
         {
             Customer customer = new Customer();
             customer.Customer_ID = Guid.NewGuid();
@@ -47,12 +47,19 @@ namespace ExpanseReportManager.Services
             Repository.save();
         }
 
-        public void Edit(ClientViewModel client)
+        public void Edit(CustomerViewModel client)
         {
             Customer customer = Repository.GetById(client.Id);
             Mapper.ModelToData(customer,client);
             Repository.save();
 
+
+        }
+
+        public void Delete(string id)
+        {
+            Repository.delete(id);
+            Repository.save();
 
         }
 

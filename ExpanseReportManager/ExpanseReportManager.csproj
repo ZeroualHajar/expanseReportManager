@@ -198,7 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -212,7 +212,7 @@
     <Compile Include="Mapper\RoleMapper.cs" />
     <Compile Include="Mapper\PoleMapper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ClientViewModel.cs" />
+    <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\EmployeeViewModels.cs" />
     <Compile Include="Models\ExpanseReportViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -224,7 +224,7 @@
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\PoleRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
-    <Compile Include="Services\ClientService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\PoleService.cs" />
     <Compile Include="Services\RoleService.cs" />
@@ -313,6 +313,10 @@
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Shared\_PopUpDelete.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Pole\_TableList.cshtml" />
     <Content Include="Views\Pole\Create.cshtml" />
   </ItemGroup>

@@ -6,15 +6,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExpanseReportManager.Models
 {
-    public class ClientViewModel
+    public class CustomerViewModel
     {
 
         [Display(Name = "")]
         public string Id { get; set; }
 
-        [Display(Name ="Non du client")]
+        [Required]
+        [Display(Name ="Nom du client")]
         public string Name { get; set; }
 
+        [Required]
         [Display(Name ="Code du client")]
         public string Code { get; set; }
 

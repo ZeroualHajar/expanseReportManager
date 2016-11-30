@@ -10,6 +10,25 @@
     @Html.ActionLink("Créer un pole", "Create", null, new { @class = "btn btn-raised btn-success" })
 </p>
 
-<div>
+@using (Ajax.BeginForm("PoleSearch", new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "poles-table",
+    OnFailure = "failedSearch"
+}))
+{
+    <div class="form-group">
+        <input type="text" name="query" id="query" class="form-control" placeholder="Rechercher..." />
+        <button type="submit" class="btn btn-fab btn-success btn-fab-mini">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+        </button>
+    </div>
+    
+
+}
+
+<div id="poles-table">
     @Html.Partial("_TableList", Model)
 </div>

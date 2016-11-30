@@ -49,6 +49,21 @@ namespace ExpanseReportManager.Controllers
 
             return View(model);
         }
+
+        public ActionResult PoleSearch(string query)
+        {
+            List<PoleViewModels> list;
+            if (string.IsNullOrEmpty(query))
+            {
+                list = Service.GetAll();
+            }
+            else
+            {
+                list = Service.Search(query);
+            }
+
+            return PartialView("_TableList", list);
+        }
     }
 }
 

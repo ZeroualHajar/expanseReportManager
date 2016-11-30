@@ -33,6 +33,19 @@ namespace ExpanseReportManager.Services
 
             return result;
         }
+        public List<PoleViewModels> Search(string query)
+        {
+            List<PoleViewModels> result = new List<PoleViewModels>();
+
+            IQueryable<Pole> poles = Repository.Search(query);
+            foreach (Pole res in poles)
+            {
+                result.Add(Mapper.DataToModel(res));
+            }
+
+            return result;
+        }
+
 
         public PoleViewModels GetById(string id)
         {

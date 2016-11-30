@@ -18,6 +18,15 @@ namespace ExpanseReportManager.Repositories
         {
             return entities.Poles;
         }
+        public IQueryable<Pole> Search(string query)
+        {
+            return entities.Poles.Where(
+                p => p.Name.ToUpper().Contains(query.ToUpper()) ||
+                    p.Employee.FirstName.ToUpper().Contains(query.ToUpper()) ||
+                    p.Employee.LastName.ToUpper().Contains(query.ToUpper())
+            );
+        }
+
 
         public Pole GetById(string id)
         {

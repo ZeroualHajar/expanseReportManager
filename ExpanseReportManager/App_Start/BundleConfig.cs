@@ -14,6 +14,9 @@ namespace ExpanseReportManager
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryajax").Include(
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
+
             bundles.Add(new ScriptBundle("~/Content/bootstrap_material/js").Include(
                         "~/Content/css/bootstrap_material/js/material.min.js",
                         "~/Content/css/bootstrap_material/js/ripples.min.js"));

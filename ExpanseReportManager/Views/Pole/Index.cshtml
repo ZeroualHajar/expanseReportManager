@@ -32,3 +32,16 @@
 <div id="poles-table">
     @Html.Partial("_TableList", Model)
 </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".modal-delete").click(function () {
+                $($(this).attr("data-target")).modal();
+            });
+        });
+
+    </script>
+
+}

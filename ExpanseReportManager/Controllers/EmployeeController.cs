@@ -29,7 +29,8 @@ namespace ExpanseReportManager.Controllers
         public ActionResult Delete(String id)
         {
             Service.Delete(id);
-            return RedirectToAction("index", "Employee");
+
+            return RedirectToAction("Index", "Employee");
         }
         
     }

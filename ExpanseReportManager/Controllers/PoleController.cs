@@ -64,6 +64,15 @@ namespace ExpanseReportManager.Controllers
 
             return PartialView("_TableList", list);
         }
+
+        [HttpGet]
+        public ActionResult Delete(String id)
+        {
+            Service.Delete(id);
+
+            return RedirectToAction("Index");
+        }
+
     }
 }
 

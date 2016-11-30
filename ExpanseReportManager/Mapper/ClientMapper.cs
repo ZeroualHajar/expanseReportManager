@@ -9,16 +9,16 @@ namespace ExpanseReportManager.Mapper
 {
     public class ClientMapper
     {
-        public ClientViewModel DataToModel(Customer customer)
+        public CustomerViewModel DataToModel(Customer customer)
         {
-            ClientViewModel client = new ClientViewModel();
+            CustomerViewModel client = new CustomerViewModel();
             client.Id = customer.Customer_ID.ToString();
             client.Name = customer.Name;
             client.Code = customer.Code;
             return client;
         }
 
-        public Customer ModelToData(Customer customer,ClientViewModel client)
+        public Customer ModelToData(Customer customer,CustomerViewModel client)
         {
             customer.Name = client.Name;
             customer.Code = client.Code;

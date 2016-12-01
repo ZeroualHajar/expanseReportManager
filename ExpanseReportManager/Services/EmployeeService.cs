@@ -55,5 +55,19 @@ namespace ExpanseReportManager.Services
             Repository.Delete(employee);
             Repository.Save();
         }
+
+        public ICollection<EmployeeViewModels> GetAllByPole(string id)
+        {
+            ICollection<EmployeeViewModels> result = new List<EmployeeViewModels>();
+
+            IQueryable<Employee> employees = Repository.GetAll().Where(e => e.Pole_ID.ToString() == id);
+
+            foreach (Employee employee in employees)
+            {
+                result.Add(Mapper.DataToModel(employee));
+            }
+
+            return result;
+        }
     }
 }

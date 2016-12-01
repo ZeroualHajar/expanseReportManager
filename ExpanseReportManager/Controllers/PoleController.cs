@@ -38,6 +38,15 @@ namespace ExpanseReportManager.Controllers
             return View(pole);
         }
 
+        public ActionResult Edit(string id)
+        {
+            PoleViewModels pole = Service.GetById(id);
+
+            pole.AllEmployees = EmployeeService.GetAll();
+
+            return View("Create", pole);
+        }
+
         [HttpPost]
         public ActionResult CreateEdit(PoleViewModels model)
         {
@@ -55,22 +64,14 @@ namespace ExpanseReportManager.Controllers
 
                 return RedirectToAction("Index");
             }
+
             model.AllEmployees = EmployeeService.GetAll();
             if (!string.IsNullOrEmpty(model.ManagerId))
             {
                 model.Manager = EmployeeService.GetById(model.ManagerId);
             }
 
-            return View(model);
-        }
-
-        public ActionResult Edit(string id)
-        {
-            PoleViewModels pole = Service.GetById(id);
-
-            pole.AllEmployees = EmployeeService.GetAll();
-
-            return View("Create", pole);
+            return View("Create", model);
         }
 
         public ActionResult PoleSearch(string query)
@@ -88,8 +89,17 @@ namespace ExpanseReportManager.Controllers
             return PartialView("_TableList", list);
         }
 
+        public ActionResult Details(string id)
+        {
+            PoleViewModels model = Service.GetById(id);
+            model.PoleEmployees = EmployeeService.GetAllByPole(id);
+            model.Manager = EmployeeService.GetById(model.ManagerId);
+
+            return View(model);
+        }
+
         [HttpGet]
-        public ActionResult Delete(String id)
+        public ActionResult Delete(string id)
         {
             Service.Delete(id);
 

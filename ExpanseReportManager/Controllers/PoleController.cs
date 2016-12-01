@@ -31,23 +31,46 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Create()
         {
-            PoleCreateViewModels pole = new PoleCreateViewModels();
+            PoleViewModels pole = new PoleViewModels();
+
             pole.AllEmployees = EmployeeService.GetAll();
 
             return View(pole);
         }
 
         [HttpPost]
-        public ActionResult Create(PoleCreateViewModels model)
+        public ActionResult CreateEdit(PoleViewModels model)
         {
             if (ModelState.IsValid)
             {
-                Service.Add(model);
+                if (string.IsNullOrEmpty(model.Id))
+                {
+                    Service.Add(model);
+                }
+                else
+                {
+                    Service.Edit(model);
+                }
+               
 
-                return RedirectToAction("Create", model);
+                return RedirectToAction("Index");
+            }
+            model.AllEmployees = EmployeeService.GetAll();
+            if (!string.IsNullOrEmpty(model.ManagerId))
+            {
+                model.Manager = EmployeeService.GetById(model.ManagerId);
             }
 
             return View(model);
+        }
+
+        public ActionResult Edit(string id)
+        {
+            PoleViewModels pole = Service.GetById(id);
+
+            pole.AllEmployees = EmployeeService.GetAll();
+
+            return View("Create", pole);
         }
 
         public ActionResult PoleSearch(string query)

@@ -9,31 +9,39 @@
 <p>
     @Html.ActionLink("Ajouter un client", "Create",null, new { @class = " btn btn-raised btn-success " })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Code)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Code)
-        </td>
-        <td>
-            @Html.ActionLink("Modifier", "Edit", new { id=item.Id }, new { @class = "btn btn-primary btn-xs btn-raised " }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-primary btn-xs  btn-raised" }) |
-            @Html.ActionLink("suprimer", "Delete", new { id=item.Id }, new { @class = "btn btn-primary btn-xs  btn-raised" })
-        </td>
-    </tr>
+@using (Ajax.BeginForm("CustomerSearch", new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "customers-table",
+    OnFailure = "failedSearch"
+}))
+{
+    <div class="form-group">
+        <input type="text" name="query" id="query" class="form-control" placeholder="Rechercher..." />
+        <button type="submit" class="btn btn-fab btn-success btn-fab-mini">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+        </button>
+    </div>
+
+
 }
 
-</table>
+<div id="customers-table">
+    @Html.Partial("_TableList", Model)
+</div>
+
+
+@section scripts
+{
+        <script type="text/javascript">
+        $(document).ready(function () {
+            $(".modal-delete").click(function () {
+                $($(this).attr("data-target")).modal();
+            });
+        });
+
+        </script>
+    }

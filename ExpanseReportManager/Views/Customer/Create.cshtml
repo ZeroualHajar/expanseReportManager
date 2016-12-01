@@ -6,11 +6,14 @@
 
 <h2>Créer un nouveau client</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("CreateEdit", "Customer", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model=>model.Id)
     
     <div class="form-horizontal">
+
+       
         
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

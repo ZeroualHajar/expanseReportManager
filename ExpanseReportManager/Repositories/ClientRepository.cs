@@ -41,5 +41,15 @@ namespace ExpanseReportManager.Repositories
             Entities.SaveChanges();
         }
 
+        public IQueryable<Customer> Search(string query)
+        {
+            return Entities.Customers.Where(
+                c => c.Name.ToUpper().Contains(query.ToUpper()) ||
+                    c.Code.ToUpper().Contains(query.ToUpper()) 
+            );
+        }
+
+
+
     }
 }

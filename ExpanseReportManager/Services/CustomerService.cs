@@ -63,5 +63,18 @@ namespace ExpanseReportManager.Services
 
         }
 
+        public List<CustomerViewModel> Search(string query)
+        {
+            List<CustomerViewModel> result = new List<CustomerViewModel>();
+
+            IQueryable<Customer> customers = Repository.Search(query);
+            foreach (Customer res in customers)
+            {
+                result.Add(Mapper.DataToModel(res));
+            }
+
+            return result;
+        }
+
     }
 }

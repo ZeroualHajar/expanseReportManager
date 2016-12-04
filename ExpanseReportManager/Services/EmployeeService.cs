@@ -69,5 +69,52 @@ namespace ExpanseReportManager.Services
 
             return result;
         }
+
+        public ICollection<EmployeeViewModels> GetAllFree()
+        {
+            ICollection<EmployeeViewModels> result = new List<EmployeeViewModels>();
+
+            IQueryable<Employee> employees = Repository.GetAll().Where(e => e.Pole_ID == null);
+
+            foreach (Employee employee in employees)
+            {
+                result.Add(Mapper.DataToModel(employee));
+            }
+
+            return result;
+        }
+
+        public ICollection<EmployeeViewModels> SearchByPole(string poleId, string query)
+        {
+            ICollection<EmployeeViewModels> result = new List<EmployeeViewModels>();
+
+            IQueryable<Employee> poles = Repository.SearchByPole(poleId, query);
+            foreach (Employee res in poles)
+            {
+                result.Add(Mapper.DataToModel(res));
+            }
+
+            return result;
+        }
+
+        public void AddToPole(string poleId, string employeeId)
+        {
+            Employee emp = Repository.GetById(employeeId);
+            emp.Pole_ID = new Guid(poleId);
+
+            Repository.Save();
+        }
+
+        public void RemoveFromPole(string poleId, string employeeId)
+        {
+            Employee emp = Repository.GetById(employeeId);
+
+            if(emp.Pole_ID.ToString() == poleId)
+            {
+                emp.Pole_ID = null;
+            }
+
+            Repository.Save();
+        }
     }
 }

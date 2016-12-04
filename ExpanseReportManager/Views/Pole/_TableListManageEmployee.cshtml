@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ExpanseReportManager.Models.EmployeeViewModels>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                Employé
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.ActionLink("Afficher", "Details", "Employee", new { id = item.Id }) |
+                    @Html.ActionLink("Supprimer du pole", "RemoveFromPole", new { poleId = item.PoleId, employeeId = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <div class="alert alert-dismissible alert-warning">
+        <h4>Désolé!</h4>
+        <p>
+            Aucun Employé n'a été trouvé :(
+        </p>
+    </div>
+}
+
+

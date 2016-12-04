@@ -21,9 +21,9 @@ namespace ExpanseReportManager.Services
             this.Repository = new PoleRepository(new NotesDeFraisEntities());
         }
 
-        public List<PoleViewModels> GetAll()
+        public ICollection<PoleViewModels> GetAll()
         {
-            List<PoleViewModels> result = new List<PoleViewModels>();
+            ICollection<PoleViewModels> result = new List<PoleViewModels>();
 
             IQueryable<Pole> poles = Repository.GetAll();
             foreach(Pole res in poles)
@@ -33,9 +33,10 @@ namespace ExpanseReportManager.Services
 
             return result;
         }
-        public List<PoleViewModels> Search(string query)
+
+        public ICollection<PoleViewModels> Search(string query)
         {
-            List<PoleViewModels> result = new List<PoleViewModels>();
+            ICollection<PoleViewModels> result = new List<PoleViewModels>();
 
             IQueryable<Pole> poles = Repository.Search(query);
             foreach (Pole res in poles)

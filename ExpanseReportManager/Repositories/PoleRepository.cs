@@ -8,19 +8,20 @@ namespace ExpanseReportManager.Repositories
 {
     public class PoleRepository
     {
-        public NotesDeFraisEntities entities;
+        public NotesDeFraisEntities Entities;
         public PoleRepository(NotesDeFraisEntities entities)
         {
-            this.entities = entities;
+            this.Entities = entities;
         }
 
         public IQueryable<Pole> GetAll()
         {
-            return entities.Poles;
+            return Entities.Poles;
         }
+
         public IQueryable<Pole> Search(string query)
         {
-            return entities.Poles.Where(
+            return Entities.Poles.Where(
                 p => p.Name.ToUpper().Contains(query.ToUpper()) ||
                     p.Employee.FirstName.ToUpper().Contains(query.ToUpper()) ||
                     p.Employee.LastName.ToUpper().Contains(query.ToUpper())
@@ -35,17 +36,17 @@ namespace ExpanseReportManager.Repositories
 
         public void Add(Pole pole)
         {
-            entities.Poles.Add(pole);
+            Entities.Poles.Add(pole);
         }
 
         public void Delete(Pole pole)
         {
-            entities.Poles.Remove(pole);
+            Entities.Poles.Remove(pole);
         }
 
         public void Save()
         {
-            entities.SaveChanges();
+            Entities.SaveChanges();
         }
     }
 }

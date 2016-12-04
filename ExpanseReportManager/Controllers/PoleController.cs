@@ -24,7 +24,7 @@ namespace ExpanseReportManager.Controllers
         // GET: Pole
         public ActionResult Index()
         {
-            List<PoleViewModels> list = Service.GetAll();
+            ICollection<PoleViewModels> list = Service.GetAll();
 
             return View(list);
         }
@@ -76,7 +76,7 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult PoleSearch(string query)
         {
-            List<PoleViewModels> list;
+            ICollection<PoleViewModels> list;
             if (string.IsNullOrEmpty(query))
             {
                 list = Service.GetAll();
@@ -87,6 +87,31 @@ namespace ExpanseReportManager.Controllers
             }
 
             return PartialView("_TableList", list);
+        }
+        public ActionResult EmployeeSearch(string poleId, string query)
+        {
+            ICollection<EmployeeViewModels> list;
+            if (string.IsNullOrEmpty(query))
+            {
+                list = EmployeeService.GetAllByPole(poleId);
+            }
+            else
+            {
+                list = EmployeeService.SearchByPole(poleId, query);
+            }
+
+            return PartialView("_TableListManageEmployee", list);
+        }
+
+
+        public ActionResult ManageEmployees(string id)
+        {
+            ManagePoleEmployee managePole = new ManagePoleEmployee();
+            managePole.Id = id;
+            managePole.FreeEmployees = EmployeeService.GetAllFree();
+            managePole.PoleEmployees = EmployeeService.GetAllByPole(id);
+
+            return View(managePole);
         }
 
         public ActionResult Details(string id)
@@ -105,6 +130,21 @@ namespace ExpanseReportManager.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult AddToPole(string poleId, string employeeId)
+        {
+            EmployeeService.AddToPole(poleId, employeeId);
+
+            return RedirectToAction("ManageEmployees", "Pole", new { id = poleId });
+        }
+
+        public ActionResult RemoveFromPole(string poleId, string employeeId)
+        {
+            EmployeeService.RemoveFromPole(poleId, employeeId);
+
+            return RedirectToAction("ManageEmployees",  "Pole", new { id = poleId });
+        }
+
 
     }
 }

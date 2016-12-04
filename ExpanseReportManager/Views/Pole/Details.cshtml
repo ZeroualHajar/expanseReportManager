@@ -4,7 +4,11 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Détails du pole</h2>
+<h2>Détails du pole @Model.Name</h2>
+<p>
+    @Html.ActionLink("Gérer les employés du pole", "ManageEmployees", new { id = Model.Id }, new { @class = "btn btn-success" })
+</p>
+
 
 <div class="details">
     <hr />
@@ -25,8 +29,9 @@
             </div>
 
             <div class="col col-md-10">
-                @Html.DisplayFor(model => model.Manager.FirstName) @Html.DisplayFor(model => model.Manager.LastName)
-                @Html.ActionLink("Voir la fiche du manager", "Details", "Employee", new { id = Model.ManagerId }, new { @class = "btn btn-primary btn-xs" })
+                <a href="@Url.Action("Details", "Employee", new { id = Model.ManagerId })">
+                    @Html.DisplayFor(model => model.Manager.FirstName) @Html.DisplayFor(model => model.Manager.LastName)
+                </a>
             </div>
         </div>
         <div class="col">
@@ -51,10 +56,9 @@
                         {
                             <tr>
                                 <td>
-                                    <a href="@Url.Action("Details", "Employee")">
+                                    <a href="@Url.Action("Details", "Employee", new { id = item.Id })">
                                         @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
                                     </a>
-                                    
                                 </td>
                             </tr>
 
@@ -69,7 +73,7 @@
 
                     if(Model.PoleEmployees.Count > 10)
                     {
-                        @Html.ActionLink("Voir la liste complète", "ByPole", "Employee", new { idPole = Model.Id })
+                        @Html.ActionLink("Voir la liste complète", "ManageEmployees", new { idPole = Model.Id })
                     }
                 }                
             </div>

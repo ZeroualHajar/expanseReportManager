@@ -38,9 +38,19 @@ namespace ExpanseReportManager.Repositories
 
             Entities.Employees.Remove(employee);
         }
+
         public void Save()
         {
             Entities.SaveChanges();
+        }
+
+        public IQueryable<Employee> SearchByPole(string poleId, string query)
+        {
+            return Entities.Employees.Where(
+                e => e.Pole_ID.ToString() == poleId &&
+                    (e.FirstName.ToUpper().Contains(query.ToUpper()) ||
+                    e.LastName.ToUpper().Contains(query.ToUpper()))
+            );
         }
 
     }

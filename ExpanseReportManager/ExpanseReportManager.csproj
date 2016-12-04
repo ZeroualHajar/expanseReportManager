@@ -320,6 +320,8 @@
     <Content Include="Views\Pole\Create.cshtml" />
     <Content Include="Views\Customer\_TableList.cshtml" />
     <Content Include="Views\Pole\Details.cshtml" />
+    <Content Include="Views\Pole\ManageEmployees.cshtml" />
+    <Content Include="Views\Pole\_TableListManageEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

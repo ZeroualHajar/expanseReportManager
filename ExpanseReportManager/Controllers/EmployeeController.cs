@@ -37,7 +37,7 @@ namespace ExpanseReportManager.Controllers
         {
             IEnumerable<EmployeeViewModels> employees = Service.GetAllByPole(id);
 
-            return View(employees);
+            return View("Index", employees);
         }
 
     }

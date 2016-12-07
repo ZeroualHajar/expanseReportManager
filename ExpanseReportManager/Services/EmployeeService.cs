@@ -13,11 +13,13 @@ namespace ExpanseReportManager.Services
     {
         public EmployeeRepository Repository;
         public EmployeeMapper Mapper;
+        public PoleMapper PoleMapper;
 
         public EmployeeService()
         {
             this.Repository = new EmployeeRepository(new NotesDeFraisEntities());
             this.Mapper = new EmployeeMapper();
+            this.PoleMapper = new PoleMapper();
         }
 
         public ICollection<EmployeeViewModels> GetAll()
@@ -37,6 +39,26 @@ namespace ExpanseReportManager.Services
         public EmployeeViewModels GetById(string id)
         {
             return Mapper.DataToModel(Repository.GetById(id));
+        }
+
+        public EmployeeViewModels GetByIdForDetails(string id)
+        {
+            Employee employee = Repository.GetById(id);
+
+            EmployeeViewModels model = Mapper.DataToModel(employee);
+
+            if(!string.IsNullOrEmpty(model.PoleId))
+            {
+                model.Pole = PoleMapper.DataToModel(employee.Pole);
+            }
+
+            model.ManagedPoles = new List<PoleViewModels>();
+            foreach(Pole pole in employee.Poles)
+            {
+                model.ManagedPoles.Add(PoleMapper.DataToModel(pole));
+            }
+
+            return model;
         }
 
         public void Add(EmployeeViewModels model)

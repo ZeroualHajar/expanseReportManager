@@ -40,5 +40,10 @@ namespace ExpanseReportManager.Controllers
             return View("Index", employees);
         }
 
+        public ActionResult Details(string id)
+        {
+            return View(Service.GetByIdForDetails(id));
+        }
+
     }
 }

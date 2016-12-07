@@ -24,7 +24,7 @@ namespace ExpanseReportManager.Controllers
         // GET: Pole
         public ActionResult Index()
         {
-            ICollection<PoleViewModels> list = Service.GetAll();
+            ICollection<PoleViewModels> list = Service.GetAllForIndex();
 
             return View(list);
         }

@@ -12,9 +12,9 @@
                     <h3 class="panel-title">Information de l'employé</h3>
                 </div>
                 <div class="panel-body">
-                    Nom : @Model.FirstName @Model.LastName <br />
-                    Email : @Model.Email <br />
-                    Telephone : @Model.Telephone <br />
+                    @Html.DisplayNameFor(model => model.LastName) & @Html.DisplayNameFor(model => model.FirstName) : @Model.FirstName @Model.LastName <br />
+                    @Html.DisplayNameFor(model => model.Email) : @Model.Email <br />
+                    @Html.DisplayNameFor(model => model.Telephone) : @Model.Telephone <br />
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
                     else
                     {
                         <p>
-                            Pole de l'employé :
+                            @Html.DisplayNameFor(model => model.Pole) :
                             <a href="@Url.Action("Details", "Pole", new { id = Model.Pole.Id })">
                                 @Model.Pole.Name
                             </a>
@@ -45,7 +45,7 @@
         <div class="col col-md-offset-1 col-md-9">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Manager des pole</h3>
+                    <h3 class="panel-title">Manage les poles</h3>
                 </div>
                 <div class="panel-body">
                     
@@ -55,12 +55,18 @@
                     }
                     else
                     {
-                        foreach (PoleViewModels pole in Model.ManagedPoles)
-                        {
-                            <a href="@Url.Action("Details", "Pole", new { id = pole.Id })">
-                               @pole.Name
-                            </a><br />
-                        }
+                        <p>Cette employé manage @Model.ManagedPoles.Count pole(s)</p>
+
+                        <ul>
+                            @foreach (PoleViewModels pole in Model.ManagedPoles)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Details", "Pole", new { id = pole.Id })">
+                                        @pole.Name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
                     }
                 </div>
             </div>
@@ -68,5 +74,5 @@
     </div>
 </div>
 <p>
-    @Html.ActionLink("Retour à la liste", "Index")
+    @Html.ActionLink("Retour à la liste", "Index",null, new { @class = "btn  btn-primary btn-sm" })
 </p>

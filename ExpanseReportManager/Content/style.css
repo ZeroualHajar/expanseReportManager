@@ -43,7 +43,7 @@ body .container .login-form label.control-label{
     width: 200px;
 }
 
-#manager-modal .modal-body{
+s .modal-body{
     max-height: 350px;
     overflow-y: auto;
 }
@@ -56,4 +56,8 @@ body .container .login-form label.control-label{
 #query{
     display: inline-block;
     margin-right: 5px;
+}
+
+.details div{
+    margin-bottom: 15px;
 }

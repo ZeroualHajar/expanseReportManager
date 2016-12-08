@@ -20,7 +20,7 @@ namespace ExpanseReportManager.Mapper
                 LastName = employee.LastName,
                 Email = employee.Email,
                 Telephone = employee.Telephone,
-                PoleId = employee.Pole_ID
+                PoleId = employee.Pole_ID.ToString()
             };
 
             return result;
@@ -33,7 +33,7 @@ namespace ExpanseReportManager.Mapper
             employee.LastName = model.LastName;
             employee.Email = model.Email;
             employee.Telephone = model.Telephone;
-            employee.Pole_ID = model.PoleId;
+            employee.Pole_ID = new Guid(model.PoleId);
             
             return employee;
         }

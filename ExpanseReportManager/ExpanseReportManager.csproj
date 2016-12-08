@@ -325,6 +325,10 @@
     <Content Include="Views\Pole\_TableList.cshtml" />
     <Content Include="Views\Pole\Create.cshtml" />
     <Content Include="Views\Customer\_TableList.cshtml" />
+    <Content Include="Views\Pole\Details.cshtml" />
+    <Content Include="Views\Pole\ManageEmployees.cshtml" />
+    <Content Include="Views\Pole\_TableListManageEmployee.cshtml" />
+    <Content Include="Views\Employee\Details.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Project\_TableList.cshtml" />
     <Content Include="Views\Project\Create.cshtml" />

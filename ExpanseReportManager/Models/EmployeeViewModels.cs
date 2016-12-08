@@ -9,7 +9,7 @@ namespace ExpanseReportManager.Models
     public class EmployeeViewModels
     {
         [Display(Name = "Id")]
-        public String Id { get; set; }
+        public string Id { get; set; }
 
         [Display(Name = "Id Utilisateur")]
         public string UserId { get; set; }
@@ -27,19 +27,20 @@ namespace ExpanseReportManager.Models
         public string Telephone { get; set; }
 
         [Display(Name = "ID Pole")]
-        public Nullable<Guid> PoleId { get; set; }
+        public string PoleId { get; set; }
 
         [Display(Name = "Pole de l'employé")]
-        public virtual PoleViewModels Pole { get; set; }
+        public PoleViewModels Pole { get; set; }
 
         [Display(Name = "Rapports de notes de frais créer")]
-        public virtual ICollection<ExpanseReportViewModels> CreatedExpanseReports { get; set; }
+        public ICollection<ExpanseReportViewModels> CreatedExpanseReports { get; set; }
 
         [Display(Name = "Rapports de notes de frais utiliser")]
-        public virtual ICollection<ExpanseReportViewModels> UsingExpanseReports { get; set; }
+        public ICollection<ExpanseReportViewModels> UsingExpanseReports { get; set; }
 
         [Display(Name = "Poles managé")]
-        public virtual ICollection<PoleViewModels> ManagedPoles { get; set; }
+        public ICollection<PoleViewModels> ManagedPoles { get; set; }
 
     }
+
 }

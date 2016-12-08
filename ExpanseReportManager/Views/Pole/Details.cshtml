@@ -1,0 +1,86 @@
+﻿@model ExpanseReportManager.Models.PoleViewModels
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Détails du pole @Model.Name</h2>
+<p>
+    @Html.ActionLink("Gérer les employés du pole", "ManageEmployees", new { id = Model.Id }, new { @class = "btn btn-success" })
+</p>
+
+
+<div class="details">
+    <hr />
+    <div class="row">
+        <div class="col">
+            <div class="col col-md-2">
+                @Html.DisplayNameFor(model => model.Name) : 
+            </div>
+
+            <div class="col col-md-10">
+                @Html.DisplayFor(model => model.Name)
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="col col-md-2">
+                @Html.DisplayNameFor(model => model.Manager) : 
+            </div>
+
+            <div class="col col-md-10">
+                <a href="@Url.Action("Details", "Employee", new { id = Model.ManagerId })">
+                    @Html.DisplayFor(model => model.Manager.FirstName) @Html.DisplayFor(model => model.Manager.LastName)
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="col col-md-2">
+                @Html.DisplayNameFor(model => model.PoleEmployees) :
+            </div>
+
+            <div class="col col-md-10">
+                Ce pole comporte @Model.PoleEmployees.Count employé(s).
+
+                @if (Model.PoleEmployees.Count > 0)
+                {
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Employés
+                            </th>
+                            <th></th>
+                        </tr>
+                        @{ int index = 0;}
+                        @foreach (var item in Model.PoleEmployees)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Details", "Employee", new { id = item.Id })">
+                                        @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                                    </a>
+                                </td>
+                            </tr>
+
+                            if (index > 9)
+                            {
+                                break;
+                            }
+
+                            index++;
+                        }
+                    </table>
+
+                    if(Model.PoleEmployees.Count > 10)
+                    {
+                        @Html.ActionLink("Voir la liste complète", "ManageEmployees", new { idPole = Model.Id })
+                    }
+                }                
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Retour à la liste", "Index", new { @class = "btn btn-primary btn-xs" })
+</p>

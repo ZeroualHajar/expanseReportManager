@@ -24,7 +24,7 @@ namespace ExpanseReportManager.Controllers
         // GET: Pole
         public ActionResult Index()
         {
-            List<PoleViewModels> list = Service.GetAll();
+            ICollection<PoleViewModels> list = Service.GetAllForIndex();
 
             return View(list);
         }
@@ -36,6 +36,15 @@ namespace ExpanseReportManager.Controllers
             pole.AllEmployees = EmployeeService.GetAll();
 
             return View(pole);
+        }
+
+        public ActionResult Edit(string id)
+        {
+            PoleViewModels pole = Service.GetById(id);
+
+            pole.AllEmployees = EmployeeService.GetAll();
+
+            return View("Create", pole);
         }
 
         [HttpPost]
@@ -55,27 +64,19 @@ namespace ExpanseReportManager.Controllers
 
                 return RedirectToAction("Index");
             }
+
             model.AllEmployees = EmployeeService.GetAll();
             if (!string.IsNullOrEmpty(model.ManagerId))
             {
                 model.Manager = EmployeeService.GetById(model.ManagerId);
             }
 
-            return View(model);
-        }
-
-        public ActionResult Edit(string id)
-        {
-            PoleViewModels pole = Service.GetById(id);
-
-            pole.AllEmployees = EmployeeService.GetAll();
-
-            return View("Create", pole);
+            return View("Create", model);
         }
 
         public ActionResult PoleSearch(string query)
         {
-            List<PoleViewModels> list;
+            ICollection<PoleViewModels> list;
             if (string.IsNullOrEmpty(query))
             {
                 list = Service.GetAll();
@@ -87,14 +88,63 @@ namespace ExpanseReportManager.Controllers
 
             return PartialView("_TableList", list);
         }
+        public ActionResult EmployeeSearch(string poleId, string query)
+        {
+            ICollection<EmployeeViewModels> list;
+            if (string.IsNullOrEmpty(query))
+            {
+                list = EmployeeService.GetAllByPole(poleId);
+            }
+            else
+            {
+                list = EmployeeService.SearchByPole(poleId, query);
+            }
+
+            return PartialView("_TableListManageEmployee", list);
+        }
+
+
+        public ActionResult ManageEmployees(string id)
+        {
+            ManagePoleEmployee managePole = new ManagePoleEmployee();
+            managePole.Id = id;
+            managePole.FreeEmployees = EmployeeService.GetAllFree();
+            managePole.PoleEmployees = EmployeeService.GetAllByPole(id);
+
+            return View(managePole);
+        }
+
+        public ActionResult Details(string id)
+        {
+            PoleViewModels model = Service.GetById(id);
+            model.PoleEmployees = EmployeeService.GetAllByPole(id);
+            model.Manager = EmployeeService.GetById(model.ManagerId);
+
+            return View(model);
+        }
 
         [HttpGet]
-        public ActionResult Delete(String id)
+        public ActionResult Delete(string id)
         {
             Service.Delete(id);
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult AddToPole(string poleId, string employeeId)
+        {
+            EmployeeService.AddToPole(poleId, employeeId);
+
+            return RedirectToAction("ManageEmployees", "Pole", new { id = poleId });
+        }
+
+        public ActionResult RemoveFromPole(string poleId, string employeeId)
+        {
+            EmployeeService.RemoveFromPole(poleId, employeeId);
+
+            return RedirectToAction("ManageEmployees",  "Pole", new { id = poleId });
+        }
+
 
     }
 }

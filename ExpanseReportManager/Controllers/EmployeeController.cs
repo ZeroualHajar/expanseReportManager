@@ -26,12 +26,24 @@ namespace ExpanseReportManager.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(String id)
+        public ActionResult Delete(string id)
         {
             Service.Delete(id);
 
             return RedirectToAction("Index", "Employee");
         }
-        
+
+        public ActionResult ByPole(string id)
+        {
+            IEnumerable<EmployeeViewModels> employees = Service.GetAllByPole(id);
+
+            return View("Index", employees);
+        }
+
+        public ActionResult Details(string id)
+        {
+            return View(Service.GetByIdForDetails(id));
+        }
+
     }
 }

@@ -94,42 +94,31 @@
 
                     @if (Model.PoleEmployees.Count < 1)
                     {
-                        <p>Le pole ne comporte aucun employé.</p>
+                        <p>Le pole ne comporte aucun projet.</p>
                     }
                     else
                     {
-                        <p> Ce pole comporte @Model.PoleEmployees.Count employé(s).</p>
+                        <p> Ce pole comporte @Model.PoleProjects.Count projet(s).</p>
 
                         <ul>
-                            @{ int index = 0;}
-                            @foreach (var item in Model.PoleEmployees)
+                            @foreach (var item in Model.PoleProjects)
                             {
                                 <li>
-                                    <a href="@Url.Action("Details", "Employee", new { id = item.Id })">
-                                        @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                                    <a href="@Url.Action("Details", "Employee", new { id = item.Project_ID })">
+                                        @Html.DisplayFor(modelItem => item.Name)
                                     </a>
                                 </li>
-
-                                if (index > 9)
-                                {
-                                    break;
-                                }
-
-                                index++;
                             }
                         </ul>
-
-                                if (Model.PoleEmployees.Count > 1)
-                                {
-                                    @Html.ActionLink("Voir la liste complète", "ManageEmployees", new { idPole = Model.Id })
-                                    }
-                                }
+                    }
                 </div>
             </div>
         </div>
     </div>
+
+    <p>
+        @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm" }) |
+        @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-primary btn-sm" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm" }) |
-    @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-primary btn-sm" })
-</p>
+

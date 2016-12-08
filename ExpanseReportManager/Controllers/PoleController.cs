@@ -13,12 +13,14 @@ namespace ExpanseReportManager.Controllers
     public class PoleController : Controller
     {
         private PoleService Service;
-        private EmployeeService EmployeeService; 
+        private EmployeeService EmployeeService;
+        private ProjectService ProjectService;
 
         public PoleController()
         {
             this.Service = new PoleService();
             this.EmployeeService = new EmployeeService();
+            this.ProjectService = new ProjectService();
         } 
 
         // GET: Pole
@@ -118,6 +120,7 @@ namespace ExpanseReportManager.Controllers
         {
             PoleViewModels model = Service.GetById(id);
             model.PoleEmployees = EmployeeService.GetAllByPole(id);
+            model.PoleProjects = ProjectService.GetAllByPole(id);
             model.Manager = EmployeeService.GetById(model.ManagerId);
 
             return View(model);

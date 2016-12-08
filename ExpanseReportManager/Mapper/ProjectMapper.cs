@@ -23,7 +23,7 @@ namespace ExpanseReportManager.Mapper
 
             model.Project_ID = project.Project_ID.ToString();
             model.Name = project.Name;
-            model.Discription = project.Description;
+            model.Description = project.Description;
             model.Budget = project.Budget;
             model.Customer_Id = project.Customer_ID.ToString();
             model.Pole_Id = project.Pole_ID.ToString();
@@ -34,7 +34,7 @@ namespace ExpanseReportManager.Mapper
         public Project ModelToData(Project project, ProjectViewModels model)
         {
             project.Name = model.Name;
-            project.Description =  model.Discription;
+            project.Description =  model.Description;
             project.Budget = model.Budget;
             project.Customer_ID = new Guid(model.Customer_Id);
             project.Pole_ID = new Guid(model.Pole_Id);

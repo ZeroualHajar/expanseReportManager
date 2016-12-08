@@ -26,12 +26,12 @@
                 @Html.DisplayFor(modelItem => item.Discription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Budget)€
+                @string.Format("{0:C}", item.Budget)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Project_ID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Project_ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Project_ID })
+                @Html.ActionLink("Modifier", "Edit", new { id = item.Project_ID }, new { @class = "btn btn-primary btn-xs" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Project_ID }, new { @class = "btn btn-primary btn-xs" }) |
+                <button type="button" class="modal-delete btn btn-primary btn-xs" data-toogle="modal" data-target="#modalDelete_@Html.DisplayFor(modelItem => item.Project_ID)">Supprimer</button>
             </td>
         </tr>
 }

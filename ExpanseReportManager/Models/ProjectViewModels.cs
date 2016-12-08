@@ -9,16 +9,16 @@ namespace ExpanseReportManager.Models
 {
     public class ProjectViewModels
     {
-        [Display(Name ="")]
+        [Display(Name = "l'id du projet")]
         public string Project_ID { get; set; }
 
         [Required]
-        [Display(Name ="Le nom du project")]
+        [Display(Name = "Le nom du projet")]
         public String Name { get; set; }
 
 
         [Required]
-        [Display(Name ="La description du projet")]
+        [Display(Name = "La description du projet")]
         public string Discription { get; set; }
 
         [Required]

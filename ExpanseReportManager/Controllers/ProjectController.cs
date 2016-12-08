@@ -84,6 +84,8 @@ namespace ExpanseReportManager.Controllers
         public ActionResult Details(string id)
         {
             ProjectViewModels project = Service.GetById(id);
+            project.Customer = CustomerService.GetById(project.Customer_Id);
+            project.Pole = PoleService.GetById(project.Pole_Id);
             return View(project);
         }
 

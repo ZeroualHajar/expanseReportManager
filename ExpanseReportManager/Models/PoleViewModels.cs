@@ -22,10 +22,13 @@ namespace ExpanseReportManager.Models
         [Display(Name = "Employees du pole")]
         public ICollection<EmployeeViewModels> PoleEmployees { get; set; }
 
+        [Display(Name = "Projets du pole")]
+        public ICollection<ProjectViewModels> PoleProjects { get; set; }
+
         [Display(Name = "Manager du pole")]
         public EmployeeViewModels Manager { get; set; }
 
-        [Display(Name = "Employés du pole")]
+        [Display(Name = "Tousles employées")]
         public ICollection<EmployeeViewModels> AllEmployees { get; set; }
 
     }

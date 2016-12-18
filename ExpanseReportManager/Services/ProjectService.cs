@@ -32,6 +32,28 @@ namespace ExpanseReportManager.Services
             return result;
         }
 
+        public ICollection<ProjectViewModels> GetAllByPole(string id)
+        {
+            ICollection<ProjectViewModels> result = new List<ProjectViewModels>();
+            IQueryable<Project> liste = Repository.GetAll().Where(p => p.Pole_ID.ToString() == id);
+            foreach (Project p in liste)
+            {
+                result.Add(Mapper.DataToModel(p));
+            }
+            return result;
+        }
+
+        public ICollection<ProjectViewModels> GetAllByCustomer(string id)
+        {
+            ICollection<ProjectViewModels> result = new List<ProjectViewModels>();
+            IQueryable<Project> liste = Repository.GetAll().Where(p => p.Customer_ID.ToString() == id);
+            foreach (Project p in liste)
+            {
+                result.Add(Mapper.DataToModel(p));
+            }
+            return result;
+        }
+
         public ProjectViewModels GetById(string id)
         {
             return Mapper.DataToModel(Repository.GetById(id));

@@ -12,16 +12,18 @@ namespace ExpanseReportManager.Models
         [Display(Name = "l'id du projet")]
         public string Project_ID { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Vous devez entrez un nom de projet")]
         [Display(Name = "Le nom du projet")]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
 
         [Required]
         [Display(Name = "La description du projet")]
-        public string Discription { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
 
         [Required]
+        [Range(1, Double.MaxValue)]
         [Display(Name = "Le budget du projet")]
         public double Budget { get; set; }
 

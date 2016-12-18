@@ -61,3 +61,10 @@ s .modal-body{
 .details div{
     margin-bottom: 15px;
 }
+h4, h2{
+    margin: 30px 20px;
+}
+
+.panel ul li{
+    color: #009688;
+}

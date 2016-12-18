@@ -19,7 +19,7 @@ namespace ExpanseReportManager.Repositories
             return Entities.AspNetRoles;
         } 
 
-        public AspNetRole GetById(String id)
+        public AspNetRole GetById(string id)
         {
             return Entities.AspNetRoles.FirstOrDefault(r => r.Id == id);
         }

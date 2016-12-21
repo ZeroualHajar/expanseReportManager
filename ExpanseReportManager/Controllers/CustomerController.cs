@@ -20,14 +20,14 @@ namespace ExpanseReportManager.Controllers
         // GET: Client
         public ActionResult Index()
         {
-            ICollection<CustomerViewModel> clients = Service.GetAll();
+            ICollection<CustomerViewModels> clients = Service.GetAll();
 
             return View(clients);
         }
 
 
         [HttpPost]
-        public ActionResult CreateEdit(CustomerViewModel model)
+        public ActionResult CreateEdit(CustomerViewModels model)
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +48,7 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Create()
         {
-            CustomerViewModel client = new CustomerViewModel();
+            CustomerViewModels client = new CustomerViewModels();
 
             return View(client);
         }
@@ -56,13 +56,13 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Edit(string id)
         {
-            CustomerViewModel customer = Service.GetById(id);
+            CustomerViewModels customer = Service.GetById(id);
             return View("Create",customer);
         }
 
         public ActionResult Details(string id)
         {
-            CustomerViewModel customer = Service.GetById(id);
+            CustomerViewModels customer = Service.GetById(id);
             return View(customer);
         }
 
@@ -74,7 +74,7 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult CustomerSearch(string query)
         {
-            ICollection<CustomerViewModel> list;
+            ICollection<CustomerViewModels> list;
             if (string.IsNullOrEmpty(query))
             {
                 list = Service.GetAll();
@@ -86,8 +86,6 @@ namespace ExpanseReportManager.Controllers
 
             return PartialView("_TableList", list);
         }
-
-
     }
 }
 

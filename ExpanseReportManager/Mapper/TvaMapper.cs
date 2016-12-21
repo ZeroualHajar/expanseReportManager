@@ -25,7 +25,7 @@ namespace ExpanseReportManager.Mapper
         public Tva ModelToData(Tva tva, TvaViewModels model)
         {
             tva.Name = model.Name;
-            tva.Value = model.Value;
+            tva.Value = (double) model.Value / 100;
 
             return tva;
         }

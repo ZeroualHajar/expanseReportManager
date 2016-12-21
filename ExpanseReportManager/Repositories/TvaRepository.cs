@@ -41,7 +41,6 @@ namespace ExpanseReportManager.Repositories
             Entities.Tvas.Remove(GetById(id));
         }
 
-
         public void Save()
         {
             Entities.SaveChanges();

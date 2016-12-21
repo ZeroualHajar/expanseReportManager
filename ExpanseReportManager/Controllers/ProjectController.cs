@@ -92,7 +92,7 @@ namespace ExpanseReportManager.Controllers
         public ActionResult Delete(string id)
         {
             Service.Delete(id);
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
 
         public ActionResult ProjectSearch(string query)

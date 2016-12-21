@@ -150,7 +150,7 @@ namespace ExpanseReportManager.Controllers
         [Authorize(Roles = "SuperAdmin")]
         public ActionResult Register()
         {
-            ViewBag.Role = new SelectList(context.Roles.Where(r => !r.Name.Contains("Djo")).ToList(), "Name", "Name");
+            ViewBag.Role = new SelectList(context.Roles.Where(r => !r.Name.Contains("SuperAdmin")).ToList(), "Name", "Name");
             return View();
         }
 

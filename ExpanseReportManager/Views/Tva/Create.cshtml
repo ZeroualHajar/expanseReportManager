@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Créer une nouvelle Tva</h2>
+<h2>Créer ou modifier Tva</h2>
 
 @using (Html.BeginForm("CreateEdit", "Tva", FormMethod.Post))
 {
@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeHolder = "Le nom de votre TVA" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control", placeHolder = "En pourcentage" } })
                 @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
             </div>
         </div>

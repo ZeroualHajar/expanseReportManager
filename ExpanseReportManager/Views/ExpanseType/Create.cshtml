@@ -1,0 +1,124 @@
+﻿@model ExpanseReportManager.Models.ExpanseTypeViewModels
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@if (Model.Id.IsEmpty())
+{
+    <h2>Créer nouveau type de frais</h2>
+}
+else
+{
+    <h2>Modifier type de frais</h2>
+}
+
+
+@using (Html.BeginForm("CreateEdit", "ExpanseType", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ExpanseTypeViewModels</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ceilling, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ceilling, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ceilling, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col col-md-2"></div>
+                <div class="col col-md-10">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(model => model.Fixed) @Html.LabelFor(model => model.Fixed)
+                        </label>
+                        @Html.ValidationMessageFor(model => model.Fixed, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col col-md-2"></div>
+                <div class="col col-md-10">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(model => model.OnlyManager) @Html.LabelFor(model => model.OnlyManager)
+                        </label>
+                        @Html.ValidationMessageFor(model => model.OnlyManager, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tva_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Tva_Id, (SelectList)ViewBag.Tva, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Tva_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Valider" class="btn btn-raised btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Retour à la liste", "Index")
+</div>
+
+<div class="modal" id="error-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Erreur</h4>
+            </div>
+            <div class="modal-body">
+                Vous avez choisi d'avoir une valeur fixe. Le plafond est <b>obligatoire</b>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("form").submit(function (event) {
+                event.preventDefault();
+                var formData = $(this).serializeArray();
+                console.log(formData);
+                if (formData[3].value == true && (formData[2].value < 1 || formData[2].value.length == 0)) {
+                    $("#error-modal").modal();
+                }
+                else {
+                    $(this).off();
+                    $(this).submit();
+                }
+            });
+        });
+    </script>
+}

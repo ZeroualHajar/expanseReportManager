@@ -36,13 +36,13 @@ namespace ExpanseReportManager.Models
         public string Pole_Id { get; set; }
 
         [Display(Name = " La liste des client ")]
-        public ICollection<CustomerViewModel> AllCustomers { get; set; }
+        public ICollection<CustomerViewModels> AllCustomers { get; set; }
 
         [Display(Name = "La liste des poles")]
         public ICollection<PoleViewModels> AllPoles { get; set; }
 
         [Display(Name = "Le client de projet")]
-        public CustomerViewModel Customer { get; set; }
+        public CustomerViewModels Customer { get; set; }
 
         [Display(Name = "Le pole du projet")]
         public PoleViewModels Pole { get; set; }

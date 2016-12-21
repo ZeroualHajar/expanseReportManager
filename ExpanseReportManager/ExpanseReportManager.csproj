@@ -200,6 +200,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\ExpanseTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PoleController.cs" />
@@ -209,14 +210,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mapper\ClientMapper.cs" />
+    <Compile Include="Mapper\CustomerMapper.cs" />
     <Compile Include="Mapper\EmployeeMapper.cs" />
+    <Compile Include="Mapper\ExpanseTypeMapper.cs" />
     <Compile Include="Mapper\ProjectMapper.cs" />
     <Compile Include="Mapper\RoleMapper.cs" />
     <Compile Include="Mapper\PoleMapper.cs" />
     <Compile Include="Mapper\TvaMapper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CustomerViewModel.cs" />
+    <Compile Include="Models\CustomerViewModels.cs" />
     <Compile Include="Models\EmployeeViewModels.cs" />
     <Compile Include="Models\ExpanseReportViewModels.cs" />
     <Compile Include="Models\ExpanseTypeViewModels.cs" />
@@ -227,14 +229,16 @@
     <Compile Include="Models\PoleViewModels.cs" />
     <Compile Include="Models\TvaViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ClientRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
+    <Compile Include="Repositories\ExpanseTypeRepository.cs" />
     <Compile Include="Repositories\PoleRepository.cs" />
     <Compile Include="Repositories\ProjectRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\TvaRepository.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\ExpanseTypeService.cs" />
     <Compile Include="Services\PoleService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\RoleService.cs" />
@@ -343,6 +347,10 @@
     <Content Include="Views\Tva\_TableList.cshtml" />
     <Content Include="Views\Tva\Details.cshtml" />
     <Content Include="Views\Tva\Create.cshtml" />
+    <Content Include="Views\ExpanseType\_TableList.cshtml" />
+    <Content Include="Views\ExpanseType\Details.cshtml" />
+    <Content Include="Views\ExpanseType\Index.cshtml" />
+    <Content Include="Views\ExpanseType\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

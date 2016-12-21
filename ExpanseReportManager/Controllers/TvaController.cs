@@ -54,7 +54,10 @@ namespace ExpanseReportManager.Controllers
         public ActionResult Edit(string id)
         {
             TvaViewModels tva = Service.GetById(id);
-            
+
+            // Pour affichage en pourcentage
+            tva.Value = tva.Value * 100;
+
             return View("Create", tva);
         }
 

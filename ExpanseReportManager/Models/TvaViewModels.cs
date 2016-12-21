@@ -18,7 +18,8 @@ namespace ExpanseReportManager.Models
 
         [Required]
         [Range(0, 100, ErrorMessage = "La valeur de la {0} doit être comprise entre {1} et {2}")]
-        [Display(Name ="TVA")]
+        [DisplayFormat(DataFormatString = "{0:P2}")]
+        [Display(Name ="Valeur")]
         public Nullable<double> Value { get; set; }
 
         [Display(Name = "La liste de la TVA")]

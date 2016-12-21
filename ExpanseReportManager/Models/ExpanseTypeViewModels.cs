@@ -8,35 +8,29 @@ namespace ExpanseReportManager.Models
 {
     public class ExpanseTypeViewModels
     {
+        [Display(Name = "L'identifiant du type de frais")]
+        public string Id { get; set; }
 
         [Required]
-        [Display(Name = "L'identifiant de expanse type")]
-        public string Id;
+        [Display(Name = "Nom")]
+        public string Name { get; set; }
 
-        [Required]
-        [Display(Name = "Le nom de expanse type")]
-        public string Name;
-
-
-        [Required]
-        [Display(Name = "Le plafond")]
-        public double Ceilling;
-
+        [Display(Name = "Plafond")]
+        public Nullable<double> Ceilling { get; set; }
 
         [Required]
         [Display(Name = "Fixé")]
-        public bool Fixed;
-
-
-        [Required]
-        [Display(Name = "Juste Manager")]
-        public bool OnlyManager;
+        public bool Fixed { get; set; }
 
         [Required]
-        [Display(Name = "L'id TVA")]
-        public string Tva_Id;
+        [Display(Name = "Pour manager uniquement")]
+        public bool OnlyManager { get; set; }
 
-        [Display(Name = "Le TVA")]
-        public TvaViewModels Tva;
+        [Required]
+        [Display(Name = "TVA")]
+        public string Tva_Id { get; set; }
+
+        [Display(Name = "TVA")]
+        public TvaViewModels Tva { get; set; }
     }
 }

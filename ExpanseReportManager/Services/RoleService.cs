@@ -14,24 +14,15 @@ namespace ExpanseReportManager.Services
         public RoleRepository Repository;
         public RoleMapper Mapper;
 
-        public RoleService()
+        public RoleService(NotesDeFraisEntities entities)
         {
-            this.Repository = new RoleRepository(new NotesDeFraisEntities());
+            this.Repository = new RoleRepository(entities);
             this.Mapper = new RoleMapper();
         }
 
         public ICollection<RoleViewModels> GetAll()
         {
-            ICollection<RoleViewModels> result = new List<RoleViewModels>();
-
-            IQueryable<AspNetRole> roles = Repository.GetAll();
-
-            foreach (AspNetRole role in roles)
-            {
-                result.Add(Mapper.DataToModel(role));
-            }
-
-            return result;
+            return Mapper.AllToModel(Repository.GetAll());
         }
 
         public RoleViewModels GetById(string id)

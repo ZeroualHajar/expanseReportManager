@@ -9,25 +9,23 @@ using ExpanseReportManager.Models;
 
 namespace ExpanseReportManager.Controllers
 {
-    public class ProjectController : Controller
+    public class ProjectController : AbstractController
     {
         private ProjectService Service;
         private CustomerService CustomerService;
         private PoleService PoleService;
 
-        public ProjectController()
+        public ProjectController() : base()
         {
-            this.Service = new ProjectService();
-            this.CustomerService = new CustomerService();
-            this.PoleService = new PoleService();
+            this.Service = new ProjectService(this.Entities);
+            this.CustomerService = new CustomerService(this.Entities);
+            this.PoleService = new PoleService(this.Entities);
         }
 
         // GET: Project
         public ActionResult Index()
         {
-            ICollection<ProjectViewModels> projects = Service.GetAll();
-
-            return View(projects);
+            return View(Service.GetAll());
         }
 
         [HttpPost]
@@ -48,69 +46,41 @@ namespace ExpanseReportManager.Controllers
                 return RedirectToAction("Index");
             }
 
-            model.AllCustomers = CustomerService.GetAll();
-            model.AllPoles = PoleService.GetAll();
-            if (!string.IsNullOrEmpty(model.Customer_Id) && !string.IsNullOrEmpty(model.Pole_Id))
-            {
-                model.Customer = CustomerService.GetById(model.Customer_Id);
-                model.Pole = PoleService.GetById(model.Pole_Id);
-            }
-
             return View("Create", model);
         }
 
         public ActionResult Create()
         {
-            ProjectViewModels project = new ProjectViewModels();
-
-            project.AllCustomers = CustomerService.GetAll();
-            project.AllPoles = PoleService.GetAll();
-
-            return View(project);
+            return View(new ProjectViewModels());
         }
 
         public ActionResult Edit(string id)
         {
-            ProjectViewModels project = Service.GetById(id);
-
-            project.Customer = CustomerService.GetById(project.Customer_Id);
-            project.Pole = PoleService.GetById(project.Pole_Id);
-            project.AllCustomers = CustomerService.GetAll();
-            project.AllPoles = PoleService.GetAll();
-
-            return View("Create", project);
+            return View("Create", Service.GetById(id));
         }
 
         public ActionResult Details(string id)
         {
-            ProjectViewModels project = Service.GetById(id);
-            project.Customer = CustomerService.GetById(project.Customer_Id);
-            project.Pole = PoleService.GetById(project.Pole_Id);
-            return View(project);
+            return View(Service.GetById(id));
         }
 
         public ActionResult Delete(string id)
         {
             Service.Delete(id);
+
             return RedirectToAction("Index");
         }
 
         public ActionResult ProjectSearch(string query)
         {
-            ICollection<ProjectViewModels> list;
             if (string.IsNullOrEmpty(query))
             {
-                list = Service.GetAll();
+                return PartialView("_TableList", Service.GetAll());
             }
             else
             {
-                list = Service.Search(query);
+                return PartialView("_TableList", Service.Search(query));
             }
-
-            return PartialView("_TableList", list);
         }
-
-
-
     }
 }

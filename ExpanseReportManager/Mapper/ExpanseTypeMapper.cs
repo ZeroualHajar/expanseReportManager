@@ -9,9 +9,22 @@ namespace ExpanseReportManager.Mapper
 {
     public class ExpanseTypeMapper
     {
+        public ICollection<ExpanseTypeViewModels> AllToModel(IQueryable<ExpanseType> expanseTypes)
+        {
+            return expanseTypes.Select(expanseType => new ExpanseTypeViewModels
+            {
+                Id = expanseType.ExpenseType_ID.ToString(),
+                Name = expanseType.Name,
+                OnlyManager = expanseType.OnlyManagers,
+                Tva_Id = expanseType.Tva_ID.ToString(),
+                Ceilling = expanseType.Ceiling,
+                Fixed = expanseType.Fixed
+            }).ToList();
+        }
+
         public ExpanseTypeViewModels DataToModel(ExpanseType expanseType)
         {
-            ExpanseTypeViewModels result = new ExpanseTypeViewModels()
+            return new ExpanseTypeViewModels()
             {
                 Id = expanseType.ExpenseType_ID.ToString(),
                 Name = expanseType.Name,
@@ -20,8 +33,6 @@ namespace ExpanseReportManager.Mapper
                 Ceilling = expanseType.Ceiling,
                 Fixed = expanseType.Fixed
             };
-
-            return result;
         }
 
         public ExpanseType ModelToData(ExpanseType expanseType, ExpanseTypeViewModels model)

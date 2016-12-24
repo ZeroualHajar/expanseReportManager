@@ -9,17 +9,24 @@ namespace ExpanseReportManager.Mapper
 {
     public class TvaMapper
     {
+        public ICollection<TvaViewModels> AllToModel(IQueryable<Tva> tvas)
+        {
+            return tvas.Select(tva => new TvaViewModels
+            {
+                TVA_ID = tva.TVA_ID.ToString(),
+                Name = tva.Name,
+                Value = tva.Value
+            }).ToList();
+        }
+
         public TvaViewModels DataToModel(Tva tva)
         {
-            TvaViewModels result = new TvaViewModels()
+            return new TvaViewModels
             {
-
                 TVA_ID = tva.TVA_ID.ToString(),
                 Name = tva.Name,
                 Value = tva.Value
             };
-
-            return result;
         }
 
         public Tva ModelToData(Tva tva, TvaViewModels model)

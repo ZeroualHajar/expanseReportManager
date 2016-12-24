@@ -8,43 +8,43 @@ using ExpanseReportManager.Models;
 
 namespace ExpanseReportManager.Controllers
 {
-    public class ExpanseTypeController : Controller
+    public class ExpanseTypeController : AbstractController
     {
         ExpanseTypeService Service;
         TvaService TvaService;
 
-        public ExpanseTypeController()
+        public ExpanseTypeController() : base()
         {
-            this.Service = new ExpanseTypeService();
-            this.TvaService = new TvaService();
+            this.Service = new ExpanseTypeService(this.Entities);
+            this.TvaService = new TvaService(this.Entities);
         }
 
         // GET: ExpanseType
         public ActionResult Index()
         {
-            ICollection<ExpanseTypeViewModels> clients = Service.GetAll();
-
-            return View(clients);
+            return View(Service.GetAll());
         }
 
         public ActionResult Search(string query)
         {
-            ICollection<ExpanseTypeViewModels> list;
             if (string.IsNullOrEmpty(query))
             {
-                list = Service.GetAll();
+                return PartialView("_TableList", Service.GetAll());
             }
             else
             {
-                list = Service.Search(query);
+                return PartialView("_TableList", Service.Search(query));
             }
-
-            return PartialView("_TableList", list);
         }
 
         [HttpPost]
         public ActionResult CreateEdit(ExpanseTypeViewModels model)
         {
+            if (!Service.IsValid(model))
+            {
+                ModelState.AddModelError("Incohérence", "Vous avez choisi une valeur fixe. Le plafond est donc obligatoire");
+            }
+
             if (ModelState.IsValid && Service.IsValid(model))
             {
                 if (string.IsNullOrEmpty(model.Id))
@@ -67,25 +67,22 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Create()
         {
-            ExpanseTypeViewModels project = new ExpanseTypeViewModels();
-
             ViewBag.Tva = new SelectList(TvaService.GetAll(), "TVA_ID", "Name");
 
-            return View(project);
+            return View(new ExpanseTypeViewModels());
         }
 
         public ActionResult Edit(string id)
         {
-            ExpanseTypeViewModels project = Service.GetById(id);
-
             ViewBag.Tva = new SelectList(TvaService.GetAll(), "TVA_ID", "Name");
 
-            return View("Create", project);
+            return View("Create", Service.GetById(id));
         }
 
         public ActionResult Delete(string id)
         {
             Service.Delete(id);
+
             return RedirectToAction("Index");
         }
     }

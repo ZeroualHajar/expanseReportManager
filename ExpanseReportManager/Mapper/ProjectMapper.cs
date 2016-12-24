@@ -10,25 +10,30 @@ namespace ExpanseReportManager.Mapper
 {
     public class ProjectMapper
     {
-        public ProjectRepository Repository;
-
-        public ProjectMapper()
+        public ICollection<ProjectViewModels> AllToModel(IQueryable<Project> projects)
         {
-            this.Repository = new ProjectRepository(new NotesDeFraisEntities());
+            return projects.Select(project => new ProjectViewModels
+            {
+                Project_ID = project.Project_ID.ToString(),
+                Name = project.Name,
+                Description = project.Description,
+                Budget = project.Budget,
+                Customer_Id = project.Customer_ID.ToString(),
+                Pole_Id = project.Pole_ID.ToString()
+            }).ToList();
         }
 
         public ProjectViewModels DataToModel(Project project)
         {
-            ProjectViewModels model = new ProjectViewModels();
-
-            model.Project_ID = project.Project_ID.ToString();
-            model.Name = project.Name;
-            model.Description = project.Description;
-            model.Budget = project.Budget;
-            model.Customer_Id = project.Customer_ID.ToString();
-            model.Pole_Id = project.Pole_ID.ToString();
-
-            return model;
+            return new ProjectViewModels
+            {
+                Project_ID = project.Project_ID.ToString(),
+                Name = project.Name,
+                Description = project.Description,
+                Budget = project.Budget,
+                Customer_Id = project.Customer_ID.ToString(),
+                Pole_Id = project.Pole_ID.ToString()
+            };
         }
 
         public Project ModelToData(Project project, ProjectViewModels model)

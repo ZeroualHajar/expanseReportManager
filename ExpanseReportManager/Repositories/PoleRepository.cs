@@ -34,6 +34,11 @@ namespace ExpanseReportManager.Repositories
             return GetAll().FirstOrDefault(p => p.Pole_ID.ToString() == id);
         }
 
+        public Pole GetForEmployee(string id)
+        {
+            return Entities.Employees.FirstOrDefault(e => e.Employee_ID.ToString() == id) == null ? null : Entities.Employees.FirstOrDefault(e => e.Employee_ID.ToString() == id).Pole;
+        }
+
         public void Add(Pole pole)
         {
             Entities.Poles.Add(pole);

@@ -12,24 +12,18 @@ namespace ExpanseReportManager.Services
 {
     public class CustomerService
     {
-        CustomerMapper Mapper;
-        CustomerRepository Repository;
+        private CustomerMapper Mapper;
+        private CustomerRepository Repository;
 
-        public CustomerService()
+        public CustomerService(NotesDeFraisEntities entities)
         {
             this.Mapper = new CustomerMapper();
-            this.Repository = new CustomerRepository(new NotesDeFraisEntities());
+            this.Repository = new CustomerRepository(entities);
         }
 
         public ICollection<CustomerViewModels> GetAll()
         {
-            ICollection<CustomerViewModels> result = new List<CustomerViewModels>();
-            IQueryable<Customer> liste = Repository.GetAll();
-            foreach(Customer c in liste)
-            {
-                result.Add(Mapper.DataToModel(c));
-            }
-            return result;
+            return Mapper.AllToModel(Repository.GetAll());
         }
 
         public CustomerViewModels GetById(string id)
@@ -60,17 +54,9 @@ namespace ExpanseReportManager.Services
             Repository.Save();
         }
 
-        public List<CustomerViewModels> Search(string query)
+        public ICollection<CustomerViewModels> Search(string query)
         {
-            List<CustomerViewModels> result = new List<CustomerViewModels>();
-
-            IQueryable<Customer> customers = Repository.Search(query);
-            foreach (Customer res in customers)
-            {
-                result.Add(Mapper.DataToModel(res));
-            }
-
-            return result;
+            return Mapper.AllToModel(Repository.Search(query));
         }
 
     }

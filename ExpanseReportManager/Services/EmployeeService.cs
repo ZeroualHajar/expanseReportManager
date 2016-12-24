@@ -15,50 +15,24 @@ namespace ExpanseReportManager.Services
         public EmployeeMapper Mapper;
         public PoleMapper PoleMapper;
 
-        public EmployeeService()
+        public EmployeeService(NotesDeFraisEntities entities)
         {
-            this.Repository = new EmployeeRepository(new NotesDeFraisEntities());
+            this.Repository = new EmployeeRepository(entities);
             this.Mapper = new EmployeeMapper();
-            this.PoleMapper = new PoleMapper();
+        }
+
+        public EmployeeService() : this(new NotesDeFraisEntities())
+        {
         }
 
         public ICollection<EmployeeViewModels> GetAll()
         {
-            ICollection<EmployeeViewModels> result = new List<EmployeeViewModels>();
-
-            IQueryable<Employee> employees = Repository.GetAll();
-
-            foreach (Employee employee in employees)
-            {
-                result.Add(Mapper.DataToModel(employee));
-            }
-
-            return result;
+            return Mapper.AllToModel(Repository.GetAll());
         }
 
         public EmployeeViewModels GetById(string id)
         {
             return Mapper.DataToModel(Repository.GetById(id));
-        }
-
-        public EmployeeViewModels GetByIdForDetails(string id)
-        {
-            Employee employee = Repository.GetById(id);
-
-            EmployeeViewModels model = Mapper.DataToModel(employee);
-
-            if(!string.IsNullOrEmpty(model.PoleId))
-            {
-                model.Pole = PoleMapper.DataToModel(employee.Pole);
-            }
-
-            model.ManagedPoles = new List<PoleViewModels>();
-            foreach(Pole pole in employee.Poles)
-            {
-                model.ManagedPoles.Add(PoleMapper.DataToModel(pole));
-            }
-
-            return model;
         }
 
         public void Add(EmployeeViewModels model)
@@ -80,43 +54,17 @@ namespace ExpanseReportManager.Services
 
         public ICollection<EmployeeViewModels> GetAllByPole(string id)
         {
-            ICollection<EmployeeViewModels> result = new List<EmployeeViewModels>();
-
-            IQueryable<Employee> employees = Repository.GetAll().Where(e => e.Pole_ID.ToString() == id);
-
-            foreach (Employee employee in employees)
-            {
-                result.Add(Mapper.DataToModel(employee));
-            }
-
-            return result;
+            return Mapper.AllToModel(Repository.GetAll().Where(e => e.Pole_ID.ToString() == id));
         }
 
         public ICollection<EmployeeViewModels> GetAllFree()
         {
-            ICollection<EmployeeViewModels> result = new List<EmployeeViewModels>();
-
-            IQueryable<Employee> employees = Repository.GetAll().Where(e => e.Pole_ID == null);
-
-            foreach (Employee employee in employees)
-            {
-                result.Add(Mapper.DataToModel(employee));
-            }
-
-            return result;
+            return Mapper.AllToModel(Repository.GetAll().Where(e => e.Pole_ID == null));
         }
 
         public ICollection<EmployeeViewModels> SearchByPole(string poleId, string query)
         {
-            ICollection<EmployeeViewModels> result = new List<EmployeeViewModels>();
-
-            IQueryable<Employee> poles = Repository.SearchByPole(poleId, query);
-            foreach (Employee res in poles)
-            {
-                result.Add(Mapper.DataToModel(res));
-            }
-
-            return result;
+            return Mapper.AllToModel(Repository.SearchByPole(poleId, query));
         }
 
         public void AddToPole(string poleId, string employeeId)

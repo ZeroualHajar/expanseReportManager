@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using ExpanseReportManagerModel;
+using ExpanseReportManager.Services;
 
 namespace ExpanseReportManager.Models
 {
-    public class CustomerViewModels
+    public class CustomerViewModels : AbstractViewModels
     {
+        private ExpansService ExpansService;
+        private ProjectService ProjectService;
 
-        [Display(Name = "")]
+        public CustomerViewModels() : base()
+        {
+            this.ExpansService = new ExpansService(Entities);
+            this.ProjectService = new ProjectService(Entities);
+        }
+
+        [Display(Name = "Id")]
         public string Id { get; set; }
 
         [Required]
@@ -20,5 +30,19 @@ namespace ExpanseReportManager.Models
         [Display(Name ="Code du client")]
         public string Code { get; set; }
 
+        public virtual ICollection<ExpansViewModels> Expanses {
+            get
+            {
+                return ExpansService.GetAllByCustomer(Id);
+            }
+        }
+
+        public virtual ICollection<ProjectViewModels> Projects
+        {
+            get
+            {
+                return ProjectService.GetAllByCustomer(Id);
+            }
+        }
     }
 }

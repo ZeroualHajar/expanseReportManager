@@ -8,20 +8,19 @@ using ExpanseReportManager.Services;
 
 namespace ExpanseReportManager.Controllers
 {
-    public class TvaController : Controller
+    public class TvaController : AbstractController
     {
         TvaService Service;
 
-        public TvaController()
+        public TvaController() : base()
         {
-            this.Service = new TvaService();
+            this.Service = new TvaService(this.Entities);
         }
+
         // GET: Tva
         public ActionResult Index()
         {
-            ICollection<TvaViewModels> tvas = Service.GetAll();
-
-            return View(tvas);
+            return View(Service.GetAll());
         }
 
         [HttpPost]
@@ -46,16 +45,14 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Create()
         {
-            TvaViewModels tva = new TvaViewModels();
-
-            return View(tva);
+            return View(new TvaViewModels());
         }
 
         public ActionResult Edit(string id)
         {
             TvaViewModels tva = Service.GetById(id);
 
-            // Pour affichage en pourcentage
+            // To show Tva value in percent in form
             tva.Value = tva.Value * 100;
 
             return View("Create", tva);
@@ -63,29 +60,25 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Details(string id)
         {
-            TvaViewModels tva = Service.GetById(id);
-            
-            return View(tva);
+            return View(Service.GetById(id));
         }
         public ActionResult Delete(string id)
         {
             Service.Delete(id);
+
             return RedirectToAction("index");
         }
 
         public ActionResult TvaSearch(string query)
         {
-            ICollection<TvaViewModels> list;
             if (string.IsNullOrEmpty(query))
             {
-                list = Service.GetAll();
+                return PartialView("_TableList", Service.GetAll());
             }
             else
             {
-                list = Service.Search(query);
+                return PartialView("_TableList", Service.Search(query));
             }
-
-            return PartialView("_TableList", list);
         }
 
     }

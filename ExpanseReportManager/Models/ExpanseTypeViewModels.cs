@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ExpanseReportManager.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace ExpanseReportManager.Models
 {
-    public class ExpanseTypeViewModels
+    public class ExpanseTypeViewModels : AbstractViewModels
     {
+        private TvaService TvaService;
+        private ExpansService ExpansService;
+
+        public ExpanseTypeViewModels() : base()
+        {
+            ExpansService = new ExpansService(Entities);
+            TvaService = new TvaService(Entities);
+        }
+
         [Display(Name = "L'identifiant du type de frais")]
         public string Id { get; set; }
 
@@ -31,6 +41,20 @@ namespace ExpanseReportManager.Models
         public string Tva_Id { get; set; }
 
         [Display(Name = "TVA")]
-        public TvaViewModels Tva { get; set; }
+        public TvaViewModels Tva
+        {
+            get
+            {
+                return TvaService.GetForExpanseType(Id);
+            } 
+        }
+
+        public ICollection<ExpansViewModels> Expanses
+        {
+            get
+            {
+                return ExpansService.GetAllByExpanseType(Id);
+            }
+        }
     }
 }

@@ -14,56 +14,34 @@ namespace ExpanseReportManager.Services
     {
         private PoleMapper Mapper;
         private PoleRepository Repository;
-        private EmployeeService EmployeeService;
 
 
-        public PoleService()
+        public PoleService(NotesDeFraisEntities entities)
         {
             this.Mapper = new PoleMapper();
-            this.Repository = new PoleRepository(new NotesDeFraisEntities());
-            this.EmployeeService = new EmployeeService();
+            this.Repository = new PoleRepository(entities);
         }
 
         public ICollection<PoleViewModels> GetAll()
         {
-            ICollection<PoleViewModels> result = new List<PoleViewModels>();
-
-            IQueryable<Pole> poles = Repository.GetAll();
-            foreach(Pole res in poles)
-            {  
-                result.Add(Mapper.DataToModel(res)) ;
-            }
-
-            return result;
+            return Mapper.AllToModel(Repository.GetAll());
         }
 
-        public ICollection<PoleViewModels> GetAllForIndex()
+        public ICollection<PoleViewModels> GetAllByManager(string id)
         {
-            ICollection<PoleViewModels> result = new List<PoleViewModels>();
+            return Mapper.AllToModel(Repository.GetAll().Where(p => p.Manager_ID.ToString() == id));
+        }
 
-            IQueryable<Pole> poles = Repository.GetAll();
-            foreach (Pole res in poles)
-            {
-                PoleViewModels model = Mapper.DataToModel(res);
-                model.Manager = EmployeeService.GetById(model.ManagerId);
-
-                result.Add(model);
-            }
-
-            return result;
+        public PoleViewModels GetForEmployee(string id)
+        {
+            return Mapper.DataToModel(
+                Repository.GetForEmployee(id)
+            );
         }
 
         public ICollection<PoleViewModels> Search(string query)
         {
-            ICollection<PoleViewModels> result = new List<PoleViewModels>();
-
-            IQueryable<Pole> poles = Repository.Search(query);
-            foreach (Pole res in poles)
-            {
-                result.Add(Mapper.DataToModel(res));
-            }
-
-            return result;
+            return Mapper.AllToModel(Repository.Search(query));
         }
 
 
@@ -93,19 +71,6 @@ namespace ExpanseReportManager.Services
         {
             Repository.Delete(Repository.GetById(id));
             Repository.Save();
-        }
-
-        public ICollection<PoleViewModels> GetEmployeManagedPoles(string id)
-        {
-            ICollection<PoleViewModels> result = new List<PoleViewModels>();
-
-            IQueryable<Pole> poles = Repository.GetAll().Where(p => p.Manager_ID.ToString() == id);
-            foreach (Pole res in poles)
-            {
-                result.Add(Mapper.DataToModel(res));
-            }
-
-            return result;
         }
     }
 }

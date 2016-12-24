@@ -25,7 +25,7 @@
                     <h3 class="panel-title">Information du pole</h3>
                 </div>
                 <div class="panel-body">
-                    @if (Model.Pole == null)
+                    @if (Model.PoleId == null || String.IsNullOrEmpty(Model.PoleId))
                     {
                         <p>L'employé n'appartient à Aucun pole</p>
                     }

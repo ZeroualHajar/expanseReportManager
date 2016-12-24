@@ -14,29 +14,30 @@ namespace ExpanseReportManager.Services
         public TvaRepository Repository;
         public TvaMapper Mapper;
 
-        public TvaService()
+        public TvaService(NotesDeFraisEntities entities)
         {
-            this.Repository = new TvaRepository(new NotesDeFraisEntities());
+            this.Repository = new TvaRepository(entities);
             this.Mapper = new TvaMapper();
         }
 
         public ICollection<TvaViewModels> GetAll()
         {
-            ICollection<TvaViewModels> result = new List<TvaViewModels>();
+            return Mapper.AllToModel(Repository.GetAll());
+        }
 
-            IQueryable<Tva> tvas = Repository.GetAll();
-
-            foreach (Tva tva in tvas)
-            {
-                result.Add(Mapper.DataToModel(tva));
-            }
-
-            return result;
+        public ICollection<TvaViewModels> GetAllByTva(string id)
+        {
+            return Mapper.AllToModel(Repository.GetAll().Where(t => t.TVA_ID.ToString() == id));
         }
 
         public TvaViewModels GetById(string id)
         {
             return Mapper.DataToModel(Repository.GetById(id));
+        }
+
+        public TvaViewModels GetForExpanseType(string id)
+        {
+            return Mapper.DataToModel(Repository.GetForExpanseType(id));
         }
 
         public void Add(TvaViewModels model)
@@ -49,17 +50,9 @@ namespace ExpanseReportManager.Services
             Repository.Save();
         }
 
-        public List<TvaViewModels> Search(string query)
+        public ICollection<TvaViewModels> Search(string query)
         {
-            List<TvaViewModels> result = new List<TvaViewModels>();
-
-            IQueryable<Tva> tvas = Repository.Search(query);
-            foreach (Tva tva in tvas)
-            {
-                result.Add(Mapper.DataToModel(tva));
-            }
-
-            return result;
+            return Mapper.AllToModel(Repository.Search(query));
         }
 
         public void Delete(string id)

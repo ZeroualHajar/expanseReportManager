@@ -8,21 +8,19 @@ using ExpanseReportManager.Models;
 
 namespace ExpanseReportManager.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeeController : AbstractController
     {
         private EmployeeService Service;
 
-        public EmployeeController()
+        public EmployeeController() : base()
         {
-            this.Service = new EmployeeService();
+            this.Service = new EmployeeService(this.Entities);
         }
 
         // GET: Employee
         public ActionResult Index()
         {
-            IEnumerable<EmployeeViewModels> employees =  Service.GetAll();
-
-            return View(employees);
+            return View(Service.GetAll());
         }
 
         [HttpGet]
@@ -35,14 +33,12 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult ByPole(string id)
         {
-            IEnumerable<EmployeeViewModels> employees = Service.GetAllByPole(id);
-
-            return View("Index", employees);
+            return View("Index", Service.GetAllByPole(id));
         }
 
         public ActionResult Details(string id)
         {
-            return View(Service.GetByIdForDetails(id));
+            return View(Service.GetById(id));
         }
 
     }

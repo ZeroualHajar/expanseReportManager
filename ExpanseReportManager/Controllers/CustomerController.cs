@@ -8,21 +8,19 @@ using ExpanseReportManager.Models;
 
 namespace ExpanseReportManager.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomerController : AbstractController
     {
         CustomerService Service;
         
-        public CustomerController()
+        public CustomerController() : base()
         {
-            this.Service = new CustomerService();
+            this.Service = new CustomerService(this.Entities);
         } 
         
         // GET: Client
         public ActionResult Index()
         {
-            ICollection<CustomerViewModels> clients = Service.GetAll();
-
-            return View(clients);
+            return View(Service.GetAll());
         }
 
 
@@ -48,43 +46,39 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Create()
         {
-            CustomerViewModels client = new CustomerViewModels();
-
-            return View(client);
+            return View(new CustomerViewModels());
         }
 
 
         public ActionResult Edit(string id)
         {
-            CustomerViewModels customer = Service.GetById(id);
-            return View("Create",customer);
+            return View("Create", Service.GetById(id));
         }
 
         public ActionResult Details(string id)
         {
-            CustomerViewModels customer = Service.GetById(id);
-            return View(customer);
+            return View(Service.GetById(id));
         }
 
         public ActionResult Delete(string id)
         {
             Service.Delete(id);
+
             return RedirectToAction("index");
         }
 
         public ActionResult CustomerSearch(string query)
         {
-            ICollection<CustomerViewModels> list;
             if (string.IsNullOrEmpty(query))
             {
-                list = Service.GetAll();
+                return PartialView("_TableList", Service.GetAll());
             }
             else
             {
-                list = Service.Search(query);
+                return PartialView("_TableList", Service.Search(query));
             }
 
-            return PartialView("_TableList", list);
+            
         }
     }
 }

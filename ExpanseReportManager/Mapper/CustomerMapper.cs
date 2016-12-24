@@ -9,20 +9,31 @@ namespace ExpanseReportManager.Mapper
 {
     public class CustomerMapper
     {
-        public CustomerViewModels DataToModel(Customer customer)
+        public ICollection<CustomerViewModels> AllToModel(IQueryable<Customer> customers)
         {
-            CustomerViewModels result = new CustomerViewModels();
-            result.Id = customer.Customer_ID.ToString();
-            result.Name = customer.Name;
-            result.Code = customer.Code;
+            return customers.Select(c => new CustomerViewModels
+            {
+                Id = c.Customer_ID.ToString(),
+                Name = c.Name,
+                Code = c.Code
 
-            return result;
+            }).ToList();
         }
 
-        public Customer ModelToData(Customer customer,CustomerViewModels client)
+        public CustomerViewModels DataToModel(Customer customer)
         {
-            customer.Name = client.Name;
-            customer.Code = client.Code;
+            return new CustomerViewModels
+            {
+                Id = customer.Customer_ID.ToString(),
+                Name = customer.Name,
+                Code = customer.Code
+            };
+        }
+
+        public Customer ModelToData(Customer customer,CustomerViewModels model)
+        {
+            customer.Name = model.Name;
+            customer.Code = model.Code;
             return customer;
 
         }

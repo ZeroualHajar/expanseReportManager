@@ -10,9 +10,23 @@ namespace ExpanseReportManager.Mapper
 {
     public class EmployeeMapper
     {
+        public ICollection<EmployeeViewModels> AllToModel(IQueryable<Employee> employees)
+        {
+            return employees.Select(employee => new EmployeeViewModels
+            {
+                Id = employee.Employee_ID.ToString(),
+                UserId = employee.User_ID,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Email = employee.Email,
+                Telephone = employee.Telephone,
+                PoleId = employee.Pole_ID.ToString()
+            }).ToList();
+        }
+
         public EmployeeViewModels DataToModel(Employee employee)
         {
-            EmployeeViewModels result = new EmployeeViewModels()
+            return new EmployeeViewModels
             {
                 Id = employee.Employee_ID.ToString(),
                 UserId = employee.User_ID,
@@ -22,8 +36,6 @@ namespace ExpanseReportManager.Mapper
                 Telephone = employee.Telephone,
                 PoleId = employee.Pole_ID.ToString()
             };
-
-            return result;
         }
 
         public Employee ModelToData(Employee employee, EmployeeViewModels model)

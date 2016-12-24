@@ -163,9 +163,6 @@ namespace ExpanseReportManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                EmployeeService service = new EmployeeService();
-                EmployeeViewModels employee = new EmployeeViewModels();
-
                 var user = new ApplicationUser
                 {
                     UserName = model.UserName,
@@ -176,6 +173,9 @@ namespace ExpanseReportManager.Controllers
                 if (result.Succeeded)
                 {
                     await this.UserManager.AddToRoleAsync(user.Id, model.Role);
+
+                    EmployeeService service = new EmployeeService();
+                    EmployeeViewModels employee = new EmployeeViewModels();
                     employee.LastName = model.LastName;
                     employee.FirstName = model.FirstName;
                     employee.Email = model.Email;

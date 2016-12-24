@@ -10,43 +10,33 @@ using ExpanseReportManager.Mapper;
 
 namespace ExpanseReportManager.Controllers
 {
-    public class PoleController : Controller
+    public class PoleController : AbstractController
     {
         private PoleService Service;
         private EmployeeService EmployeeService;
         private ProjectService ProjectService;
 
-        public PoleController()
+        public PoleController() : base()
         {
-            this.Service = new PoleService();
-            this.EmployeeService = new EmployeeService();
-            this.ProjectService = new ProjectService();
+            this.Service = new PoleService(this.Entities);
+            this.EmployeeService = new EmployeeService(this.Entities);
+            this.ProjectService = new ProjectService(this.Entities);
         } 
 
         // GET: Pole
         public ActionResult Index()
         {
-            ICollection<PoleViewModels> list = Service.GetAllForIndex();
-
-            return View(list);
+            return View(Service.GetAll());
         }
 
         public ActionResult Create()
         {
-            PoleViewModels pole = new PoleViewModels();
-
-            pole.AllEmployees = EmployeeService.GetAll();
-
-            return View(pole);
+            return View(new PoleViewModels());
         }
 
         public ActionResult Edit(string id)
         {
-            PoleViewModels pole = Service.GetById(id);
-
-            pole.AllEmployees = EmployeeService.GetAll();
-
-            return View("Create", pole);
+            return View("Create", Service.GetById(id));
         }
 
         [HttpPost]
@@ -62,68 +52,51 @@ namespace ExpanseReportManager.Controllers
                 {
                     Service.Edit(model);
                 }
-               
 
                 return RedirectToAction("Index");
             }
 
-            model.AllEmployees = EmployeeService.GetAll();
-            if (!string.IsNullOrEmpty(model.ManagerId))
+            /*if (!string.IsNullOrEmpty(model.ManagerId))
             {
                 model.Manager = EmployeeService.GetById(model.ManagerId);
-            }
+            }*/
 
             return View("Create", model);
         }
 
         public ActionResult PoleSearch(string query)
         {
-            ICollection<PoleViewModels> list;
             if (string.IsNullOrEmpty(query))
             {
-                list = Service.GetAll();
+                return PartialView("_TableList", Service.GetAll());
             }
             else
             {
-                list = Service.Search(query);
-            }
-
-            return PartialView("_TableList", list);
+                return PartialView("_TableList", Service.Search(query));
+            } 
         }
+
         public ActionResult EmployeeSearch(string poleId, string query)
         {
-            ICollection<EmployeeViewModels> list;
             if (string.IsNullOrEmpty(query))
             {
-                list = EmployeeService.GetAllByPole(poleId);
+                return PartialView("_TableListManageEmployee", EmployeeService.GetAllByPole(poleId));
             }
             else
             {
-                list = EmployeeService.SearchByPole(poleId, query);
+                return PartialView("_TableListManageEmployee", EmployeeService.SearchByPole(poleId, query));
             }
-
-            return PartialView("_TableListManageEmployee", list);
         }
 
 
         public ActionResult ManageEmployees(string id)
         {
-            ManagePoleEmployee managePole = new ManagePoleEmployee();
-            managePole.Id = id;
-            managePole.FreeEmployees = EmployeeService.GetAllFree();
-            managePole.PoleEmployees = EmployeeService.GetAllByPole(id);
-
-            return View(managePole);
+            return View(Service.GetById(id));
         }
 
         public ActionResult Details(string id)
         {
-            PoleViewModels model = Service.GetById(id);
-            model.PoleEmployees = EmployeeService.GetAllByPole(id);
-            model.PoleProjects = ProjectService.GetAllByPole(id);
-            model.Manager = EmployeeService.GetById(model.ManagerId);
-
-            return View(model);
+            return View(Service.GetById(id));
         }
 
         [HttpGet]
@@ -147,8 +120,6 @@ namespace ExpanseReportManager.Controllers
 
             return RedirectToAction("ManageEmployees",  "Pole", new { id = poleId });
         }
-
-
     }
 }
 

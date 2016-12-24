@@ -9,12 +9,12 @@ using ExpanseReportManager.Services;
 namespace ExpanseReportManager.Controllers
 {
     [Authorize(Roles = "SuperAdmin")]
-    public class RoleController : Controller
+    public class RoleController : AbstractController
     {
         RoleService Service;
-        public RoleController()
+        public RoleController() : base()
         {
-            this.Service = new RoleService();
+            this.Service = new RoleService(this.Entities);
         }
 
         // GET: Role
@@ -39,13 +39,13 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Edit(string id)
         {
-            RoleViewModels role = Service.GetById(id);
-            return View(role);
+            return View(Service.GetById(id));
         }
 
         public ActionResult Delete(string id)
         {
             Service.Delete(id);
+
             return RedirectToAction("index", "Role");
         }
     }

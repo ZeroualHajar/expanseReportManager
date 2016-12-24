@@ -15,43 +15,25 @@ namespace ExpanseReportManager.Services
         public ProjectRepository Repository;
         public ProjectMapper Mapper;
 
-        public ProjectService()
+        public ProjectService(NotesDeFraisEntities entities)
         {
-            this.Repository = new ProjectRepository(new NotesDeFraisEntities() );
+            this.Repository = new ProjectRepository(entities);
             this.Mapper = new ProjectMapper();
         }
 
         public ICollection<ProjectViewModels> GetAll()
         {
-            ICollection<ProjectViewModels> result = new List<ProjectViewModels>();
-            IQueryable<Project> liste = Repository.GetAll();
-            foreach (Project p in liste)
-            {
-                result.Add(Mapper.DataToModel(p));
-            }
-            return result;
+            return Mapper.AllToModel(Repository.GetAll());
         }
 
         public ICollection<ProjectViewModels> GetAllByPole(string id)
         {
-            ICollection<ProjectViewModels> result = new List<ProjectViewModels>();
-            IQueryable<Project> liste = Repository.GetAll().Where(p => p.Pole_ID.ToString() == id);
-            foreach (Project p in liste)
-            {
-                result.Add(Mapper.DataToModel(p));
-            }
-            return result;
+            return Mapper.AllToModel(Repository.GetAll().Where(p => p.Pole_ID.ToString() == id));
         }
 
         public ICollection<ProjectViewModels> GetAllByCustomer(string id)
         {
-            ICollection<ProjectViewModels> result = new List<ProjectViewModels>();
-            IQueryable<Project> liste = Repository.GetAll().Where(p => p.Customer_ID.ToString() == id);
-            foreach (Project p in liste)
-            {
-                result.Add(Mapper.DataToModel(p));
-            }
-            return result;
+            return Mapper.AllToModel(Repository.GetAll().Where(p => p.Customer_ID.ToString() == id));
         }
 
         public ProjectViewModels GetById(string id)
@@ -74,8 +56,6 @@ namespace ExpanseReportManager.Services
             Project projet = Repository.GetById(project.Project_ID);
             Mapper.ModelToData(projet, project);
             Repository.save();
-
-
         }
 
         public void Delete(string id)
@@ -85,17 +65,9 @@ namespace ExpanseReportManager.Services
 
         }
 
-        public List<ProjectViewModels> Search(string query)
+        public ICollection<ProjectViewModels> Search(string query)
         {
-            List<ProjectViewModels> result = new List<ProjectViewModels>();
-
-            IQueryable<Project> projets = Repository.Search(query);
-            foreach (Project res in projets)
-            {
-                result.Add(Mapper.DataToModel(res));
-            }
-
-            return result;
+            return Mapper.AllToModel(Repository.Search(query));
         }
 
     }

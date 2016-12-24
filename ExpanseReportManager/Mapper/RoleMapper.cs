@@ -9,15 +9,22 @@ namespace ExpanseReportManager.Mapper
 {
     public class RoleMapper
     {
+        public ICollection<RoleViewModels> AllToModel(IQueryable<AspNetRole> roles)
+        {
+            return roles.Select(role => new RoleViewModels
+            {
+                Id = role.Id,
+                Name = role.Name
+            }).ToList();
+        }
+
         public RoleViewModels DataToModel(AspNetRole role)
         {
-            RoleViewModels result = new RoleViewModels()
+            return new RoleViewModels
             {
                 Id = role.Id,
                 Name = role.Name
             };
-
-            return result;
         }
 
         public AspNetRole ModelToData(AspNetRole role, RoleViewModels model)

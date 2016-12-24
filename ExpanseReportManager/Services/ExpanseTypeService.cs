@@ -13,40 +13,27 @@ namespace ExpanseReportManager.Services
     {
         private ExpanseTypeMapper Mapper;
         private ExpanseTypeRepository Repository;
-        private EmployeeService EmployeeService;
 
 
-        public ExpanseTypeService()
+        public ExpanseTypeService(NotesDeFraisEntities entities)
         {
             this.Mapper = new ExpanseTypeMapper();
-            this.Repository = new ExpanseTypeRepository(new NotesDeFraisEntities());
-            this.EmployeeService = new EmployeeService();
+            this.Repository = new ExpanseTypeRepository(entities);
         }
 
         public ICollection<ExpanseTypeViewModels> GetAll()
         {
-            ICollection<ExpanseTypeViewModels> result = new List<ExpanseTypeViewModels>();
+            return Mapper.AllToModel(Repository.GetAll());
+        }
 
-            IQueryable<ExpanseType> expanseTypes = Repository.GetAll();
-            foreach (ExpanseType res in expanseTypes)
-            {
-                result.Add(Mapper.DataToModel(res));
-            }
-
-            return result;
+        public ICollection<ExpanseTypeViewModels> GetAllByTva(string id)
+        {
+            return Mapper.AllToModel(Repository.GetAll().Where(e => e.Tva_ID.ToString() == id));
         }
 
         public ICollection<ExpanseTypeViewModels> Search(string query)
         {
-            ICollection<ExpanseTypeViewModels> result = new List<ExpanseTypeViewModels>();
-
-            IQueryable<ExpanseType> expanseTypes = Repository.Search(query);
-            foreach (ExpanseType res in expanseTypes)
-            {
-                result.Add(Mapper.DataToModel(res));
-            }
-
-            return result;
+            return Mapper.AllToModel(Repository.Search(query));
         }
 
 

@@ -45,5 +45,10 @@ namespace ExpanseReportManager.Repositories
         {
             Entities.SaveChanges();
         }
+
+        public Tva GetForExpanseType(string id)
+        {
+            return Entities.ExpanseTypes.FirstOrDefault(t => t.ExpenseType_ID.ToString() == id).Tva;
+        }
     }
 }

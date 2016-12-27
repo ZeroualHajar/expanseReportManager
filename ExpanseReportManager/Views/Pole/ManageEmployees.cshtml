@@ -1,10 +1,10 @@
-﻿@model ExpanseReportManager.Models.ManagePoleEmployee
+﻿@model ExpanseReportManager.Models.PoleViewModels
 
 @{
     ViewBag.Title = "ManageEmployees";
 }
 
-<h2>Gestion des employés du pole</h2>
+<h2>Gestion des employés du pole @Model.Name</h2>
 
 <p>
     <button id="add-employee-to-pole" class="btn btn-raised btn-success" data-toggle="modal" data-target="#free-employee-modal">Ajouter un employé</button>

@@ -1,0 +1,31 @@
+﻿@model ExpanseReportManager.Models.ExpanseReportViewModels
+
+@{
+    switch (Model.StatusCode)
+    {
+        case 0:
+            <span class="label label-default">Brouillon</span>
+            break;
+        case 10:
+            <span class="label label-primary">En attente de validation par le manager</span>
+            break;
+        case 15:
+            <span class="label label-warning">Corrections demandées par le manager</span>
+            break;
+        case 20:
+            <span class="label label-primary">En attente de validation par la comptabilité</span>
+            break;
+        case 25:
+            <span class="label label-warning">Corrections demandées par la comptabilité</span>
+            break;
+        case 30:
+            <span class="label label-success">Validée</span>
+            break;
+        case 35:
+            <span class="label label-danger">Annulée</span>
+            break;
+        default:
+            <span class="label label-danger">Erreur statut</span>
+            break;
+    }
+}

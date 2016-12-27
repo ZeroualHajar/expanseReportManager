@@ -1,10 +1,17 @@
-﻿@model ExpanseReportManager.Models.CustomerViewModel
+﻿@model ExpanseReportManager.Models.CustomerViewModels
 
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Créer un nouveau client</h2>
+@if (Model.Id.IsEmpty())
+{
+    <h2>Créer un Client</h2>
+}
+else
+{
+    <h2>Modifier un client</h2>
+}
 
 @using (Html.BeginForm("CreateEdit", "Customer", FormMethod.Post)) 
 {
@@ -12,9 +19,6 @@
     @Html.HiddenFor(model=>model.Id)
     
     <div class="form-horizontal">
-
-       
-        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -44,3 +48,7 @@
 <div>
     @Html.ActionLink("Retour à la liste", "Index")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

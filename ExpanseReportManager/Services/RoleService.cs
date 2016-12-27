@@ -24,6 +24,11 @@ namespace ExpanseReportManager.Services
         {
             return Mapper.AllToModel(Repository.GetAll());
         }
+        public ICollection<RoleViewModels> GetAllForUser(string id)
+        {
+            return Mapper.AllToModel(Repository.GetAllForUser(id));
+        }
+
 
         public RoleViewModels GetById(string id)
         {

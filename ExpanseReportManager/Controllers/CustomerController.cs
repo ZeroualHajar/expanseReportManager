@@ -10,7 +10,7 @@ namespace ExpanseReportManager.Controllers
 {
     public class CustomerController : AbstractController
     {
-        CustomerService Service;
+        private CustomerService Service;
         
         public CustomerController() : base()
         {

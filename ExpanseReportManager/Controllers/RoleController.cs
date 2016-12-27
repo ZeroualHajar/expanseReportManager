@@ -11,7 +11,8 @@ namespace ExpanseReportManager.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class RoleController : AbstractController
     {
-        RoleService Service;
+        private RoleService Service;
+
         public RoleController() : base()
         {
             this.Service = new RoleService(this.Entities);

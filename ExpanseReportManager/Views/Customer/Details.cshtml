@@ -1,33 +1,73 @@
-﻿@model ExpanseReportManager.Models.CustomerViewModel
+﻿@model ExpanseReportManager.Models.CustomerViewModels
 
 @{
     ViewBag.Title = "Detail";
 }
 
-<h2>Detail du client</h2>
+<h2>Detail du client @Model.Name</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+<div class="details">
+    <div class="row">
+        <div class="col col-md-offset-1 col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Le client</h3>
+                </div>
+                <div class="panel-body">
+                    @Html.DisplayNameFor(model => model.Name) : @Html.DisplayFor(model => model.Name) <br />
+                    @Html.DisplayNameFor(model => model.Code) : @Html.DisplayFor(model => model.Code)
+                </div>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Code)
-        </dt>
+        <div class="col col-md-offset-1 col-md-9">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Les projet du client</h3>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Code)
-        </dd>
+                <div class="panel-body">
 
-    </dl>
+                    @if (Model.Projects.Count < 1)
+                    {
+                        <p>Le client n'a aucun projet.</p>
+                    }
+                    else
+                    {
+                        <p> Ce client comporte @Model.Projects.Count projet(s).</p>
+
+                        <ul>
+                            @{ int index = 0;}
+                            @foreach (var item in Model.Projects)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Details", "Project", new { id = item.Project_ID })">
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </a>
+                                </li>
+
+                                if (index > 9)
+                                {
+                                    break;
+                                }
+
+                                index++;
+                            }
+                        </ul>
+
+                                if (Model.Projects.Count > 1)
+                                {
+                                    @Html.ActionLink("Voir la liste complète", "Details", "Project", new { idPole = Model.Id })
+                                    }
+                                }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm" }) |
+        @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-primary btn-sm" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Retour à la liste", "Index")
-</p>

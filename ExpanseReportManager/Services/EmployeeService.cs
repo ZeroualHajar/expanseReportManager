@@ -35,6 +35,11 @@ namespace ExpanseReportManager.Services
             return Mapper.DataToModel(Repository.GetById(id));
         }
 
+        public EmployeeViewModels GetByUserId(string id)
+        {
+            return Mapper.DataToModel(Repository.GetByUserId(id));
+        }
+
         public void Add(EmployeeViewModels model)
         {
             Employee employee = new Employee();
@@ -44,11 +49,22 @@ namespace ExpanseReportManager.Services
             Repository.Save();
         }
 
+        public bool HasRole(string employeeId, string roleId)
+        {
+            return Repository.GetById(employeeId)
+                .AspNetUser.AspNetRoles.FirstOrDefault(r => r.Id == roleId) != null;
+        }
+
+        public void Associate(AddRoleToEmployeeViewModels model)
+        {
+
+            Repository.Associate(model.Employee, model.Roles);
+            Repository.Save();
+        }
+
         public void Delete(String id)
         {
-            Employee employee = Repository.GetById(id);
-
-            Repository.Delete(employee);
+            Repository.Delete(Repository.GetById(id));
             Repository.Save();
         }
 
@@ -85,6 +101,11 @@ namespace ExpanseReportManager.Services
             }
 
             Repository.Save();
+        }
+
+        public bool IsManager(string userId)
+        {
+            return Repository.IsManager(userId);
         }
     }
 }

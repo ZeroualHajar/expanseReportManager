@@ -16,8 +16,14 @@ namespace ExpanseReportManager.Repositories
 
         public IQueryable<AspNetRole> GetAll()
         {
-            return Entities.AspNetRoles;
-        } 
+            return Entities.AspNetRoles.Where(r => r.Name != "SuperAdmin");
+        }
+
+        public IQueryable<AspNetRole> GetAllForUser(string id)
+        {
+            return Entities.AspNetUsers.FirstOrDefault(u => u.Id == id) != null ? 
+                Entities.AspNetUsers.FirstOrDefault(u => u.Id == id).AspNetRoles.AsQueryable() : null;
+        }
 
         public AspNetRole GetById(string id)
         {

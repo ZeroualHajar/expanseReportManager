@@ -11,10 +11,12 @@ namespace ExpanseReportManager.Controllers
     public class EmployeeController : AbstractController
     {
         private EmployeeService Service;
+        private RoleService RoleService;
 
         public EmployeeController() : base()
         {
             this.Service = new EmployeeService(this.Entities);
+            this.RoleService = new RoleService(this.Entities);
         }
 
         // GET: Employee
@@ -31,6 +33,26 @@ namespace ExpanseReportManager.Controllers
             return RedirectToAction("Index", "Employee");
         }
 
+        public ActionResult Associate()
+        {
+            ViewBag.Roles = new SelectList(RoleService.GetAll(), "Id", "Name");
+            ViewBag.Employees = new SelectList(Service.GetAll(), "Id", "Name");
+
+            return View(new AddRoleToEmployeeViewModels());
+        }
+
+        [HttpPost]
+        public ActionResult Associate(AddRoleToEmployeeViewModels model)
+        {
+            if (ModelState.IsValid)
+            {
+                Service.Associate(model);
+
+                return RedirectToAction("Index");
+            }
+
+            return View("Associate", model);
+        }
         public ActionResult ByPole(string id)
         {
             return View("Index", Service.GetAllByPole(id));

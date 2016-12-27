@@ -10,8 +10,8 @@ namespace ExpanseReportManager.Controllers
 {
     public class ExpanseTypeController : AbstractController
     {
-        ExpanseTypeService Service;
-        TvaService TvaService;
+        private ExpanseTypeService Service;
+        private TvaService TvaService;
 
         public ExpanseTypeController() : base()
         {
@@ -42,7 +42,7 @@ namespace ExpanseReportManager.Controllers
         {
             if (!Service.IsValid(model))
             {
-                ModelState.AddModelError("Incohérence", "Vous avez choisi une valeur fixe. Le plafond est donc obligatoire");
+                ModelState.AddModelError("Fixed", "Vous avez choisi une valeur fixe. Le plafond est donc obligatoire");
             }
 
             if (ModelState.IsValid && Service.IsValid(model))

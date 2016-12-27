@@ -22,7 +22,9 @@ namespace ExpanseReportManager.Repositories
 
         public IQueryable<ExpanseReport> Search(string query)
         {
-            return null;
+            return Entities.ExpanseReports.Where(e =>
+               e.Year.ToString().Contains(query) || e.Month.ToString().Contains(query)
+            );
         }
 
 
@@ -44,6 +46,14 @@ namespace ExpanseReportManager.Repositories
         public void Save()
         {
             Entities.SaveChanges();
+        }
+
+        public IQueryable<ExpanseReport> SearchForEmployee(string employeeId, string query)
+        {
+            return Entities.ExpanseReports.Where( e =>
+                e.Employee_ID.ToString() == employeeId &&
+                (e.Year.ToString().Contains(query) || e.Month.ToString().Contains(query))
+            );
         }
     }
 }

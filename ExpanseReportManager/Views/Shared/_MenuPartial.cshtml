@@ -1,4 +1,6 @@
-﻿<div class="navbar navbar-default navbar-fixed-top">
+﻿@using Microsoft.AspNet.Identity;
+
+<div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -21,9 +23,11 @@
                         <ul class="dropdown-menu">
                             <li><a href="@Url.Action("Index","Employee")">Employés</a></li>
                             <li><a href="@Url.Action("Index","Role")">Rôles</a></li>
+                            <li><a href="@Url.Action("Associate","Employee")">Assigné un role</a></li>
                         </ul>
                     </li>
                 }
+
                 @if (Request.IsAuthenticated && User.IsInRole("Employee"))
                 {
                     <li class="dropdown">
@@ -34,6 +38,15 @@
                         <ul class="dropdown-menu">
                             <li><a href="@Url.Action("Create","ExpanseReport")">Nouvel Note de Frais</a></li>
                             <li><a href="@Url.Action("Index","ExpanseReport")">Mes notes de frais</a></li>
+                            @if (Request.IsAuthenticated && User.IsInRole("Comptable"))
+                            {
+                                <li><a href="@Url.Action("ToValidate","ExpanseReport")">Note de frais à valider(Comptable)</a></li>
+                            }
+
+                            @if (IsManager(User.Identity.GetUserId()))
+                            {
+                                <li><a href="@Url.Action("ToValidate","ExpanseReport")">Note de frais à valider(Manager)</a></li>
+                            }
                         </ul>
                     </li>
                 }

@@ -160,7 +160,7 @@ else
                 <div class="form-group">
                     <input id="filter-customer-project" type="text" class="form-control" placeholder="Rerchercher" />
                 </div>
-                @foreach (CustomerViewModel customer in Model.AllCustomers)
+                @foreach (CustomerViewModels customer in Model.AllCustomers)
                 {
                     <div class="list-group" data-content="@customer.Id">
                         <div class="list-group-item">
@@ -225,6 +225,7 @@ else
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/add_customer_pole_to_project.js")
 }
 

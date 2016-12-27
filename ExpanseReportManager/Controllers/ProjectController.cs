@@ -12,14 +12,10 @@ namespace ExpanseReportManager.Controllers
     public class ProjectController : AbstractController
     {
         private ProjectService Service;
-        private CustomerService CustomerService;
-        private PoleService PoleService;
 
         public ProjectController() : base()
         {
             this.Service = new ProjectService(this.Entities);
-            this.CustomerService = new CustomerService(this.Entities);
-            this.PoleService = new PoleService(this.Entities);
         }
 
         // GET: Project

@@ -201,6 +201,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\ExpanseReportController.cs" />
     <Compile Include="Controllers\ExpanseTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -219,8 +220,10 @@
     <Compile Include="Mapper\RoleMapper.cs" />
     <Compile Include="Mapper\PoleMapper.cs" />
     <Compile Include="Mapper\TvaMapper.cs" />
+    <Compile Include="Mapper\UserMapper.cs" />
     <Compile Include="Models\AbstractViewModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CustomBaseViewPage.cs" />
     <Compile Include="Models\CustomerViewModels.cs" />
     <Compile Include="Models\EmployeeViewModels.cs" />
     <Compile Include="Models\ExpanseReportViewModels.cs" />
@@ -232,6 +235,7 @@
     <Compile Include="Models\RoleViewModels.cs" />
     <Compile Include="Models\PoleViewModels.cs" />
     <Compile Include="Models\TvaViewModels.cs" />
+    <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
@@ -241,6 +245,7 @@
     <Compile Include="Repositories\ProjectRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\TvaRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\ExpanseReportService.cs" />
@@ -250,6 +255,7 @@
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\TvaService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -358,12 +364,16 @@
     <Content Include="Views\ExpanseType\Details.cshtml" />
     <Content Include="Views\ExpanseType\Index.cshtml" />
     <Content Include="Views\ExpanseType\Create.cshtml" />
+    <Content Include="Views\ExpanseReport\Index.cshtml" />
+    <Content Include="Views\ExpanseReport\_TableList.cshtml" />
+    <Content Include="Views\ExpanseReport\_DisplayStatusCode.cshtml" />
+    <Content Include="Views\Employee\Associate.cshtml" />
+    <Content Include="Views\ExpanseReport\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\js\" />
     <Folder Include="Views\Abstract\" />
-    <Folder Include="Views\Client\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

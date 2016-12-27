@@ -10,7 +10,7 @@ namespace ExpanseReportManager.Controllers
 {
     public class TvaController : AbstractController
     {
-        TvaService Service;
+        private TvaService Service;
 
         public TvaController() : base()
         {

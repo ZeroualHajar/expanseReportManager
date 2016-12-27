@@ -55,7 +55,6 @@ namespace ExpanseReportManager.Mapper
 
         public ExpanseReport ModelToData(ExpanseReport expanseReport, ExpanseReportViewModels model)
         {
-            expanseReport.ExpanseReport_ID = new Guid(model.ExpanseReport_ID);
             expanseReport.Employee_ID = new Guid(model.Employee_ID);
             expanseReport.Author_ID = new Guid(model.Author_ID);
             expanseReport.CreationDate = model.CreationDate;

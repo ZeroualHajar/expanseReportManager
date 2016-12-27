@@ -38,13 +38,21 @@ namespace ExpanseReportManager.Models
 
         [Display(Name = "ID Pole")]
         public string PoleId { get; set; }
+        public string Name
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
 
         [Display(Name = "Pole de l'employé")]
         public PoleViewModels Pole
         {
             get
             {
-                return PoleService.GetForEmployee(PoleId);
+                return PoleService.GetById(PoleId);
             }
         }
 
@@ -75,6 +83,22 @@ namespace ExpanseReportManager.Models
             }
         }
 
+    }
+
+    public class AddRoleToEmployeeViewModels
+    {
+        public AddRoleToEmployeeViewModels()
+        {
+            Roles = new List<string>();
+        }
+        
+        [Required]
+        [Display(Name = "Rôle")]
+        public ICollection<string> Roles { get; set; }
+
+        [Required]
+        [Display(Name = "Employé")]
+        public string Employee { get; set; }
     }
 
 }

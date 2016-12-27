@@ -24,6 +24,11 @@ namespace ExpanseReportManager.Repositories
         {
             return Entities.Employees.FirstOrDefault(e => e.Employee_ID.ToString() == id);
         }
+        public Employee GetByUserId(string id)
+        {
+            return Entities.Employees.FirstOrDefault(e => e.User_ID.ToString() == id);
+        }
+
 
         public void Add(Employee employe)
         {
@@ -53,5 +58,23 @@ namespace ExpanseReportManager.Repositories
             );
         }
 
+        public void Associate(string employee, ICollection<string> roles)
+        {
+            Entities.Employees.FirstOrDefault(e => e.Employee_ID.ToString() == employee)
+                .AspNetUser.AspNetRoles.Clear();
+
+            foreach (string role in roles)
+            {
+                Entities.Employees.FirstOrDefault(e => e.Employee_ID.ToString() == employee)
+                .AspNetUser.AspNetRoles.Add(
+                    Entities.AspNetRoles.FirstOrDefault(r => r.Id == role)
+                );
+            }
+        }
+
+        public bool IsManager(string userId)
+        {
+            return Entities.Employees.FirstOrDefault(e => e.User_ID.ToString() == userId).Poles.Count() > 0;
+        }
     }
 }

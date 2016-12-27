@@ -14,13 +14,11 @@ namespace ExpanseReportManager.Controllers
     {
         private PoleService Service;
         private EmployeeService EmployeeService;
-        private ProjectService ProjectService;
 
         public PoleController() : base()
         {
             this.Service = new PoleService(this.Entities);
             this.EmployeeService = new EmployeeService(this.Entities);
-            this.ProjectService = new ProjectService(this.Entities);
         } 
 
         // GET: Pole
@@ -55,11 +53,6 @@ namespace ExpanseReportManager.Controllers
 
                 return RedirectToAction("Index");
             }
-
-            /*if (!string.IsNullOrEmpty(model.ManagerId))
-            {
-                model.Manager = EmployeeService.GetById(model.ManagerId);
-            }*/
 
             return View("Create", model);
         }

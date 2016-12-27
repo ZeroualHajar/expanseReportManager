@@ -9,8 +9,8 @@ namespace ExpanseReportManager.Models
 {
     public class ExpanseReportViewModels : AbstractViewModels
     {
-        private ExpansService ExpansService;
-        private EmployeeService EmployeeService;
+        protected ExpansService ExpansService;
+        protected EmployeeService EmployeeService;
 
         public ExpanseReportViewModels() : base()
         {
@@ -21,7 +21,7 @@ namespace ExpanseReportManager.Models
         [Display(Name ="Id note de frais")]
         public string ExpanseReport_ID { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Vous devez selectionnez un employé")]
         [Display(Name = "Id de l'employée")]
         public string Employee_ID { get; set; }
 
@@ -33,15 +33,12 @@ namespace ExpanseReportManager.Models
         [Display(Name = "Date de création")]
         public System.DateTime CreationDate { get; set; }
 
-        [Required]
         [Display(Name = "Année")]
         public int Year { get; set; }
 
-        [Required]
         [Display(Name = "Mois")]
         public int Month { get; set; }
 
-        [Required]
         [Display(Name = "Statut")]
         public int StatusCode { get; set; }
 
@@ -52,12 +49,15 @@ namespace ExpanseReportManager.Models
         public Nullable<System.DateTime> AccountingValidatationDate { get; set; }
 
         [Display(Name = "Total HT")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double Total_HT { get; set; }
 
         [Display(Name = "Total TVA")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double Total_TVA { get; set; }
 
         [Display(Name = "Total TTC")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double Total_TTC { get; set; }
 
         [Display(Name = "Commentaire manager")]
@@ -92,5 +92,25 @@ namespace ExpanseReportManager.Models
                 return ExpansService.GetAllByReport(ExpanseReport_ID);
             }
         }
+    }
+
+    public class CreateExpanseReportViewModels : ExpanseReportViewModels
+    {
+        public CreateExpanseReportViewModels() : base()
+        {
+        }
+
+        [Display(Name = "Employés du pole")]
+        public ICollection<EmployeeViewModels> Employees
+        {
+            get
+            {
+                return EmployeeService.GetAllByPole(Author.PoleId);
+            }
+        }
+
+        [Display(Name = "Mois/Année")]
+        [Required]
+        public DateTime DateReport { get; set; }
     }
 }

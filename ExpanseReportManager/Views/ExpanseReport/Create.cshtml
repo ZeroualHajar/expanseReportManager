@@ -1,0 +1,108 @@
+﻿@using Microsoft.AspNet.Identity;
+@model ExpanseReportManager.Models.CreateExpanseReportViewModels
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@if (Model.ExpanseReport_ID.IsEmpty())
+{
+    <h2>Créer une note de frais</h2>
+}
+else
+{
+    <h2>Modifier une note de frais</h2>
+}
+
+@using (Html.BeginForm("Create", "ExpanseReport", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.ExpanseReport_ID)
+        @Html.HiddenFor(model => model.CreationDate)
+        @Html.HiddenFor(model => model.StatusCode)
+        @Html.HiddenFor(model => model.Author_ID)
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if (IsManager(User.Identity.GetUserId()))
+        {
+            <div class="form-group">
+                @Html.Label("Employé", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 checkbox">
+                    <label>
+                        <input type="checkbox" id="Employee_ID" name="Employee_ID" value="@Model.Author_ID"
+                               @(Model.Author_ID.IsEmpty() ? "" : "checked='checked'") /> Pour moi
+                    </label>
+                    @Html.ValidationMessageFor(model => model.Employee_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div id="divEmployee" class="form-group hidden">
+                <div class="col col-md-2"></div>
+                <div class="col-md-10" id="divEmployee">
+                    @Html.DropDownListFor(m => Model.Employee_ID, new SelectList(Model.Employees, "Id", "Name"), new { @class = "form-control", @disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.Employee_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        else
+        {
+            Model.Employee_ID = Model.Author_ID;
+            @Html.HiddenFor(model => model.Employee_ID)
+        }
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateReport, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="DateReport" id="DateReport" class="form-control"/>
+                @Html.ValidationMessageFor(model => model.DateReport, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Valider" class="btn btn-raised btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Retour à liste", "Index")
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var dateReport = new MaterialDatepicker('#DateReport', {
+                type: "month",
+                lang: 'fr'
+            });
+
+
+            $("input#Employee_ID").change(function () {
+                if ($('#Employee_ID').is(':checked')) {
+                    $("#divEmployee #Employee_ID").attr("disabled", "disabled");
+                    $("#divEmployee").addClass("hidden");
+                }
+                else {
+                    $("#divEmployee #Employee_ID").removeAttr("disabled");
+                    $("#divEmployee").removeClass("hidden");
+                }
+            });
+        });
+        
+    </script>
+}
+
+@section styles
+{
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/FreddyFY/material-datepicker/master/dist/material-datepicker.css">
+}

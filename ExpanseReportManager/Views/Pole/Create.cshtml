@@ -1,0 +1,132 @@
+﻿@using ExpanseReportManager.Models
+@model ExpanseReportManager.Models.PoleViewModels
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@if (Model.Id.IsEmpty())
+{
+    <h2>Créer nouveau Pole</h2>
+}
+else
+{
+    <h2>Modifier Pole</h2>
+}
+
+
+@using (Html.BeginForm("CreateEdit", "Pole", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ManagerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.ManagerId)
+                @if (Model.ManagerId.IsEmpty())
+                {
+                    <div class="pole-manager-place col col-md-5">
+                        Aucun Manager séléctionner
+                    </div>
+                    <div class="col col-md-3">
+                        <button id="button-add-manager" type="button" class="btn btn-fab btn-success btn-fab-mini" data-toggle="modal" data-target="#manager-modal">
+                            <i class="material-icons">add</i>
+                            <div class="ripple-container"></div>
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="pole-manager-place col col-md-5">
+                        <div class="list-group" data-content="@Model.ManagerId">
+                            <div class="list-group-item">
+                                <div class="col col-sm-10 col-sm-offset-1 row-content">
+                                    <h4 class="list-group-item-heading">@Model.Manager.FirstName @Model.Manager.LastName</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <button id="button-add-manager" type="button" class="btn btn-fab btn-warning btn-fab-mini" data-toggle="modal" data-target="#manager-modal">
+                            <i class="material-icons">mode_edit</i>
+                            <div class="ripple-container"></div>
+                        </button>
+                    </div>
+                }
+
+                
+            </div>
+            <div class="col-md-offset-2">
+                @Html.ValidationMessageFor(model => model.ManagerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Valider" class="btn btn-raised btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Retour à la liste", "Index")
+</div>
+
+<div class="modal employee-modal" id="manager-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Ajouter un manager</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input id="filter-manager-pole" type="text" class="form-control" placeholder="Rerchercher"/>
+                </div>
+                @foreach (EmployeeViewModels employee in Model.AllEmployees)
+                {
+                    <div class="list-group" data-content="@employee.Id">
+                        <div class="list-group-item">
+                            <div class="col-sm-1">
+                                <button type="button" class="button-add-manager btn btn-fab btn-warning btn-fab-mini" >
+                                    <i class="material-icons">done</i>
+                                    <div class="ripple-container"></div>
+                                </button>
+                            </div>
+                            <div class="col col-sm-10 col-sm-offset-1 row-content">
+                                <h4 class="list-group-item-heading">@employee.FirstName @employee.LastName</h4>
+                                <p class="list-group-item-text">Choose me</p>
+                            </div>
+                        </div>
+                        <div class="list-group-separator"></div>                        
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/add_manager_to_pole.js")
+}
+

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ExpanseReportManager.Models.CustomerViewModels>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>La liste des clients</h2>
+
+<p>
+    @Html.ActionLink("Ajouter un client", "Create",null, new { @class = " btn btn-raised btn-success " })
+</p>
+
+@using (Ajax.BeginForm("CustomerSearch", new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "customers-table",
+    OnFailure = "failedSearch"
+}))
+{
+    <div class="form-group">
+        <input type="text" name="query" id="query" class="form-control" placeholder="Rechercher..." />
+        <button type="submit" class="btn btn-fab btn-success btn-fab-mini">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+        </button>
+    </div>
+
+
+}
+
+<div id="customers-table">
+    @Html.Partial("_TableList", Model)
+</div>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".modal-delete").click(function () {
+                $($(this).attr("data-target")).modal();
+            });
+        });
+    </script>
+}

@@ -77,9 +77,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -195,43 +201,126 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ExpansController.cs" />
+    <Compile Include="Controllers\ExpanseReportController.cs" />
+    <Compile Include="Controllers\ExpanseTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PoleController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\TvaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mapper\CustomerMapper.cs" />
+    <Compile Include="Mapper\EmployeeMapper.cs" />
+    <Compile Include="Mapper\ExpanseReportMapper.cs" />
+    <Compile Include="Mapper\ExpanseTypeMapper.cs" />
+    <Compile Include="Mapper\ExpansMapper.cs" />
+    <Compile Include="Mapper\ProjectMapper.cs" />
+    <Compile Include="Mapper\RoleMapper.cs" />
+    <Compile Include="Mapper\PoleMapper.cs" />
+    <Compile Include="Mapper\TvaMapper.cs" />
+    <Compile Include="Mapper\UserMapper.cs" />
+    <Compile Include="Models\AbstractViewModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CustomAuthorize.cs" />
+    <Compile Include="Models\CustomBaseViewPage.cs" />
+    <Compile Include="Models\CustomerViewModels.cs" />
+    <Compile Include="Models\EmployeeViewModels.cs" />
+    <Compile Include="Models\ExpanseReportViewModels.cs" />
+    <Compile Include="Models\ExpanseTypeViewModels.cs" />
+    <Compile Include="Models\ExpansViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProjectViewModels.cs" />
+    <Compile Include="Models\RoleViewModels.cs" />
+    <Compile Include="Models\PoleViewModels.cs" />
+    <Compile Include="Models\TvaViewModels.cs" />
+    <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\EmployeeRepository.cs" />
+    <Compile Include="Repositories\ExpanseReportRepository.cs" />
+    <Compile Include="Repositories\ExpanseTypeRepository.cs" />
+    <Compile Include="Repositories\ExpansRepository.cs" />
+    <Compile Include="Repositories\PoleRepository.cs" />
+    <Compile Include="Repositories\ProjectRepository.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Repositories\TvaRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\ExpanseReportService.cs" />
+    <Compile Include="Services\ExpanseTypeService.cs" />
+    <Compile Include="Services\ExpansService.cs" />
+    <Compile Include="Services\PoleService.cs" />
+    <Compile Include="Services\ProjectService.cs" />
+    <Compile Include="Services\RoleService.cs" />
+    <Compile Include="Services\TvaService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\bootstrap_material\css\bootstrap-material-design.min.css" />
+    <Content Include="Content\css\bootstrap_material\css\ripples.min.css" />
+    <Content Include="Content\css\bootstrap_material\js\material.min.js" />
+    <Content Include="Content\css\bootstrap_material\js\ripples.min.js" />
+    <Content Include="Content\css\Datepicker\css\bootstrap-material-datetimepicker.css" />
+    <Content Include="Content\css\Datepicker\font\Material-Design-Icons.svg" />
+    <Content Include="Content\css\Datepicker\js\bootstrap-material-datetimepicker.js" />
+    <Content Include="Content\img\403.png" />
+    <Content Include="Content\img\404.jpg" />
+    <Content Include="Content\img\404.png" />
+    <Content Include="Content\img\loading.gif" />
+    <Content Include="Content\material.css" />
+    <Content Include="Content\snackbar.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\add_customer_pole_to_project.js" />
+    <Content Include="Scripts\add_manager_to_pole.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\css\Datepicker\font\Material-Design-Icons.eot" />
+    <Content Include="Content\css\Datepicker\font\Material-Design-Icons.ttf" />
+    <Content Include="Content\css\Datepicker\font\Material-Design-Icons.woff" />
+    <Content Include="Content\css\Datepicker\font\Material-Design-Icons.woff2" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\snackbar.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Views\Errors\404.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -265,9 +354,54 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\Pole\Index.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Shared\_PopUpDelete.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Pole\_TableList.cshtml" />
+    <Content Include="Views\Pole\Create.cshtml" />
+    <Content Include="Views\Customer\_TableList.cshtml" />
+    <Content Include="Views\Pole\Details.cshtml" />
+    <Content Include="Views\Pole\ManageEmployees.cshtml" />
+    <Content Include="Views\Pole\_TableListManageEmployee.cshtml" />
+    <Content Include="Views\Employee\Details.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\Project\_TableList.cshtml" />
+    <Content Include="Views\Project\Create.cshtml" />
+    <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="Views\Tva\Index.cshtml" />
+    <Content Include="Views\Tva\_TableList.cshtml" />
+    <Content Include="Views\Tva\Details.cshtml" />
+    <Content Include="Views\Tva\Create.cshtml" />
+    <Content Include="Views\ExpanseType\_TableList.cshtml" />
+    <Content Include="Views\ExpanseType\Details.cshtml" />
+    <Content Include="Views\ExpanseType\Index.cshtml" />
+    <Content Include="Views\ExpanseType\Create.cshtml" />
+    <Content Include="Views\ExpanseReport\Index.cshtml" />
+    <Content Include="Views\ExpanseReport\_TableList.cshtml" />
+    <Content Include="Views\ExpanseReport\_DisplayStatusCode.cshtml" />
+    <Content Include="Views\Employee\Associate.cshtml" />
+    <Content Include="Views\ExpanseReport\Create.cshtml" />
+    <Content Include="Views\ExpanseReport\Details.cshtml" />
+    <Content Include="Views\Expans\_FormCreateExpanse.cshtml" />
+    <Content Include="Views\Expans\_ExpansTable.cshtml" />
+    <Content Include="Views\Expans\_Project_ID.cshtml" />
+    <Content Include="Views\ExpanseReport\_DisplayAction.cshtml" />
+    <Content Include="Views\Errors\404.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\BadCredential.cshtml" />
+    <Content Include="Views\Error\InternalError.cshtml" />
+    <Content Include="Views\ExpanseReport\PdfExport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\js\" />
+    <Folder Include="Views\Abstract\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -276,6 +410,15 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExpanseReportManagerModel\ExpanseReportManager.Model.csproj">
+      <Project>{1a1d176a-6e4c-4f8e-a990-07422c86f961}</Project>
+      <Name>ExpanseReportManager.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

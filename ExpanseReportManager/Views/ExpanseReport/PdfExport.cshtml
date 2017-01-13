@@ -1,0 +1,105 @@
+﻿@using ExpanseReportManager.Models
+@model IEnumerable<ExpanseReportManager.Models.ExpansViewModels>
+
+<div class="row topdf">
+    <div class="col col-md-offset-1 col-md-10">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @if (Model.Any())
+                {
+                    <h3 class="panel-title">Frais de @Model.First().ExpanseReport.Employee.Name pour @Model.First().ExpanseReport.Month/@Model.First().ExpanseReport.Year</h3>
+                }
+                else
+                {
+                    <h3 class="panel-title">Aucun frais</h3>
+                }
+
+            </div>
+
+            <div class="panel-body">
+                @if (Model.Any())
+                {
+                    <p><b>Total HT :</b><b class="text-primary"> @Html.DisplayFor(m => Model.First().ExpanseReport.Total_HT)</b></p>
+                    <p><b>Total TVA :</b><b class="text-primary"> @Html.DisplayFor(m => @Model.First().ExpanseReport.Total_TVA)</b></p>
+                    <p><b>Total TTC :</b><b class="text-primary"> @Html.DisplayFor(m => @Model.First().ExpanseReport.Total_TTC)</b></p>
+
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Day)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ExpanseType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Customer)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Project)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Amount_HT)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Amount_TVA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Amount_TTC)
+                            </th>
+
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Day)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ExpanseType.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Customer.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Project.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount_HT)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount_TVA)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount_TTC)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-dismissible alert-warning">
+                        <h4>Désolé!</h4>
+                        <p>
+                            Aucun frais ajouté.
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section styles
+{
+    <style>
+        body div.navbar, footer {
+            display: none;
+        }
+        body{
+            background-color: white;
+        }
+    </style>
+}

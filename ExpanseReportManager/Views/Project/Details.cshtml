@@ -1,0 +1,94 @@
+﻿@using ExpanseReportManager.Models
+
+@model ExpanseReportManager.Models.ProjectViewModels
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details du projet @Model.Name</h2>
+
+<div class="row">
+    <div class="col col-md-offset-1 col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Information du projet</h3>
+            </div>
+            <div class="panel-body">
+                @Html.DisplayNameFor(model => model.Name) : @Model.Name <br />
+                @Html.DisplayNameFor(model => model.Description) :@Model.Description <br/>
+                @Html.DisplayNameFor(model => model.Budget) : @string.Format("{0:C}", @Model.Budget)<br/>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-offset-1 col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Information du pole</h3>
+            </div>
+            <div class="panel-body">
+                @if (Model.Pole == null)
+                {
+                    <p>Le projet n'appartient à Aucun pole</p>
+                }
+                else
+                {
+                    <p>
+                        @Html.DisplayNameFor(model => model.Pole) :
+                        <a href="@Url.Action("Details", "Pole", new { id = Model.Pole.Id })">
+                            @Model.Pole.Name
+                        </a>
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-offset-1 col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">le client du projet</h3>
+            </div>
+            <div class="panel-body">
+                @if (Model.Customer == null)
+                {
+                    <p>Le projet n'a Aucun client</p>
+                }
+                else
+                {
+                    <p>
+                        @Html.DisplayNameFor(model => model.Customer) :
+                        <a href="@Url.Action("Details", "Customer", new { id = Model.Customer_Id })">
+                            @Model.Customer.Name 
+                        </a>
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.Project_ID }, new { @class = "btn btn-primary btn-sm" }) |
+    @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-primary btn-sm" })
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,107 @@
+﻿@using ExpanseReportManager.Models
+
+@model ExpanseReportManager.Models.EmployeeViewModels
+
+<div>
+    <h4>Détails de l'employé @Model.FirstName @Model.LastName</h4>
+    
+    <div class="row">
+        <div class="col col-md-offset-1 col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Information de l'employé</h3>
+                </div>
+                <div class="panel-body">
+                    @Html.DisplayNameFor(model => model.LastName) & @Html.DisplayNameFor(model => model.FirstName) : @Model.FirstName @Model.LastName <br />
+                    @Html.DisplayNameFor(model => model.Email) : @Model.Email <br />
+                    @Html.DisplayNameFor(model => model.Telephone) : @Model.Telephone <br />
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-md-offset-1 col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Information du pole</h3>
+                </div>
+                <div class="panel-body">
+                    @if (Model.PoleId == null || String.IsNullOrEmpty(Model.PoleId))
+                    {
+                        <p>L'employé n'appartient à Aucun pole</p>
+                    }
+                    else
+                    {
+                        <p>
+                            @Html.DisplayNameFor(model => model.Pole) :
+                            <a href="@Url.Action("Details", "Pole", new { id = Model.Pole.Id })">
+                                @Model.Pole.Name
+                            </a>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-md-offset-1 col-md-9">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Manage les poles</h3>
+                </div>
+                <div class="panel-body">
+                    
+                    @if (Model.ManagedPoles.Count < 1)
+                    {
+                        <p>L'employé ne manage aucun pole</p>
+                    }
+                    else
+                    {
+                        <p>Cette employé manage @Model.ManagedPoles.Count pole(s)</p>
+
+                        <ul>
+                            @foreach (PoleViewModels pole in Model.ManagedPoles)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Details", "Pole", new { id = pole.Id })">
+                                        @pole.Name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-offset-1 col-md-9">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Notes de frais de l'employée</h3>
+                </div>
+                <div class="panel-body">
+
+                    @if (Model.UsingExpanseReports.Count < 1)
+                    {
+                        <p>L'employé ne manage aucune note de frais</p>
+                    }
+                    else
+                    {
+                        <p>Cette employé manage @Model.UsingExpanseReports.Count pole(s)</p>
+
+                        <ul>
+                            @foreach (ExpanseReportViewModels report in Model.UsingExpanseReports)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Details", "ExpanseReport", new { id = report.ExpanseReport_ID })">
+                                        @report.Month/@report.Year
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Retour à la liste", "Index",null, new { @class = "btn  btn-primary btn-sm" })
+</p>

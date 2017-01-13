@@ -49,8 +49,7 @@ namespace ExpanseReportManager.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Courrier électronique")]
-        [EmailAddress]
+        [Display(Name = "Nom Utilisateur ou Email")]
         public string Email { get; set; }
 
         [Required]
@@ -64,6 +63,29 @@ namespace ExpanseReportManager.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [RegularExpression("([a-zA-Z0-9 .&'-]+)", ErrorMessage = "Le prénom ne doit contenir que des chiffres et des lettres")]
+        [Display(Name = "Prénom")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [RegularExpression("([a-zA-Z0-9 .&'-]+)", ErrorMessage = "Le nom ne doit contenir que des chiffres et des lettres")]
+        [Display(Name = "Nom")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Téléphone")]
+        [DataType(DataType.PhoneNumber)]
+        public string Telephone { get; set; }
+
+        [Required]
+        [Display(Name = "Role")]
+        public string Role { get; set; }
+
+        [Required]
+        [RegularExpression("([a-zA-Z0-9 .&'-]+)", ErrorMessage = "Le nom d'utilisateur ne doit contenir que des chiffres et des lettres")]
+        [Display(Name = "Nom d'utilisateur")]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Courrier électronique")]

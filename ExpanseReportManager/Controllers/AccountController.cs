@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ExpanseReportManager.Models;
+using ExpanseReportManager.Services;
 
 namespace ExpanseReportManager.Controllers
 {
@@ -17,9 +18,11 @@ namespace ExpanseReportManager.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext context;
 
         public AccountController()
         {
+            context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -73,9 +76,17 @@ namespace ExpanseReportManager.Controllers
                 return View(model);
             }
 
+            string userName = model.Email;
+
+            // check if it's an email
+            if (model.Email.Contains("@"))
+            {
+                userName = UserManager.FindByEmail(model.Email).UserName;
+            }
+
             // Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
             // Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(userName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -136,35 +147,58 @@ namespace ExpanseReportManager.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "SuperAdmin, Ressource Humaine")]
         public ActionResult Register()
         {
+            ViewBag.Role = new SelectList(context.Roles.Where(r => !r.Name.Contains("SuperAdmin")).ToList(), "Name", "Name");
             return View();
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "SuperAdmin, Ressource Humaine")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    PhoneNumber = model.Telephone
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await this.UserManager.AddToRoleAsync(user.Id, model.Role);
+
+                    if(model.Role != "Employee")
+                    {
+                        UserManager.AddToRole(user.Id, "Employee");
+                    }
+
+                    EmployeeService service = new EmployeeService();
+                    EmployeeViewModels employee = new EmployeeViewModels();
+                    employee.LastName = model.LastName;
+                    employee.FirstName = model.FirstName;
+                    employee.Email = model.Email;
+                    employee.Telephone = model.Telephone;
+                    employee.UserId = user.Id;
+
+                    service.Add(employee);
+
                     // Pour plus d'informations sur l'activation de la confirmation du compte et la réinitialisation du mot de passe, consultez http://go.microsoft.com/fwlink/?LinkID=320771
                     // Envoyer un message électronique avec ce lien
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Employee");
                 }
+                ViewBag.Role = new SelectList(context.Roles.ToList(), "Name", "Name");
+
                 AddErrors(result);
             }
 

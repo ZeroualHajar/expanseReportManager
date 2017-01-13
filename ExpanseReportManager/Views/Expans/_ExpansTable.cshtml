@@ -1,0 +1,146 @@
+﻿@using ExpanseReportManager.Models
+@model IEnumerable<ExpanseReportManager.Models.ExpansViewModels>
+
+@if (Model.Any())
+{
+    <p><b>Total HT :</b><b class="text-primary"> @Html.DisplayFor(m => Model.First().ExpanseReport.Total_HT)</b></p>
+    <p><b>Total TVA :</b><b class="text-primary"> @Html.DisplayFor(m => @Model.First().ExpanseReport.Total_TVA)</b></p>
+    <p><b>Total TTC :</b><b class="text-primary"> @Html.DisplayFor(m => @Model.First().ExpanseReport.Total_TTC)</b></p>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Day)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpanseType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount_HT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount_TVA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount_TTC)
+            </th>
+            @if (Model.First().ExpanseReport.StatusCode == ExpanseReportViewModels.STATUS_DRAFT || Model.First().ExpanseReport.StatusCode == ExpanseReportViewModels.STATUS_MANAGER_NEED_CORRECTION || Model.First().ExpanseReport.StatusCode == ExpanseReportViewModels.STATUS_ACCOUNTING_NEED_CORRECTION)
+            {
+                <th></th>
+            }
+            
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Day)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpanseType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount_HT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount_TVA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount_TTC)
+                </td>
+                @if (Model.First().ExpanseReport.StatusCode == ExpanseReportViewModels.STATUS_DRAFT || Model.First().ExpanseReport.StatusCode == ExpanseReportViewModels.STATUS_MANAGER_NEED_CORRECTION || Model.First().ExpanseReport.StatusCode == ExpanseReportViewModels.STATUS_ACCOUNTING_NEED_CORRECTION)
+                {
+                    <td>
+                        <button type="button" class="modal-edit btn btn-primary btn-xs" data-toogle="modal" data-target="#modalEdit_@Html.DisplayFor(modelItem => item.Id)">Modifier prix</button>
+                        <button type="button" class="modal-delete btn btn-primary btn-xs" data-toogle="modal" data-target="#modalDelete_@Html.DisplayFor(modelItem => item.Id)">Supprimer</button>
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+
+    if (Model.First().ExpanseReport.StatusCode == ExpanseReportViewModels.STATUS_DRAFT || Model.First().ExpanseReport.StatusCode == ExpanseReportViewModels.STATUS_MANAGER_NEED_CORRECTION || Model.First().ExpanseReport.StatusCode == ExpanseReportViewModels.STATUS_ACCOUNTING_NEED_CORRECTION)
+    {
+        foreach (var item in Model)
+        {
+            <div class="modal" id="modalDelete_@Html.DisplayFor(modelItem => item.Id)">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">Suppression frais</h4>
+                        </div>
+                        <div class="modal-body">
+                            Voulez-vous vraiment supprimer ce frais du @Html.DisplayFor(modelItem => item.Day) ?
+                        </div>
+                        <div class="modal-footer">
+
+                            @using (Ajax.BeginForm("Delete", "Expans", new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            OnSuccess = "closeModal(data, 'modalDelete_" + item.Id + "')"
+                        }))
+                        {
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                    <input type="hidden" name="id" id="id" value="@item.Id" />
+                                    <button type="submit" class="btn btn-raised btn-danger">Supprimer</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="modalEdit_@Html.DisplayFor(modelItem => item.Id)">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">Modification frais</h4>
+                        </div>
+                        <div class="modal-body">
+                            @using (Ajax.BeginForm("Edit", "Expans", new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            OnSuccess = "closeModal(data, 'modalEdit_" + item.Id + "')"
+                        }))
+                        {
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="@item.Id" />
+                                    <input type="text" name="price" id="price" class="form-control" value="@item.Amount_HT" />
+                                    <button type="submit" class="btn btn-raised btn-success">Valider</button>
+                                </div>
+                            }
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+else
+{
+    <div class="alert alert-dismissible alert-warning">
+        <h4>Désolé!</h4>
+        <p>
+            Aucun frais ajouté.
+        </p>
+    </div>
+}

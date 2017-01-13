@@ -1,31 +1,44 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Gestion note de frais";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Projet .Net ZEROUAL & ABOUBACARI</h1>
+    <p class="lead">Développement d'une application de gestion de note de frais</p>
+    <p><a href="https://github.com/ZeroualHajar/expanseReportManager" target="_blank" class="btn btn-primary btn-lg">Code sur GitHub</a></p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>Administration</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            L'application possède un super Administrateur dont le mail est <b>superadminexpanse@gmail.com</b> 
+            et le mot de passe <b>SuperAdmin2016</b>.
+            De plus 3 Roles par défaut sont créer <b>Employee</b>, <b>Comptable</b> et <b>Ressource Humaine</b>. 
+            Seuls les RH et l'admin ont accées à la gestions des données et des utilisateurs.
+            Les autres ont juste accès aux notes de frais et leurs validation.
+            Le fait d'attribuer le role comptable pour un comptable est important.
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Architecture</h2>
+        <p>
+            L'architecture de notre solution est basée sur 2 projet. 1 projet principal et 
+            un autre contenant les relations avec la base de données et les modèles de la base.
+            Le projet princiapal est constitué de plusieurs dossiers en plus de ceux de bases.
+            <b>Mapper</b> (contenant des classe permettant de convertir des objets bases de données en model utilisables dans les vue).
+            <b>Repositories</b> (contenant les classes de récupérations de données dans la base).
+            <b>Services</b> (contenant les classes qui font le code métier).
+        </p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Les petit plus</h2>
+        <p>
+            - Le page base type dans le web.config de View a été remplacer par une classe <b>CustomBaseViewPage</b>
+            que l'on utlise pour nous permettre d'injecter une fonction IsManager disponible dans toutes les vues.<br />
+            - Nous avons ajouter des pages d'erreurs customiser et changer la config pour une redirection des erreurs 403, 404 et 500.<br />
+            - L'annotation Authorize est elle aussi remplacer par <b>CustomAuthorize</b> car elle rediriger les 403 vers le formulaire de connexion.<br />
+            - Nous avons ajouter l'export PDF, qui n'était plus demandé, en utilisant la bibliothèque externe <b>Rotativa</b>.<br />
+        </p>
     </div>
 </div>

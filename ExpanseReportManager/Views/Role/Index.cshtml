@@ -1,0 +1,74 @@
+﻿@model ExpanseReportManager.Models.RoleIndexModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+<p>
+    <button class="btn btn-raised btn-success" data-toggle="modal" data-target="#myModalCreate">Créer un role</button>
+   
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Roles)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Roles)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+
+                @Html.ActionLink("Modifier", "Edit", "Role", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" })
+                @Html.ActionLink("supprimer", "Delete", "Role", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" })
+  
+            </td>
+        </tr>
+    }
+</table>
+
+
+<!--modal create-->
+<div class="modal" id="myModalCreate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Ajouter un role</h4>
+            </div>
+            @using (Html.BeginForm("Create", "Role", FormMethod.Post, new { @class = "form-horizantal" }))
+            {
+                <div class="modal-body">
+                    <div class="form-group label-floating">
+                   
+                        @Html.LabelFor(m => m.NewRole.Name, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.NewRole.Name, new { @class = "form-control"})
+                     
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!--Fin modal Create -->
+
+
+@section scripts
+{
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#myModal").modal();
+    });
+    
+</script>
+    
+}
+

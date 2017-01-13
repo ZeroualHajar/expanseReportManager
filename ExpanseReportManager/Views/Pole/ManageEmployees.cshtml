@@ -1,0 +1,93 @@
+﻿@model ExpanseReportManager.Models.PoleViewModels
+
+@{
+    ViewBag.Title = "ManageEmployees";
+}
+
+<h2>Gestion des employés du pole @Model.Name</h2>
+
+<p>
+    <button id="add-employee-to-pole" class="btn btn-raised btn-success" data-toggle="modal" data-target="#free-employee-modal">Ajouter un employé</button>
+</p>
+
+@using (Ajax.BeginForm("EmployeeSearch", new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "employee-table"
+}))
+{
+    <div class="form-group">
+        <input type="text" name="query" id="query" class="form-control" placeholder="Rechercher..." />
+        <input type="hidden" name="poleId" id="poleId" value="@Model.Id" />
+        <button type="submit" class="btn btn-fab btn-success btn-fab-mini">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+        </button>
+    </div>
+}
+
+<div id="employee-table">
+    @Html.Partial("_TableListManageEmployee", Model.PoleEmployees)
+</div>
+
+<div>
+    @Html.ActionLink("Retour au details du pole", "Details", new { id = Model.Id }) |
+    @Html.ActionLink("Retour à la liste des pole", "Index", "Pole")
+</div>
+
+
+
+<div class="modal employee-modal" id="free-employee-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Ajouter un employé au pole</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input id="filter-manager-pole" type="text" class="form-control" placeholder="Rerchercher" />
+                </div>
+                @foreach (var employee in Model.FreeEmployees)
+                {
+                    <div class="list-group" data-content="@employee.Id">
+                        <div class="list-group-item">
+                            <div class="col col-sm-9 row-content">
+                                <span class="h4">@employee.FirstName @employee.LastName</span>
+                                @Html.ActionLink("Ajouter", "AddToPole", new { poleId = Model.Id, employeeId = employee.Id }, new { @class = "btn btn-sm btn-primary" })
+                            </div>
+                        </div>
+                        <div class="list-group-separator"></div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#add-employee-to-pole").click(function () {
+                $($(this).attr("data-target")).modal();
+            });
+            $("#filter-manager-pole").keyup(function () {
+                $(".employee-modal .modal-body .list-group").each(function (index, element) {
+                    if ($(element).find(".row-content span").text().toUpperCase().indexOf($("#filter-manager-pole").val().toUpperCase()) == -1) {
+                        $(element).hide();
+                    }
+                    else {
+                        $(element).show();
+                    }
+                });
+            });
+
+        });
+    </script>
+
+}

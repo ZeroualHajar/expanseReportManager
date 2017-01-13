@@ -1,0 +1,32 @@
+﻿@using ExpanseReportManager.Models
+@model ExpanseReportManager.Models.ExpanseReportViewModels
+
+@{
+    switch (Model.StatusCode)
+    {
+        case ExpanseReportViewModels.STATUS_DRAFT :
+            <span class="label label-default">Brouillon</span>
+            break;
+        case ExpanseReportViewModels.STATUS_WAITING_FOR_MANAGER :
+            <span class="label label-primary">Attente de validation manager</span>
+            break;
+        case ExpanseReportViewModels.STATUS_MANAGER_NEED_CORRECTION :
+            <span class="label label-warning">Corrections demandées par le manager</span>
+            break;
+        case ExpanseReportViewModels.STATUS_WAITING_FOR_ACCOUNTING:
+            <span class="label label-primary">Attente de validation comptabilité</span>
+            break;
+        case ExpanseReportViewModels.STATUS_ACCOUNTING_NEED_CORRECTION:
+            <span class="label label-warning">Corrections demandées par la comptabilité</span>
+            break;
+        case ExpanseReportViewModels.STATUS_VALIDATED:
+            <span class="label label-success">Validée</span>
+            break;
+        case ExpanseReportViewModels.STATUS_CANCELLED:
+            <span class="label label-danger">Annulée</span>
+            break;
+        default:
+            <span class="label label-danger">Erreur statut</span>
+            break;
+    }
+}

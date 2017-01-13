@@ -1,0 +1,78 @@
+﻿body {
+    background-color: #eee;
+}
+
+
+body .container .login-form{
+    margin-top: 30px;
+}
+
+body .container .login-form .panel-heading{
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    color: white;
+    padding: 20px 15px;
+}
+
+body .container .login-form .panel-title{
+    font-size: 18px;
+}
+
+body .container .login-form label.control-label{
+    text-align: left;
+}
+
+.table > tbody > tr > td {
+     vertical-align: middle;
+}
+
+
+.form-group select{
+    -webkit-appearance: menulist-button;
+    -moz-appearance: menulist;
+}
+
+.form-group select option {
+    padding: 0 5px;
+}
+
+#manager-modal img{
+    margin: auto;
+    display: block;
+    height: auto;
+    width: 200px;
+}
+
+s .modal-body{
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+#filter-manager-pole{
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+
+#query{
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.details div{
+    margin-bottom: 15px;
+}
+h4, h2{
+    margin: 30px 20px;
+}
+
+.panel ul li{
+    color: #009688;
+}
+
+.greenToast{
+    background-color: #4caf50;
+}
+
+.redToast{
+    background-color: #f44336;
+}

@@ -1,0 +1,231 @@
+﻿@using ExpanseReportManager.Models
+@model ExpanseReportManager.Models.ProjectViewModels
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@if (Model.Project_ID.IsEmpty())
+{
+    <h2>Créer un projet</h2>
+}
+else
+{
+    <h2>Modifier un projet </h2>
+}
+
+
+@using (Html.BeginForm("CreateEdit","Project", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Project_ID)
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Budget, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Budget, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Customer_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.Customer_Id)
+                @if (Model.Customer_Id.IsEmpty())
+                {
+                    <div class="project-customer-place col col-md-5">
+                        Aucun Customer séléctionner
+                    </div>
+                    <div class="col col-md-3">
+                        <button id="button-add-customer" type="button" class="btn btn-fab btn-success btn-fab-mini" data-toggle="modal" data-target="#customer-modal">
+                            <i class="material-icons">add</i>
+                            <div class="ripple-container"></div>
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="project-customer-place col col-md-5">
+                        <div class="list-group" data-content="@Model.Customer_Id">
+                            <div class="list-group-item">
+                                <div class="col col-sm-10 col-sm-offset-1 row-content">
+                                    <h4 class="list-group-item-heading">@Model.Customer.Name </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <button id="button-add-customer" type="button" class="btn btn-fab btn-warning btn-fab-mini" data-toggle="modal" data-target="#customer-modal">
+                            <i class="material-icons">mode_edit</i>
+                            <div class="ripple-container"></div>
+                        </button>
+                    </div>
+                }
+            </div>
+            <div class="col-md-offset-2">
+                @Html.ValidationMessageFor(model => model.Customer_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pole_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.Pole_Id)
+                @if (Model.Pole_Id.IsEmpty())
+                {
+                    <div class="project-pole-place col col-md-5">
+                        Aucun Pole séléctionner
+                    </div>
+                    <div class="col col-md-3">
+                        <button id="button-add-pole" type="button" class="btn btn-fab btn-success btn-fab-mini" data-toggle="modal" data-target="#pole-modal">
+                            <i class="material-icons">add</i>
+                            <div class="ripple-container"></div>
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="pole-manager-place col col-md-5">
+                        <div class="list-group" data-content="@Model.Pole_Id">
+                            <div class="list-group-item">
+                                <div class="col col-sm-10 col-sm-offset-1 row-content">
+                                    <h4 class="list-group-item-heading">@Model.Pole.Name</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <button id="button-add-pole" type="button" class="btn btn-fab btn-warning btn-fab-mini" data-toggle="modal" data-target="#pole-modal">
+                            <i class="material-icons">mode_edit</i>
+                            <div class="ripple-container"></div>
+                        </button>
+                    </div>
+                }
+               
+            </div>
+            <div class="col-md-offset-2">
+                @Html.ValidationMessageFor(model => model.Pole_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Valider" class="btn btn-success btn-raised " />
+            </div>
+        </div>
+    </div>
+}
+
+@if (!Html.ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>Erreur</strong>
+        @Html.ValidationSummary(true, "")
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Retour à la liste", "Index")
+</div>
+
+<div class="modal" id="customer-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Ajouter un customer</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input id="filter-customer-project" type="text" class="form-control" placeholder="Rerchercher" />
+                </div>
+                @foreach (CustomerViewModels customer in Model.AllCustomers)
+                {
+                    <div class="list-group" data-content="@customer.Id">
+                        <div class="list-group-item">
+                            <div class="col-sm-1">
+                                <button type="button" class="button-add-customer btn btn-fab btn-warning btn-fab-mini">
+                                    <i class="material-icons">done</i>
+                                    <div class="ripple-container"></div>
+                                </button>
+                            </div>
+                            <div class="col col-sm-10 col-sm-offset-1 row-content">
+                                <h4 class="list-group-item-heading">@customer.Name </h4>
+                                <p class="list-group-item-text">Choose me</p>
+                            </div>
+                        </div>
+                        <div class="list-group-separator"></div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="pole-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Ajouter un pole</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input id="filter-pole-project" type="text" class="form-control" placeholder="Rerchercher" />
+                </div>
+                @foreach (PoleViewModels pole in Model.AllPoles)
+                {
+                    <div class="list-group" data-content="@pole.Id">
+                        <div class="list-group-item">
+                            <div class="col-sm-1">
+                                <button type="button" class="button-add-pole btn btn-fab btn-warning btn-fab-mini">
+                                    <i class="material-icons">done</i>
+                                    <div class="ripple-container"></div>
+                                </button>
+                            </div>
+                            <div class="col col-sm-10 col-sm-offset-1 row-content">
+                                <h4 class="list-group-item-heading">@pole.Name </h4>
+                                <p class="list-group-item-text">Choose me</p>
+                            </div>
+                        </div>
+                        <div class="list-group-separator"></div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/add_customer_pole_to_project.js")
+}
+

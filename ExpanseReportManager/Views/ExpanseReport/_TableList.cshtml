@@ -1,0 +1,95 @@
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<ExpanseReportManager.Models.ExpanseReportViewModels>
+
+
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Month)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total_HT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total_TVA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total_TTC)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.Partial("_DisplayStatusCode", item)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total_HT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total_TVA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total_TTC)
+                </td>
+                <td>
+                    @if (User.Identity.GetUserId() == item.Employee.UserId)
+                    {
+                        @Html.ActionLink("Voir", "Details", new { id = item.ExpanseReport_ID }, new { @class = "btn btn-primary btn-xs" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Voir", "Details", new { id = item.ExpanseReport_ID }, new { @class = "btn btn-primary btn-xs" })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    foreach (var item in Model)
+    {
+        <div class="modal" id="modalDelete_@Html.DisplayFor(modelItem => item.ExpanseReport_ID)">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Suppression note de frais</h4>
+                    </div>
+                    <div class="modal-body">
+                        Voulez-vous vraiment supprimer la note de frais de @item.Month/@item.Year ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        @Html.ActionLink("Valider", "Delete", new { id = item.ExpanseReport_ID }, new { @class = "btn btn-raised btn-success btn-xs" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-dismissible alert-warning">
+        <h4>Désolé!</h4>
+        <p>
+            Aucune note de frais n'a été trouvé :(
+        </p>
+    </div>
+}

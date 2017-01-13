@@ -32,7 +32,8 @@ namespace ExpanseReportManager.Services
 
         public TvaViewModels GetById(string id)
         {
-            return Mapper.DataToModel(Repository.GetById(id));
+            Tva tva = Repository.GetById(id);
+            return tva == null ? null : Mapper.DataToModel(tva);
         }
 
         public TvaViewModels GetForExpanseType(string id)

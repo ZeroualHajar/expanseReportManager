@@ -8,7 +8,7 @@ using ExpanseReportManager.Services;
 
 namespace ExpanseReportManager.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [CustomAuthorize(Roles = "SuperAdmin, Ressource Humaine")]
     public class RoleController : AbstractController
     {
         private RoleService Service;
@@ -40,7 +40,25 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Edit(string id)
         {
-            return View(Service.GetById(id));
+            RoleViewModels model = Service.GetById(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(RoleViewModels model)
+        {
+            if (ModelState.IsValid)
+            {
+                Service.Edit(model);
+                return RedirectToAction("Index", "Role");
+            }
+
+            return View(model);
         }
 
         public ActionResult Delete(string id)

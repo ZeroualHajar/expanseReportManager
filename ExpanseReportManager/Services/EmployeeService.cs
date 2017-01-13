@@ -32,7 +32,8 @@ namespace ExpanseReportManager.Services
 
         public EmployeeViewModels GetById(string id)
         {
-            return Mapper.DataToModel(Repository.GetById(id));
+            Employee employee = Repository.GetById(id);
+            return employee == null ? null : Mapper.DataToModel(employee);
         }
 
         public EmployeeViewModels GetByUserId(string id)
@@ -106,6 +107,13 @@ namespace ExpanseReportManager.Services
         public bool IsManager(string userId)
         {
             return Repository.IsManager(userId);
+        }
+
+        public string GetManagerId(string employeeId)
+        {
+            Employee e = Repository.GetById(employeeId);
+
+            return e == null || string.IsNullOrEmpty(e.Pole_ID.ToString()) ? null : e.Pole.Manager_ID.ToString();
         }
     }
 }

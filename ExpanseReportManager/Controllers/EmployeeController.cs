@@ -8,6 +8,7 @@ using ExpanseReportManager.Models;
 
 namespace ExpanseReportManager.Controllers
 {
+    [CustomAuthorize(Roles = "SuperAdmin, Ressource Humaine")]
     public class EmployeeController : AbstractController
     {
         private EmployeeService Service;
@@ -60,7 +61,13 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Details(string id)
         {
-            return View(Service.GetById(id));
+            EmployeeViewModels model = Service.GetById(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
+            return View(model);
         }
 
     }

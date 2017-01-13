@@ -23,7 +23,7 @@ namespace ExpanseReportManager.Mapper
                 ManagerComment = expanseReport.ManagerComment,
                 ManagerValidationDate = expanseReport.ManagerValidationDate,
                 AccountingComment = expanseReport.AccountingComment,
-                AccountingValidatationDate = expanseReport.AccountingValidatationDate,
+                AccountingValidationDate = expanseReport.AccountingValidatationDate,
                 Total_HT = expanseReport.Total_HT,
                 Total_TTC = expanseReport.Total_TTC,
                 Total_TVA = expanseReport.Total_TVA
@@ -44,7 +44,7 @@ namespace ExpanseReportManager.Mapper
                 ManagerComment = expanseReport.ManagerComment,
                 ManagerValidationDate = expanseReport.ManagerValidationDate,
                 AccountingComment = expanseReport.AccountingComment,
-                AccountingValidatationDate = expanseReport.AccountingValidatationDate,
+                AccountingValidationDate = expanseReport.AccountingValidatationDate,
                 Total_HT = expanseReport.Total_HT,
                 Total_TTC = expanseReport.Total_TTC,
                 Total_TVA = expanseReport.Total_TVA
@@ -64,7 +64,7 @@ namespace ExpanseReportManager.Mapper
             expanseReport.ManagerComment = model.ManagerComment;
             expanseReport.ManagerValidationDate = model.ManagerValidationDate;
             expanseReport.AccountingComment = model.AccountingComment;
-            expanseReport.AccountingValidatationDate = model.AccountingValidatationDate;
+            expanseReport.AccountingValidatationDate = model.AccountingValidationDate;
             expanseReport.Total_HT = model.Total_HT;
             expanseReport.Total_TTC = model.Total_TTC;
             expanseReport.Total_TVA = model.Total_TVA;

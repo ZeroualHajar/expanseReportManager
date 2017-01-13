@@ -22,7 +22,8 @@ namespace ExpanseReportManager.Services
 
         public UserViewModels GetById(string id)
         {
-            return Mapper.DataToModel(Repository.GetById(id));
+            AspNetUser user = Repository.GetById(id);
+            return user == null ? null : Mapper.DataToModel(user);
         }
 
         public string GetEmployeeId(string userId)

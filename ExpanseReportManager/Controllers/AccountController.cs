@@ -147,7 +147,7 @@ namespace ExpanseReportManager.Controllers
 
         //
         // GET: /Account/Register
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "SuperAdmin, Ressource Humaine")]
         public ActionResult Register()
         {
             ViewBag.Role = new SelectList(context.Roles.Where(r => !r.Name.Contains("SuperAdmin")).ToList(), "Name", "Name");
@@ -157,7 +157,7 @@ namespace ExpanseReportManager.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "SuperAdmin, Ressource Humaine")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -173,6 +173,11 @@ namespace ExpanseReportManager.Controllers
                 if (result.Succeeded)
                 {
                     await this.UserManager.AddToRoleAsync(user.Id, model.Role);
+
+                    if(model.Role != "Employee")
+                    {
+                        UserManager.AddToRole(user.Id, "Employee");
+                    }
 
                     EmployeeService service = new EmployeeService();
                     EmployeeViewModels employee = new EmployeeViewModels();
@@ -190,9 +195,9 @@ namespace ExpanseReportManager.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Employee");
                 }
-                ViewBag.Role = new SelectList(context.Roles.Where(r => !r.Name.Contains("Djo")).ToList(), "Name", "Name");
+                ViewBag.Role = new SelectList(context.Roles.ToList(), "Name", "Name");
 
                 AddErrors(result);
             }

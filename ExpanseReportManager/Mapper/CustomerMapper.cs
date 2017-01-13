@@ -34,8 +34,8 @@ namespace ExpanseReportManager.Mapper
         {
             customer.Name = model.Name;
             customer.Code = model.Code;
-            return customer;
 
+            return customer;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace ExpanseReportManager.Models
         public string Name { get; set; }
 
         [Required]
-        [Range(0, 100, ErrorMessage = "La valeur de la {0} doit être comprise entre {1} et {2}")]
+        [Range(0.0, 100.0, ErrorMessage = "La valeur de la {0} doit être comprise entre {1} et {2}")]
         [DisplayFormat(DataFormatString = "{0:P2}")]
         [Display(Name ="Valeur")]
         public Nullable<double> Value { get; set; }

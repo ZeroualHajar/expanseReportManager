@@ -22,8 +22,9 @@ namespace ExpanseReportManager.Repositories
 
         public string GetEmployeeId(string userId)
         {
-            return Entities.AspNetUsers.FirstOrDefault(u => u.Id.ToString() == userId) != null ?
-                Entities.AspNetUsers.FirstOrDefault(u => u.Id.ToString() == userId).Employees.First().Employee_ID.ToString() : null;
+            AspNetUser user = Entities.AspNetUsers.FirstOrDefault(u => u.Id.ToString() == userId);
+            return user != null && user.Employees.Any() ?
+                user.Employees.First().Employee_ID.ToString() : null;
         }
 
         public void Add(AspNetUser user)

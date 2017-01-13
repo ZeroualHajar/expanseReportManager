@@ -34,9 +34,8 @@ namespace ExpanseReportManager.Services
 
         public PoleViewModels GetForEmployee(string id)
         {
-            return Mapper.DataToModel(
-                Repository.GetForEmployee(id)
-            );
+            Pole pole = Repository.GetForEmployee(id);
+            return pole == null ? null : Mapper.DataToModel(pole);
         }
 
         public ICollection<PoleViewModels> Search(string query)

@@ -12,6 +12,14 @@ namespace ExpanseReportManager.Models
         protected ExpansService ExpansService;
         protected EmployeeService EmployeeService;
 
+        public const int STATUS_DRAFT = 0;
+        public const int STATUS_WAITING_FOR_MANAGER = 10;
+        public const int STATUS_MANAGER_NEED_CORRECTION = 15;
+        public const int STATUS_WAITING_FOR_ACCOUNTING = 20;
+        public const int STATUS_ACCOUNTING_NEED_CORRECTION = 25;
+        public const int STATUS_VALIDATED = 30;
+        public const int STATUS_CANCELLED = 35;
+
         public ExpanseReportViewModels() : base()
         {
             ExpansService = new ExpansService(Entities);
@@ -30,6 +38,7 @@ namespace ExpanseReportManager.Models
         public string Author_ID { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}")]
         [Display(Name = "Date de création")]
         public System.DateTime CreationDate { get; set; }
 
@@ -43,10 +52,12 @@ namespace ExpanseReportManager.Models
         public int StatusCode { get; set; }
 
         [Display(Name = "Date de validation par le manager")]
+        [DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}", ApplyFormatInEditMode = true, NullDisplayText = "Pas encore validé par le manager")]
         public Nullable<System.DateTime> ManagerValidationDate { get; set; }
 
         [Display(Name = "Date de validation comptabilité")]
-        public Nullable<System.DateTime> AccountingValidatationDate { get; set; }
+        [DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}", ApplyFormatInEditMode = true, NullDisplayText = "Pas encore validé par la comptabilité")]
+        public Nullable<System.DateTime> AccountingValidationDate { get; set; }
 
         [Display(Name = "Total HT")]
         [DisplayFormat(DataFormatString = "{0:C}")]
@@ -90,6 +101,16 @@ namespace ExpanseReportManager.Models
             get
             {
                 return ExpansService.GetAllByReport(ExpanseReport_ID);
+            }
+        }
+
+        public List<int> Days
+        {
+            get
+            {
+                return Enumerable.Range(1, DateTime.DaysInMonth(Year, Month))
+                    .Select(day => new DateTime(Year, Month, day).Day)
+                    .ToList();
             }
         }
     }

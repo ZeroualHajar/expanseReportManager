@@ -45,7 +45,9 @@ namespace ExpanseReportManager.Mapper
             employee.LastName = model.LastName;
             employee.Email = model.Email;
             employee.Telephone = model.Telephone;
-            employee.Pole_ID = new Guid(model.PoleId);
+
+            if(model.PoleId != null)
+                employee.Pole_ID = new Guid(model.PoleId);
             
             return employee;
         }

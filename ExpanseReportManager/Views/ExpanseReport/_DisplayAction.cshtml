@@ -1,0 +1,114 @@
+﻿@using ExpanseReportManager.Models
+@using Microsoft.AspNet.Identity
+@model ExpanseReportManager.Models.ExpanseReportViewModels
+
+@if (Model.StatusCode != ExpanseReportViewModels.STATUS_VALIDATED && Model.StatusCode != ExpanseReportViewModels.STATUS_CANCELLED)
+{
+    <div class="col col-md-offset-1 col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Action possible</h3>
+            </div>
+
+            <div class="panel-body">
+                @if (Request.IsAuthenticated && Model.Employee.UserId == User.Identity.GetUserId())
+                {
+                    if (Model.StatusCode == ExpanseReportViewModels.STATUS_DRAFT)
+                    {
+                        @* If He is his own manager *@
+                        if (Model.Author_ID == Model.Employee.Pole.ManagerId)
+                        {
+                            <div class="col-md-offset-2 col-md-4">
+                                @Html.ActionLink("Valider", "ManagerValidation", new { id = Model.ExpanseReport_ID }, new { @class = "col col-md-12 btn btn-raised btn-success btn-sm" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-offset-2 col-md-4">
+                                @Html.ActionLink("Soumettre à la validation", "EmployeeValidation", new { id = Model.ExpanseReport_ID }, new { @class = "col col-md-12 btn btn-raised btn-success btn-sm" })
+                            </div>
+                        }
+
+                        <div class="col-md-4">
+                            @Html.ActionLink("Annulé", "Cancelled", new { id = Model.ExpanseReport_ID }, new { @class = "col col-md-12 btn btn-raised btn-danger btn-sm" })
+                        </div>
+                    }
+                    else if (Model.StatusCode == ExpanseReportViewModels.STATUS_WAITING_FOR_ACCOUNTING || Model.StatusCode == ExpanseReportViewModels.STATUS_WAITING_FOR_MANAGER)
+                    {
+                        <div class="col-md-offset-4 col-md-4">
+                            @Html.ActionLink("Annulé", "Cancelled", new { id = Model.ExpanseReport_ID }, new { @class = "col col-md-12 btn btn-raised btn-danger btn-sm" })
+                        </div>
+                    }
+                    else if (Model.StatusCode == ExpanseReportViewModels.STATUS_MANAGER_NEED_CORRECTION)
+                    {
+                        <div class="col-md-offset-2 col-md-4">
+                            @Html.ActionLink("Re-soumettre à la validation", "EmployeeValidation", new { id = Model.ExpanseReport_ID }, new { @class = "col col-md-12 btn btn-raised btn-warning btn-sm" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.ActionLink("Annulé", "Cancelled", new { id = Model.ExpanseReport_ID }, new { @class = "col col-md-12 btn btn-raised btn-danger btn-sm" })
+                        </div>
+                    }
+                    else if (Model.StatusCode == ExpanseReportViewModels.STATUS_ACCOUNTING_NEED_CORRECTION)
+                    {
+                        <div class="col-md-offset-2 col-md-4">
+                            @Html.ActionLink("Re-soumettre à la validation", "EmployeeValidationForAccouting", new { id = Model.ExpanseReport_ID }, new { @class = "col col-md-12 btn btn-raised btn-warning btn-sm" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.ActionLink("Annulé", "Cancelled", new { id = Model.ExpanseReport_ID }, new { @class = "col col-md-12 btn btn-raised btn-danger btn-sm" })
+                        </div>
+                    }
+
+                }
+                else if (Request.IsAuthenticated && IsManager(User.Identity.GetUserId()) && Model.StatusCode == ExpanseReportViewModels.STATUS_WAITING_FOR_MANAGER)
+                {
+                    <div class="col-md-offset-2 col-md-4">
+                        @Html.ActionLink("Valider", "ManagerValidation", new { id = Model.ExpanseReport_ID }, new { @class = "col col-md-12 btn btn-raised btn-success btn-sm" } )
+                    </div>
+                    <div class="col-md-4">
+                        @using (Ajax.BeginForm("AskForCorrectionManager", "ExpanseReport", null, new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            OnSuccess = "askCorrectionSuccess(data)",
+                            OnFailure = "askCorrectionFaillure(data)"
+                        }))
+                        {
+                            <input type="hidden" name="id" value="@Model.ExpanseReport_ID" />
+                            <div class="form-horizontal">
+                                <textarea class="form-control" placeholder="Ajoutez un commentaire" name="comment" id="comment"></textarea>
+                                <button type="submit" class="btn btn-raised btn-warning btn-sm">Demander correction</button>
+                            </div>
+                        }
+                    </div>
+                }
+                else if (Request.IsAuthenticated && User.IsInRole("Comptable") && Model.StatusCode == ExpanseReportViewModels.STATUS_WAITING_FOR_ACCOUNTING)
+                {
+                    <div class="col-md-offset-1 col-md-4">
+                        @Html.ActionLink("Valider", "AccountingValidation", new { id = Model.ExpanseReport_ID }, new { @class = "col col-md-12 btn btn-raised btn-success btn-sm" } )
+                    </div>
+                    <div class="col-md-offset-1 col-md-6">
+                        @using (Ajax.BeginForm("AskForCorrectionAccounting", "ExpanseReport", null, new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            OnSuccess = "askCorrectionSuccess(data)",
+                            OnFailure = "askCorrectionFaillure(data)"
+                        }))
+                        {
+                            <input type="hidden" name="id" value="@Model.ExpanseReport_ID" />
+                            <div class="form-horizontal">
+                                <textarea class="form-control" placeholder="Ajoutez un commentaire" name="comment" id="comment"></textarea>
+                                <button type="submit" class="btn btn-raised btn-warning btn-sm">Demander correction</button>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p>Aucune Action possible pour le moment</p>
+                }
+
+            </div>
+        </div>
+    </div>
+}
+
+

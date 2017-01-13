@@ -14,7 +14,6 @@ namespace ExpanseReportManager.Services
         private ExpanseTypeMapper Mapper;
         private ExpanseTypeRepository Repository;
 
-
         public ExpanseTypeService(NotesDeFraisEntities entities)
         {
             this.Mapper = new ExpanseTypeMapper();
@@ -39,7 +38,8 @@ namespace ExpanseReportManager.Services
 
         public ExpanseTypeViewModels GetById(string id)
         {
-            return Mapper.DataToModel(Repository.GetById(id));
+            ExpanseType expanseType = Repository.GetById(id);
+            return expanseType == null ? null : Mapper.DataToModel(expanseType);
         }
 
         public void Add(ExpanseTypeViewModels model)
@@ -68,6 +68,11 @@ namespace ExpanseReportManager.Services
         public bool IsValid(ExpanseTypeViewModels model)
         {
             return !model.Fixed || (model.Fixed && model.Ceilling != null);
+        }
+
+        public ICollection<ExpanseTypeViewModels> GetAllForEmployee()
+        {
+            return Mapper.AllToModel(Repository.GetAll().Where(e => e.OnlyManagers == false));
         }
     }
 }

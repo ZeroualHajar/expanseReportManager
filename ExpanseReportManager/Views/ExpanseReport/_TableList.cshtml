@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ExpanseReportManager.Models.ExpanseReportViewModels>
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<ExpanseReportManager.Models.ExpanseReportViewModels>
 
 
 @if (Model.Any())
@@ -48,7 +49,14 @@
                     @Html.DisplayFor(modelItem => item.Total_TTC)
                 </td>
                 <td>
-                    @Html.ActionLink("Détails", "Details", new { id=item.ExpanseReport_ID })
+                    @if (User.Identity.GetUserId() == item.Employee.UserId)
+                    {
+                        @Html.ActionLink("Voir", "Details", new { id = item.ExpanseReport_ID }, new { @class = "btn btn-primary btn-xs" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Voir", "Details", new { id = item.ExpanseReport_ID }, new { @class = "btn btn-primary btn-xs" })
+                    }
                 </td>
             </tr>
         }

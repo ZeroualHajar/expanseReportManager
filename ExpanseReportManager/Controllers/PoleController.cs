@@ -10,6 +10,7 @@ using ExpanseReportManager.Mapper;
 
 namespace ExpanseReportManager.Controllers
 {
+    [CustomAuthorize(Roles = "SuperAdmin, Ressource Humaine")]
     public class PoleController : AbstractController
     {
         private PoleService Service;
@@ -34,7 +35,13 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Edit(string id)
         {
-            return View("Create", Service.GetById(id));
+            PoleViewModels model = Service.GetById(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
+            return View("Create", model);
         }
 
         [HttpPost]
@@ -89,7 +96,13 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Details(string id)
         {
-            return View(Service.GetById(id));
+            PoleViewModels model = Service.GetById(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
+            return View(model);
         }
 
         [HttpGet]

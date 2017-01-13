@@ -1,0 +1,106 @@
+﻿@using ExpanseReportManager.Models
+@using Microsoft.AspNet.Identity
+@model ExpanseReportManager.Models.ExpansViewModels
+
+<div class="modal" id="modalAdd">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Ajout frais</h4>
+            </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("Add", "Expans", null, new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "divModalAdd",
+                    OnSuccess = "addSuccess",
+                    OnFailure = "addFaillure",
+                }, null))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        
+                        @Html.HiddenFor(model => model.ExpanseReport_ID)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Day, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(m => Model.Day, (SelectList) ViewBag.Days, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => Model.Day, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ExpanseType_ID, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @if (IsManager(User.Identity.GetUserId()))
+                                {
+                                    @Html.DropDownListFor(m => Model.ExpanseType_ID, new SelectList(Model.AllExpanseType, "Id", "Name"), new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(m => Model.ExpanseType_ID, new SelectList(Model.AllExpanseTypeForEmployee, "Id", "Name"), new { @class = "form-control" })
+                                }
+
+                                @Html.ValidationMessageFor(model => Model.ExpanseType_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Customer_ID, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(m => Model.Customer_ID, new SelectList(Model.AllCustomer, "Id", "Name"), new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => Model.Customer_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => Model.Project_ID, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.HiddenFor(model => Model.Project_ID);
+                            <div class="col-md-8" id="divExpansProject">
+                                @Html.Partial("../Expans/_Project_ID", new List<ProjectViewModels>())
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Amount_HT, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Amount_HT, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Amount_HT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-8">
+                                <input type="submit" value="Valider" class="btn btn-raised btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Ajax.BeginForm("GetProjectForCustomer", "Expans", null, new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "divExpansProject"
+}, new { id = "formGetProject" }))
+{
+    <div class="form-group">
+        <input type="hidden" id="projectIdForSelect" name="projectIdForSelect" />
+    </div>
+}
+
+
+
+

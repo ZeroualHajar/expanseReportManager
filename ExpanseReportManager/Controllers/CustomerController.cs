@@ -8,6 +8,7 @@ using ExpanseReportManager.Models;
 
 namespace ExpanseReportManager.Controllers
 {
+    [CustomAuthorize(Roles = "SuperAdmin, Ressource Humaine")]
     public class CustomerController : AbstractController
     {
         private CustomerService Service;
@@ -52,11 +53,23 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Edit(string id)
         {
-            return View("Create", Service.GetById(id));
+            CustomerViewModels model = Service.GetById(id);
+            if(model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
+            return View("Create", model);
         }
 
         public ActionResult Details(string id)
         {
+            CustomerViewModels model = Service.GetById(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
             return View(Service.GetById(id));
         }
 

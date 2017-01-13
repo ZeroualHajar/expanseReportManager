@@ -28,7 +28,8 @@ namespace ExpanseReportManager.Services
 
         public CustomerViewModels GetById(string id)
         {
-            return Mapper.DataToModel(Repository.GetById(id));
+            Customer customer = Repository.GetById(id);
+            return customer == null ? null : Mapper.DataToModel(customer);
         }
 
         public void Add(CustomerViewModels client)

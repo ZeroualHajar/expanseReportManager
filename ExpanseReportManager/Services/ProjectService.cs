@@ -38,7 +38,8 @@ namespace ExpanseReportManager.Services
 
         public ProjectViewModels GetById(string id)
         {
-            return Mapper.DataToModel(Repository.GetById(id));
+            Project project = Repository.GetById(id);
+            return project == null ? null : Mapper.DataToModel(project);
         }
 
         public void Add(ProjectViewModels client)

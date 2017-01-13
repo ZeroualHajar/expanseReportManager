@@ -32,7 +32,8 @@ namespace ExpanseReportManager.Services
 
         public RoleViewModels GetById(string id)
         {
-            return Mapper.DataToModel(Repository.GetById(id));
+            AspNetRole role = Repository.GetById(id);
+            return role == null ? null : Mapper.DataToModel(role);
         }
 
         public void Add(RoleViewModels model)

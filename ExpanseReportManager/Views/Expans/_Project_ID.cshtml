@@ -1,0 +1,10 @@
+﻿@model IEnumerable<ExpanseReportManager.Models.ProjectViewModels>
+
+@if (Model.Any())
+{
+    @Html.DropDownList("Projet", new SelectList(Model, "Project_ID", "Name"), new { @class = "form-control", id = "Project" })
+}
+else
+{
+    <p>Aucun projet n'est disponible</p>
+}

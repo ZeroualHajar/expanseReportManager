@@ -65,7 +65,7 @@ namespace ExpanseReportManager.Models
             }
         }
 
-        [Display(Name = "Rapports de notes de frais utiliser")]
+        [Display(Name = "Rapports de notes de frais")]
         public ICollection<ExpanseReportViewModels> UsingExpanseReports
         {
             get

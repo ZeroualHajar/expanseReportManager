@@ -9,6 +9,7 @@ using ExpanseReportManager.Models;
 
 namespace ExpanseReportManager.Controllers
 {
+    [CustomAuthorize(Roles = "SuperAdmin, Ressource Humaine")]
     public class ProjectController : AbstractController
     {
         private ProjectService Service;
@@ -52,12 +53,24 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Edit(string id)
         {
-            return View("Create", Service.GetById(id));
+            ProjectViewModels model = Service.GetById(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
+            return View("Create", model);
         }
 
         public ActionResult Details(string id)
         {
-            return View(Service.GetById(id));
+            ProjectViewModels model = Service.GetById(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
+            return View(model);
         }
 
         public ActionResult Delete(string id)

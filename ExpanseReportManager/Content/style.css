@@ -68,3 +68,11 @@ h4, h2{
 .panel ul li{
     color: #009688;
 }
+
+.greenToast{
+    background-color: #4caf50;
+}
+
+.redToast{
+    background-color: #f44336;
+}

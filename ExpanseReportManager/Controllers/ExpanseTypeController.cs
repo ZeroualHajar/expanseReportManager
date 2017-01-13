@@ -8,6 +8,7 @@ using ExpanseReportManager.Models;
 
 namespace ExpanseReportManager.Controllers
 {
+    [CustomAuthorize(Roles = "SuperAdmin, Ressource Humaine")]
     public class ExpanseTypeController : AbstractController
     {
         private ExpanseTypeService Service;
@@ -74,9 +75,15 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Edit(string id)
         {
+            ExpanseTypeViewModels model = Service.GetById(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
             ViewBag.Tva = new SelectList(TvaService.GetAll(), "TVA_ID", "Name");
 
-            return View("Create", Service.GetById(id));
+            return View("Create", model);
         }
 
         public ActionResult Delete(string id)
@@ -84,6 +91,17 @@ namespace ExpanseReportManager.Controllers
             Service.Delete(id);
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Details(string id)
+        {
+            ExpanseTypeViewModels model = Service.GetById(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
+            return View(model);
         }
     }
 }

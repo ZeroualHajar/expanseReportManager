@@ -27,7 +27,19 @@ namespace ExpanseReportManager
                 var role = new IdentityRole();
                 role.Name = "SuperAdmin";
                 roleManager.Create(role);
-                 
+
+                var role2 = new IdentityRole();
+                role2.Name = "Comptable";
+                roleManager.Create(role2);
+
+                var role3 = new IdentityRole();
+                role3.Name = "Employee";
+                roleManager.Create(role3);
+
+                var role4 = new IdentityRole();
+                role4.Name = "Ressource Humaine";
+                roleManager.Create(role4);
+
                 var user = new ApplicationUser();
                 user.UserName = "SuperAdmin";
                 user.Email = "superadminexpanse@gmail.com";
@@ -42,5 +54,5 @@ namespace ExpanseReportManager
                 }
             }
         }
-        }
+    }
 }

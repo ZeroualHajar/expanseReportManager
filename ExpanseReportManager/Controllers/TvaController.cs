@@ -8,6 +8,7 @@ using ExpanseReportManager.Services;
 
 namespace ExpanseReportManager.Controllers
 {
+    [CustomAuthorize(Roles = "SuperAdmin, Ressource Humaine")]    
     public class TvaController : AbstractController
     {
         private TvaService Service;
@@ -50,16 +51,26 @@ namespace ExpanseReportManager.Controllers
 
         public ActionResult Edit(string id)
         {
-            TvaViewModels tva = Service.GetById(id);
+            TvaViewModels model = Service.GetById(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
 
             // To show Tva value in percent in form
-            tva.Value = tva.Value * 100;
+            model.Value = model.Value * 100;
 
-            return View("Create", tva);
+            return View("Create", model);
         }
 
         public ActionResult Details(string id)
         {
+            TvaViewModels model = Service.GetById(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
             return View(Service.GetById(id));
         }
         public ActionResult Delete(string id)

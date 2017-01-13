@@ -71,6 +71,35 @@
                 </div>
             </div>
         </div>
+        <div class="col col-md-offset-1 col-md-9">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Notes de frais de l'employée</h3>
+                </div>
+                <div class="panel-body">
+
+                    @if (Model.UsingExpanseReports.Count < 1)
+                    {
+                        <p>L'employé ne manage aucune note de frais</p>
+                    }
+                    else
+                    {
+                        <p>Cette employé manage @Model.UsingExpanseReports.Count pole(s)</p>
+
+                        <ul>
+                            @foreach (ExpanseReportViewModels report in Model.UsingExpanseReports)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Details", "ExpanseReport", new { id = report.ExpanseReport_ID })">
+                                        @report.Month/@report.Year
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <p>

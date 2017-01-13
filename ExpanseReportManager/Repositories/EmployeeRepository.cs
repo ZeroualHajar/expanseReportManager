@@ -74,7 +74,8 @@ namespace ExpanseReportManager.Repositories
 
         public bool IsManager(string userId)
         {
-            return Entities.Employees.FirstOrDefault(e => e.User_ID.ToString() == userId).Poles.Count() > 0;
+            Employee emp = Entities.Employees.FirstOrDefault(e => e.User_ID.ToString() == userId);
+            return emp == null ? false : emp.Poles.Count() > 0;
         }
     }
 }

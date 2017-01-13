@@ -116,8 +116,16 @@
 
             setProjectList();
 
+            $("#expanseTypeForAmount").val($("#ExpanseType_ID").val());
+            $("#formGetAmountField").submit();
+
             $("#Customer_ID").change(function () {
                 setProjectList();
+            });
+
+            $(document).on("change", "#ExpanseType_ID", function () {
+                $("#expanseTypeForAmount").val($("#ExpanseType_ID").val());
+                $("#formGetAmountField").submit();
             });
 
             $(document).on('focus', '#Amount_HT', function () {
@@ -132,6 +140,10 @@
         function setProjectList() {
             $("#projectIdForSelect").val($("#Customer_ID").val());
             $("#formGetProject").submit();
+        }
+
+        function updateProject() {
+            $("#Project_ID").val($("#Project").val());
         }
 
         function addFaillure(data) {

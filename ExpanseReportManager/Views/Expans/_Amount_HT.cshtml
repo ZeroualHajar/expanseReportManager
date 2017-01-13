@@ -1,0 +1,12 @@
+﻿@model ExpanseReportManager.Models.ExpansViewModels
+
+@if (Model.ExpanseType_ID == null || !Model.ExpanseType.Fixed)
+{
+    @Html.EditorFor(model => model.Amount_HT, new { htmlAttributes = new { @class = "form-control" } })
+}
+else
+{
+    @Html.EditorFor(model => model.Amount_HT, new { htmlAttributes = new { @class = "form-control", value=Model.ExpanseType.Ceilling, disabled = "disabled" } })
+    @Html.HiddenFor(m => m.Amount_HT, new { value = 15 })
+}
+@Html.ValidationMessageFor(model => model.Amount_HT, "", new { @class = "text-danger" })

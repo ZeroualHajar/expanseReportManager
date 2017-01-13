@@ -16,6 +16,7 @@ namespace ExpanseReportManager.Controllers
 
         private UserService UserService;
         private ExpanseReportService ExpanseReportService;
+        private ExpanseTypeService ExpanseTypeService;
 
         public ExpansController() : base()
         {
@@ -23,6 +24,7 @@ namespace ExpanseReportManager.Controllers
             this.ProjectService = new ProjectService(Entities);
             this.UserService = new UserService(Entities);
             this.ExpanseReportService = new ExpanseReportService(Entities);
+            this.ExpanseTypeService = new ExpanseTypeService(Entities);
         }
 
         [HttpPost]
@@ -49,6 +51,20 @@ namespace ExpanseReportManager.Controllers
             ViewBag.Days = new SelectList(report.Days);
 
             return PartialView("_FormCreateExpanse", model);
+        }
+
+        public ActionResult UpdateAmountField(string expanseTypeForAmount)
+        {
+            ExpanseTypeViewModels type = ExpanseTypeService.GetById(expanseTypeForAmount);
+            if (type == null || !type.Fixed)
+            {
+                return PartialView("_Amount_HT", new ExpansViewModels());
+            }
+            else
+            {
+                
+                return PartialView("_Amount_HT", new ExpansViewModels { ExpanseType_ID = expanseTypeForAmount, Amount_HT = (double) type.Ceilling });
+            }
         }
 
         private string GetEmployeeId()

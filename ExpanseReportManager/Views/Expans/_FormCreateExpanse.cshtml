@@ -64,13 +64,13 @@
                             <div class="col-md-8" id="divExpansProject">
                                 @Html.Partial("../Expans/_Project_ID", new List<ProjectViewModels>())
                             </div>
+                            @Html.ValidationMessageFor(m => Model.Project_ID, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Amount_HT, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.Amount_HT, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Amount_HT, "", new { @class = "text-danger" })
+                            <div class="col-md-8" id="divExpansAmount">
+                                @Html.Partial("../Expans/_Amount_HT", Model)
                             </div>
                         </div>
 
@@ -99,6 +99,17 @@
     <div class="form-group">
         <input type="hidden" id="projectIdForSelect" name="projectIdForSelect" />
     </div>
+}
+
+@using (Ajax.BeginForm("UpdateAmountField", "Expans", null, new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "divExpansAmount",
+    OnSuccess = "updateProject"
+}, new { id = "formGetAmountField" }))
+{
+    <input type="hidden" id="expanseTypeForAmount" name="expanseTypeForAmount" />
 }
 
 

@@ -317,7 +317,6 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\snackbar.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Errors\404.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -392,11 +391,11 @@
     <Content Include="Views\Expans\_ExpansTable.cshtml" />
     <Content Include="Views\Expans\_Project_ID.cshtml" />
     <Content Include="Views\ExpanseReport\_DisplayAction.cshtml" />
-    <Content Include="Views\Errors\404.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\BadCredential.cshtml" />
     <Content Include="Views\Error\InternalError.cshtml" />
     <Content Include="Views\ExpanseReport\PdfExport.cshtml" />
+    <Content Include="Views\Expans\_Amount_HT.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
